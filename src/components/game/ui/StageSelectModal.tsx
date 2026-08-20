@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { useGameStore } from "@/store/gameStore";
 
 interface StageSelectModalProps {
@@ -9,12 +10,25 @@ interface StageSelectModalProps {
 
 export default function StageSelectModal({ isOpen, onClose }: StageSelectModalProps) {
   const { startStage, goToIntro, unlockedLocations } = useGameStore();
+  const [toastMsg, setToastMsg] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
-  const isTofuUnlocked = unlockedLocations.includes("tofu_mansion");
+  const isTofuUnlocked = unlockedLocations.includes("tofu_mansion") || unlockedLocations.includes("stage_2_tofu");
+  const isSalmonUnlocked = unlockedLocations.includes("salmon_pool");
 
-  const handleSelectStage = (stageType: "intro" | "stage", stageId?: string) => {
+  const handleSelectStage = (
+    stageType: "intro" | "stage",
+    stageId?: string,
+    isUnlocked: boolean = true,
+    stageName?: string
+  ) => {
+    if (!isUnlocked) {
+      setToastMsg(`"${stageName}" ยังไม่ปลดล็อก — ต้องเล่นผ่านด่านก่อนหน้าอย่างน้อย 1 ครั้ง`);
+      setTimeout(() => setToastMsg(null), 3200);
+      return;
+    }
+
     onClose();
     if (stageType === "intro") {
       goToIntro();
@@ -34,14 +48,21 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
           </button>
         </div>
 
-        <p className="stage-select-subtitle">คลิกเลือกบทหรือฉากเพื่อเล่นซ้ำได้ตลอดเวลา</p>
+        <p className="stage-select-subtitle">เลือกบทเพื่อเล่นซ้ำ (เล่นได้เฉพาะด่านที่เคยปลดล็อกแล้ว)</p>
+
+        {/* Toast Warning inside Modal */}
+        {toastMsg && (
+          <div className="stage-select-toast" role="alert">
+            {toastMsg}
+          </div>
+        )}
 
         {/* Stage List Buttons */}
         <div className="stage-select-list">
           {/* 1. บทนำ */}
           <button
             className="stage-select-item"
-            onClick={() => handleSelectStage("intro")}
+            onClick={() => handleSelectStage("intro", undefined, true, "หมาแบมไปต่างโลก")}
           >
             <span className="stage-item-badge">บทนำ</span>
             <span className="stage-item-name">หมาแบมไปต่างโลก</span>
@@ -50,7 +71,7 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
           {/* 2. บทที่ 1 */}
           <button
             className="stage-select-item"
-            onClick={() => handleSelectStage("stage", "intro_stage")}
+            onClick={() => handleSelectStage("stage", "intro_stage", true, "การตื่นขึ้นของผู้กล้าแบม")}
           >
             <span className="stage-item-badge">บทที่ 1</span>
             <span className="stage-item-name">การตื่นขึ้นของผู้กล้าแบม</span>
@@ -59,7 +80,7 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
           {/* 3. บทที่ 2 */}
           <button
             className="stage-select-item"
-            onClick={() => handleSelectStage("stage", "stage_1_exploration")}
+            onClick={() => handleSelectStage("stage", "stage_1_exploration", true, "การเดินทางสู่กุยแลนด์")}
           >
             <span className="stage-item-badge">บทที่ 2</span>
             <span className="stage-item-name">การเดินทางสู่กุยแลนด์</span>
@@ -68,28 +89,32 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
           {/* 4. บทที่ 3 */}
           <button
             className="stage-select-item"
-            onClick={() => handleSelectStage("stage", "stage_1_noble_nueng")}
+            onClick={() => handleSelectStage("stage", "stage_1_noble_nueng", true, "ปราสาทขุนนางหนึ่ง")}
           >
             <span className="stage-item-badge">บทที่ 3</span>
             <span className="stage-item-name">ปราสาทขุนนางหนึ่ง</span>
           </button>
 
-          {/* 5. บทที่ 4 - คฤหาสน์โทฟุ */}
+          {/* 5. บทที่ 4 - คฤหาสน์โทฟุ (requires completing Castle 1) */}
           <button
-            className="stage-select-item"
-            onClick={() => handleSelectStage("stage", "tofu_mansion")}
+            className={`stage-select-item ${isTofuUnlocked ? "" : "stage-item-locked"}`}
+            onClick={() => handleSelectStage("stage", "stage_2_tofu", isTofuUnlocked, "คฤหาสน์โทฟุ")}
           >
             <span className="stage-item-badge">บทที่ 4</span>
-            <span className="stage-item-name">คฤหาสน์โทฟุ</span>
+            <span className="stage-item-name">
+              คฤหาสน์โทฟุ {!isTofuUnlocked && " 🔒"}
+            </span>
           </button>
 
-          {/* 6. บทสุดท้าย - บ่อแซลมอนวิเศษ */}
+          {/* 6. บทสุดท้าย - บ่อแซลมอนวิเศษ (requires completing Tofu Mansion) */}
           <button
-            className="stage-select-item"
-            onClick={() => handleSelectStage("stage", "salmon_pool")}
+            className={`stage-select-item ${isSalmonUnlocked ? "" : "stage-item-locked"}`}
+            onClick={() => handleSelectStage("stage", "salmon_pool", isSalmonUnlocked, "บ่อแซลมอนวิเศษ")}
           >
             <span className="stage-item-badge">บทสุดท้าย</span>
-            <span className="stage-item-name">บ่อแซลมอนวิเศษ</span>
+            <span className="stage-item-name">
+              บ่อแซลมอนวิเศษ {!isSalmonUnlocked && " 🔒"}
+            </span>
           </button>
         </div>
       </div>
