@@ -1643,22 +1643,21 @@ body {
   font-weight: 600;
   padding: 6px 24px;
   border-radius: 8px;
-  border: 2px solid transparent;
+  border: none;
   cursor: pointer;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
   white-space: nowrap;
   -webkit-tap-highlight-color: transparent;
 }
 
 .map-node-card:hover {
-  transform: translate(-50%, -50%) scale(1.08);
-  border-color: #ffffff;
-  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%) scale(1.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.65);
 }
 
 .map-node-card:active {
-  transform: translate(-50%, -50%) scale(0.95);
+  transform: translate(-50%, -50%) scale(0.96);
 }
 
 /* Mobile Position Offsets (Figma #35:292) */
@@ -1666,8 +1665,6 @@ body {
   top: 31%;
   left: 44%;
   transform: translate(-50%, -50%);
-  border-color: rgba(255, 255, 255, 0.6);
-  animation: pulseGlow 2s infinite ease-in-out;
 }
 
 .node-tofu-mansion {
@@ -1680,17 +1677,6 @@ body {
   top: 80%;
   left: 54%;
   transform: translate(-50%, -50%);
-  border-color: rgba(255, 255, 255, 0.6);
-  animation: pulseGlow 2.4s infinite ease-in-out;
-}
-
-@keyframes pulseGlow {
-  0%, 100% {
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(0, 0, 0, 0.45);
-  }
-  50% {
-    box-shadow: 0 0 24px rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.6);
-  }
 }
 
 /* ─── Locked map node ─────────────────────────── */
@@ -1698,19 +1684,16 @@ body {
   opacity: 0.45;
   filter: grayscale(0.6);
   cursor: not-allowed;
-  border-color: transparent;
 }
 
 .node-locked:hover {
   transform: translate(-50%, -50%) scale(1.0); /* no zoom on locked */
-  border-color: transparent;
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
 }
 
 /* ─── Unlocked map node ───────────────────────── */
 .node-unlocked {
-  border-color: rgba(255, 255, 255, 0.6);
-  animation: pulseGlow 2.2s infinite ease-in-out;
+  opacity: 1;
 }
 
 /* ─── SVG Lock Icon Badge ─────────────────────── */

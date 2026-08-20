@@ -93,7 +93,7 @@ export default function MapScreen() {
 
       {/* Location Nodes Layer */}
       <div className="map-nodes-container">
-        {/* 1. บ่อแซลมอนวิเศษ (Magic Salmon Pool — Stage 1 Target) — Unlocked after Tofu Mansion */}
+        {/* 1. บ่อแซลมอนวิเศษ (Magic Salmon Pool) */}
         <button
           id="map-node-salmon-pool"
           className={`map-node-card node-salmon-pool ${isSalmonUnlocked ? "node-unlocked" : "node-locked"}`}
@@ -101,11 +101,10 @@ export default function MapScreen() {
           aria-label="บ่อแซลมอนวิเศษ"
         >
           <span className="map-node-text">บ่อแซลมอนวิเศษ</span>
-          {isSalmonUnlocked && <span className="map-node-pulse" />}
           {!isSalmonUnlocked && <LockIcon />}
         </button>
 
-        {/* 2. คฤหาสโทฟุ (Tofu Mansion) — Unlocked after defeating ขุนนางหนึ่ง */}
+        {/* 2. คฤหาสโทฟุ (Tofu Mansion) */}
         <button
           id="map-node-tofu-mansion"
           className={`map-node-card node-tofu-mansion ${isTofuUnlocked ? "node-unlocked" : "node-locked"}`}
@@ -113,11 +112,10 @@ export default function MapScreen() {
           aria-label="คฤหาสโทฟุ"
         >
           <span className="map-node-text">คฤหาสโทฟุ</span>
-          {isTofuUnlocked && <span className="map-node-pulse" />}
           {!isTofuUnlocked && <LockIcon />}
         </button>
 
-        {/* 3. ปราสาทขุนนางหนึ่ง (Nobles Castle 1) — Available from start */}
+        {/* 3. ปราสาทขุนนางหนึ่ง (Nobles Castle 1) */}
         <button
           id="map-node-nobles-castle"
           className="map-node-card node-nobles-castle node-unlocked"
@@ -125,7 +123,6 @@ export default function MapScreen() {
           aria-label="ปราสาทขุนนางหนึ่ง"
         >
           <span className="map-node-text">ปราสาทขุนนางหนึ่ง</span>
-          <span className="map-node-pulse" />
         </button>
       </div>
 
