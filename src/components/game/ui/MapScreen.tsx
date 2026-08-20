@@ -32,12 +32,13 @@ export default function MapScreen() {
   const [isStageSelectOpen, setIsStageSelectOpen] = useState(false);
 
   const isTofuUnlocked = unlockedLocations.includes("tofu_mansion");
-  const isSalmonUnlocked = unlockedLocations.includes("salmon_pool") || unlockedLocations.includes("stage_1");
+  const isSalmonUnlocked = unlockedLocations.includes("salmon_pool");
 
   const handleSelectLocation = (id: string, name: string) => {
-    if (id === "stage_1" || id === "salmon_pool") {
+    if (id === "salmon_pool") {
       if (isSalmonUnlocked) {
-        startStage("stage_1");
+        setToastMessage(`"${name}" - ยินดีด้วย! มาถึงบ่อแซลมอนวิเศษแล้ว`);
+        setTimeout(() => setToastMessage(null), 3000);
       } else {
         setToastMessage(`"${name}" ยังไม่ปลดล็อก — ชนะ คฤหาสโทฟุ ก่อน`);
         setTimeout(() => setToastMessage(null), 3500);

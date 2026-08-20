@@ -44,14 +44,6 @@ const STAGE_ASSETS: Record<string, string[]> = {
     "/assets/1.png",
     "/assets/logo/logo_negative.png",
   ],
-  stage_1: [
-    "/assets/bg_desktop.png",
-    "/assets/combat_bg_layer1.png",
-    "/assets/combat_bg_layer2.png",
-    "/assets/1.png",
-    "/assets/Bam_sprites/Bam_normal.png",
-    "/assets/logo/logo_negative.png",
-  ],
 };
 
 interface AssetPreloaderProps {

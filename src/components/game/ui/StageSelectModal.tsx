@@ -74,16 +74,7 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
             <span className="stage-item-name">ปราสาทขุนนางหนึ่ง (ประลองปัญญา)</span>
           </button>
 
-          {/* 5. บทที่ 1 - บอส Slime King */}
-          <button
-            className="stage-select-item"
-            onClick={() => handleSelectStage("stage", "stage_1")}
-          >
-            <span className="stage-item-badge">บทที่ 1</span>
-            <span className="stage-item-name">บอส Slime King & บ่อแซลมอนวิเศษ</span>
-          </button>
-
-          {/* 6. คฤหาสน์โทฟุ */}
+          {/* 5. คฤหาสน์โทฟุ */}
           <button
             className={`stage-select-item ${isTofuUnlocked ? "" : "stage-item-locked"}`}
             onClick={() => handleSelectStage("stage", "tofu_mansion")}

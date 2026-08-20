@@ -77,8 +77,7 @@ export default function GameScreen() {
   const isNobleActive = speaker === "ขุนนางหนึ่ง";
 
   // Determine if we are actively in combat (requires enemyHp > 0)
-  const isCombatScene =
-    enemyHp > 0 && (isQuiz || (isNobleStage && inCombatScene) || currentStage === "stage_1");
+  const isCombatScene = enemyHp > 0 && (isQuiz || (isNobleStage && inCombatScene));
 
   // Standard Dual Character Sprites (Bam & Aun) — show during non-combat cutscenes (intro/exploration)
   const showVnSprites =
