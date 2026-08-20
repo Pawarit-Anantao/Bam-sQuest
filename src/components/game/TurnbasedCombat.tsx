@@ -224,18 +224,18 @@ export default function TurnbasedCombat() {
         />
       </div>
 
-      {/* Status Text — Standard VN Dialogue Box */}
-      <div className="vn-dialogue-wrapper turnbased-dialogue-box">
-        <div className="vn-speaker-badge">
-          <span>บ่อแซลมอนวิเศษ</span>
-        </div>
-        <div className="vn-dialogue-card">
-          <p className="vn-dialogue-text">{combatLog}</p>
-        </div>
-      </div>
-
-      {/* ── Player (ผู้กล้าแบม) Section ── */}
+      {/* ── Player Section & UI Overlay (Higher than enemy sprite) ── */}
       <div className="turnbased-player-section">
+        {/* Status Text — Standard VN Dialogue Box (Placed directly over Player HP) */}
+        <div className="vn-dialogue-wrapper turnbased-dialogue-box">
+          <div className="vn-speaker-badge">
+            <span>บ่อแซลมอนวิเศษ</span>
+          </div>
+          <div className="vn-dialogue-card">
+            <p className="vn-dialogue-text">{combatLog}</p>
+          </div>
+        </div>
+
         {/* Player HP & Shield Bar — standard Figma combat HP bar */}
         <div className="combat-hp-bar-wrapper player-hp-bar-wrapper" role="status" aria-label="ผู้กล้าแบม HP">
           <div className="combat-hp-label">

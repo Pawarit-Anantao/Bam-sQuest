@@ -1895,25 +1895,25 @@ body {
   40%, 60% { transform: translate3d(8px, 0, 0) scale(1.05); }
 }
 
-/* Status text using standard VN Dialogue Box layout — Moved UP above player section */
+/* Status text using standard VN Dialogue Box layout (Placed OVER player HP, higher z-index than boss sprite) */
 .turnbased-dialogue-box {
-  position: absolute;
-  bottom: clamp(225px, 33dvh, 300px);
-  left: 50%;
-  transform: translateX(-50%);
-  width: min(92%, 520px);
-  margin: 0;
-  z-index: 20;
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  width: min(94%, 520px);
+  margin: 0 0 0.5rem 0;
+  z-index: 35;
 }
 
 .turnbased-dialogue-box .vn-dialogue-card {
-  min-height: 65px;
-  padding: 0.9rem 1.3rem;
+  min-height: 60px;
+  padding: 0.85rem 1.2rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
 .turnbased-dialogue-box .vn-dialogue-text {
-  font-size: clamp(15px, 2vw, 19px);
+  font-size: clamp(14px, 1.9vw, 18px);
 }
 
 /* Player section containing HP bar & 3 skill cards */
