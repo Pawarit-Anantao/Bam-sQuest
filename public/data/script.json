@@ -1,0 +1,638 @@
+{
+  "intro_stage": {
+    "enemy_name": "อ้วน",
+    "enemy_max_hp": 100,
+    "background": "vn_prologue2_bg.png",
+    "sequence": [
+      {
+        "id": "seq_01",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เมี้ยว... เมี้ยว..."
+      },
+      {
+        "id": "seq_02",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ตื่นละเหรอ ผู้กล้าแบม"
+      },
+      {
+        "id": "seq_03",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เกิดอะไรขึ้น"
+      },
+      {
+        "id": "seq_04",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ท่านผู้กล้าแบมหายตัวไปนานมาก"
+      },
+      {
+        "id": "seq_05",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ข้าออกตามหาท่านมานาน ในที่สุดก็พบท่านแล้วเมี้ยวๆ"
+      },
+      {
+        "id": "seq_06",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เดี๋ยว ๆ ที่นี่ที่ไหน แล้วแบมมาอยู่ที่นี่ได้ยังไง"
+      },
+      {
+        "id": "seq_07",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ที่นี่คือกุยแลนด์ไงท่านแบม ดินแดนบ้านเกิดของพวกเรา ท่านแบมจำไม่ได้หรือเมี้ยว ๆ"
+      },
+      {
+        "id": "seq_08",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "จำอะไรไม่ได้เลย"
+      },
+      {
+        "id": "seq_09",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ไม่เป็นไรนะท่านแบม เพราะว่าท่านหายตัวไปนาน ความทรงจำอาจกระทบกระเทือนได้"
+      },
+      {
+        "id": "seq_10",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เราค่อย ๆ เอาความทรงจำกลับมาดีกว่าท่านแบม"
+      },
+      {
+        "id": "seq_11",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เค"
+      },
+      {
+        "id": "seq_12",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ข้าชื่ออ้วนนะ เป็นสหายคนสนิทของท่าน จากที่ท่านไม่อยู่"
+      },
+      {
+        "id": "seq_13",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ตอนนี้กุยโทเปียถูกปกครองด้วยพรรคมารเรียบร้อย"
+      },
+      {
+        "id": "seq_14",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "แบมผิดเหรอ"
+      },
+      {
+        "id": "seq_15",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ป่าวท่านแบม!!! ไม่ใช่ความผิดของท่านแบมนะ"
+      },
+      {
+        "id": "seq_16",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "โอเค"
+      },
+      {
+        "id": "seq_17",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แต่ท่านแบมจะต้องช่วยอ้วน เอากุยโทเปียกลับมา"
+      },
+      {
+        "id": "seq_18",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_badsmile",
+        "text": "ไม่อะ แบมขี้เกียจ"
+      },
+      {
+        "id": "seq_19",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ข้าขอโทษนะท่านแบม งั้นข้าจะหาวิธีทำอะไรด้วยตัวเองดูก่อน"
+      },
+      {
+        "id": "seq_20",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ข้าขอโทษนะท่านพ่อ ท่านแม่ ข้าไม่มีควาสมามารถมากพอ จะนำท่านแบมมาช่วยกุยโทเปียได้"
+      },
+      {
+        "id": "seq_21",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ข้าคงจะเอาบ่อแซลมอนวิเศษของตระกูลเรากลับมาไม่ได้เป็นแน่เลยท่านแม่"
+      },
+      {
+        "id": "seq_22",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "???!!!!"
+      },
+      {
+        "id": "seq_23",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_smile",
+        "text": "ถ้าแบมช่วย แบมจะได้กินแซลมอนมั้ย"
+      },
+      {
+        "id": "seq_24",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แซลมอนถือเป็นอาหารหลักของเราเลยล่ะท่านแบม ถ้าเรานำบ่อแซลมอนวิเศษคืนมาได้ ทั้งเราและผู้คนในกุยโทเปีย"
+      },
+      {
+        "id": "seq_25",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "จะได้ไม่อดอยากกันอีกต่อไป"
+      },
+      {
+        "id": "seq_26",
+        "type": "choice",
+        "choices": [
+          {
+            "text": "โอเค แบมช่วย",
+            "next_id": "seq_27"
+          },
+          {
+            "text": "แบมไม่ช่วย ขอรอกินฟรีละกัน",
+            "next_id": "seq_fail"
+          }
+        ]
+      },
+      {
+        "id": "seq_fail",
+        "type": "action",
+        "action": "fail",
+        "target": "intro_stage"
+      },
+      {
+        "id": "seq_27",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "จริงหรือ ขอบคุณนะท่านแบม อ้วนรู้อยู่แล้ว ว่าท่านแบมพึ่งพาได้เสมอ!"
+      },
+      {
+        "id": "seq_28",
+        "type": "action",
+        "action": "change_scene",
+        "target": "stage_1_exploration"
+      }
+    ]
+  },
+  "stage_1_exploration": {
+    "background": "map_mobile_bg.png",
+    "sequence": [
+      {
+        "id": "seq_01",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ยินดีต้อนรับสู่อาณาจักรกุยแลนด์นะหมาแบม"
+      },
+      {
+        "id": "seq_02",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ต่อจากนี้ เราจะเดินทางไปรวบรวมเพื่อนเก่าของแบม"
+      },
+      {
+        "id": "seq_03",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เราจะได้มีกำลังไปต่อกรกับปีศาจร้าย บิ๊กกุย"
+      },
+      {
+        "id": "seq_04",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ถ้าเราต้องเดินทางไกล เราต้องมีทุนทรัพย์และอาหารเพัยงพอ"
+      },
+      {
+        "id": "seq_05",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เพราะฉะนั้น อ้วนว่าเราเดินทางไปหาขุนนางหนึ่งกันเถอะ"
+      },
+      {
+        "id": "seq_06",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แบมจำขุนนางหนึ่งได้มั้ย"
+      },
+      {
+        "id": "seq_07",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "แบมจำไม่ได้"
+      },
+      {
+        "id": "seq_08",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ความทรงจำยังไม่กลับมาจริง ๆ ด้วยนะหมาแบ"
+      },
+      {
+        "id": "seq_09",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ตอนนี้ขุนนางหนึ่งและท่านโทฟุเข้าพวกกับพรรคมารชั่วร้าย"
+      },
+      {
+        "id": "seq_10",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เราต้องดึงสติพวกเขากลับมา"
+      },
+      {
+        "id": "seq_11",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ไปกันเถอะท่านแบม"
+      },
+      {
+        "id": "seq_12",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เค"
+      },
+      {
+        "id": "seq_13",
+        "type": "action",
+        "action": "open_map",
+        "target": "map"
+      }
+    ]
+  },
+  "stage_1_noble_nueng": {
+    "enemy_name": "ขุนนางหนึ่ง",
+    "enemy_max_hp": 100,
+    "enemy_sprite": "1.png",
+    "sequence": [
+      {
+        "id": "seq_01",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "เหอะ ๆ ยินดีต้อนรับ ทั้งสองหมา หมาแบมและหมาอ้วน"
+      },
+      {
+        "id": "seq_02",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ตอนนี้ข้าเปลี่ยนไปเข้ากับพรรคจอมมารแล้ว"
+      },
+      {
+        "id": "seq_03",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "และพวกเจ้าทำอะไรไม่ได้"
+      },
+      {
+        "id": "seq_04",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ท่านหนึ่ง พรรคมารมีอะไรดี ทำไมถึงไปเข้ากับมันล่ะครับ!"
+      },
+      {
+        "id": "seq_05",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ท่านจอมมารลูบพุงข้าตลอด ใส่ใจ ไม่เหมือนไอหมาแบม"
+      },
+      {
+        "id": "seq_06",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "หายไปไหนไม่รู้ ไม่มีคนมาลูบพุงลูบหัวข้า"
+      },
+      {
+        "id": "seq_07",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "เห็นข้าเป็นของตายใช่มั้ย ตอบมาซิหมาแบม"
+      },
+      {
+        "id": "seq_08",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "(เอาไงดี แบมไม่มีความทรงจำ แต่คุ้น ๆ สีขนของขุนนางคนนี้จัง)"
+      },
+      {
+        "id": "seq_09",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "......"
+      },
+      {
+        "id": "seq_10",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "เหอะ ไม่ตอบแปลว่าจริง"
+      },
+      {
+        "id": "seq_11",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ท่านไม่สนใจเราหรอก จะมาก็มาจะไปก็ไป"
+      },
+      {
+        "id": "seq_12",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ไม่ใช่นะท่านหนึ่ง ท่านแบมเสียความทรงจำไปน่ะ ต้องใช้เวลาในการฟื้นคืน"
+      },
+      {
+        "id": "seq_13",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "อ้อ งั้นเหรอ งั้นข้าจะช่วยเองดีไหมล่ะ"
+      },
+      {
+        "id": "seq_14",
+        "type": "action",
+        "action": "enter_combat_scene"
+      },
+      {
+        "id": "seq_15",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ถ้าหมาแบมตอบคำถามของข้าได้ ข้าก็จะปล่อยไป แล้วก็จะช่วยหมาแบมต่อต้านจอมมาร ดีไหมล่ะ เหอ ๆ"
+      },
+      {
+        "id": "seq_16",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เคเลย"
+      },
+      {
+        "id": "seq_17_quiz",
+        "type": "quiz",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "คำถามแรก\nข้ามีชื่อก่อนหน้านี้ว่าอะไร!!",
+        "choices": [
+          { "text": "สอง", "is_correct": false, "damage": 0, "next_id": "seq_17_quiz" },
+          { "text": "ไทย", "is_correct": false, "damage": 0, "next_id": "seq_17_quiz" },
+          { "text": "นรก", "is_correct": false, "damage": 0, "next_id": "seq_17_quiz" },
+          { "text": "ชาติ", "is_correct": true, "damage": 34, "next_id": "seq_18" }
+        ]
+      },
+      {
+        "id": "seq_18",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "โห ไม่เลวนี่ สำหรับคนใจร้าย"
+      },
+      {
+        "id": "seq_19",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ต่อไป"
+      },
+      {
+        "id": "seq_20_quiz",
+        "type": "quiz",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "แบรนด์เนมโปรดของข้าคืออะไร",
+        "choices": [
+          { "text": "หลุยวิตตอง", "is_correct": true, "damage": 33, "next_id": "seq_21" },
+          { "text": "หลุยวิตตึง", "is_correct": false, "damage": 0, "next_id": "seq_20_quiz" },
+          { "text": "ปาด้า", "is_correct": false, "damage": 0, "next_id": "seq_20_quiz" },
+          { "text": "กุซซี่", "is_correct": false, "damage": 0, "next_id": "seq_20_quiz" }
+        ]
+      },
+      {
+        "id": "seq_21",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ทำไม ท่านจำได้ไง"
+      },
+      {
+        "id": "seq_22",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "คำถามนี้ ท่านไม่มีทางตอบถูกหรอกฮ่า ๆ"
+      },
+      {
+        "id": "seq_23_quiz",
+        "type": "quiz",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ท่าเคยเอาอะไรมา ที่ข้าไม่ยอมกิน!!",
+        "choices": [
+          { "text": "บะหมี่", "is_correct": false, "damage": 0, "next_id": "seq_23_quiz" },
+          { "text": "เปียก", "is_correct": false, "damage": 0, "next_id": "seq_23_quiz" },
+          { "text": "ปลาทูน่า", "is_correct": false, "damage": 0, "next_id": "seq_23_quiz" },
+          { "text": "ปลาแซลมอล", "is_correct": true, "damage": 33, "next_id": "seq_24" }
+        ]
+      },
+      {
+        "id": "seq_24",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "เป็นท่านจริง ๆ ด้วย ท่านแบม"
+      },
+      {
+        "id": "seq_25",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ข้าเข้าใจแล้ว ว่าท่านเสียความทรงจำ เราเดินทางไปปราบจอมมารด้วยกันเถอะ"
+      },
+      {
+        "id": "seq_26",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เค"
+      }
+    ]
+  },
+  "stage_1": {
+    "enemy_name": "Slime King",
+    "enemy_max_hp": 100,
+    "enemy_sprite": "character_sprite.png",
+    "background": "bg_layer1.png",
+    "sequence": [
+      {
+        "id": "s1_intro_1",
+        "type": "dialogue",
+        "speaker": "Slime King",
+        "text": "ห้ามผ่าน! ผู้กล้าหาญ! ดินแดนนี้เป็นของข้า!"
+      },
+      {
+        "id": "s1_intro_2",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "ข้าจะไม่ยอมแพ้! ข้าต้องผ่านไปให้ได้!"
+      },
+      {
+        "id": "s1_quiz_1",
+        "type": "quiz",
+        "text": "Slime King กำลังโจมตี! คุณจะทำอย่างไร?",
+        "choices": [
+          {
+            "text": "🛡️ ป้องกันและรอจังหวะ",
+            "is_correct": false,
+            "damage": 0,
+            "next_id": "s1_miss_1"
+          },
+          {
+            "text": "⚔️ โจมตีแกนกลางของมัน!",
+            "is_correct": true,
+            "damage": 50,
+            "next_id": "s1_hit_1"
+          }
+        ]
+      },
+      {
+        "id": "s1_miss_1",
+        "type": "dialogue",
+        "speaker": "Narrator",
+        "text": "การโจมตีพลาด! Slime King หัวเราะเยาะ..."
+      },
+      {
+        "id": "s1_retry_1",
+        "type": "quiz",
+        "text": "Slime King กำลังจะโจมตีอีกครั้ง! ทำไงดี?",
+        "choices": [
+          {
+            "text": "🌟 ใช้ท่าพิเศษ — Strike of Dawn!",
+            "is_correct": true,
+            "damage": 50,
+            "next_id": "s1_hit_1"
+          },
+          {
+            "text": "🏃 วิ่งหนี...",
+            "is_correct": false,
+            "damage": 0,
+            "next_id": "s1_miss_1"
+          }
+        ]
+      },
+      {
+        "id": "s1_hit_1",
+        "type": "dialogue",
+        "speaker": "Narrator",
+        "text": "โจมตีตรงเป้า! HP ของ Slime King ลดลง 50 แต้ม!"
+      },
+      {
+        "id": "s1_quiz_2",
+        "type": "quiz",
+        "text": "Slime King ใช้พลังสุดท้าย! ตอบคำถามนี้เพื่อยุติการต่อสู้!",
+        "choices": [
+          {
+            "text": "✨ ใช้ Mana Burst — ทำลายมันให้สิ้นซาก!",
+            "is_correct": true,
+            "damage": 50,
+            "next_id": "s1_win"
+          },
+          {
+            "text": "💤 หยุดพัก...",
+            "is_correct": false,
+            "damage": 0,
+            "next_id": "s1_near_miss"
+          }
+        ]
+      },
+      {
+        "id": "s1_near_miss",
+        "type": "dialogue",
+        "speaker": "Slime King",
+        "text": "คิดว่าจะหยุดพักได้งั้นหรือ?! ลองอีกครั้งสิ!"
+      },
+      {
+        "id": "s1_final_quiz",
+        "type": "quiz",
+        "text": "โอกาสสุดท้าย! เลือกการโจมตีที่ถูกต้อง!",
+        "choices": [
+          {
+            "text": "⚡ Thunder Slash!",
+            "is_correct": true,
+            "damage": 50,
+            "next_id": "s1_win"
+          },
+          {
+            "text": "🌸 Flower Toss...",
+            "is_correct": false,
+            "damage": 0,
+            "next_id": "s1_near_miss"
+          }
+        ]
+      },
+      {
+        "id": "s1_win",
+        "type": "dialogue",
+        "speaker": "Narrator",
+        "text": "Slime King พ่ายแพ้! บัม คือผู้ชนะ! 🎉"
+      }
+    ]
+  }
+}

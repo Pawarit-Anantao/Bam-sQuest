@@ -1,0 +1,1434 @@
+@import "tailwindcss";
+
+/* ═══════════════════════════════════════════════
+   BAMS QUEST — Design System
+   ═══════════════════════════════════════════════ */
+:root {
+  --color-primary: #f5c842;
+  --color-health-green: #4cde7c;
+  --color-health-yellow: #f5c842;
+  --color-health-red: #e04040;
+  --font-noto-thai: "Noto Sans Thai", sans-serif;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: fixed;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button,
+a {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+body {
+  font-family: var(--font-noto-thai);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior: none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE LAYOUT — fully responsive (< 768px)
+   Reference: Figma 430×932 → all values converted to %
+   ═══════════════════════════════════════════════════════════ */
+
+/* Full-viewport fluid container */
+.ss-mobile-layout {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* Hidden on desktop */
+.ss-desktop-layout {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .ss-mobile-layout {
+    display: none;
+  }
+
+  .ss-desktop-layout {
+    display: block;
+  }
+}
+
+/* ── 1. Background: firstpagebg_mobile.png at opacity 0.20 ───
+   Covers the full frame, cropped/centered as needed.
+   ─────────────────────────────────────────────────────────── */
+.ss-bg-group {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/firstpagebg_mobile.png');
+  background-size: cover;
+  background-position: center top;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* ── 2. Top white gradient — identical to desktop ───────────
+   linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)
+   Height 183.2% so the fade mirrors the desktop proportionally
+   ─────────────────────────────────────────────────────────── */
+.ss-mob-top-fade {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 183.2%;
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* ── 3. Bottom dark gradient — identical to desktop ─────────
+   linear-gradient(0deg, rgba(0,0,0,0.64) 0%, rgba(102,102,102,0) 100%)
+   Starts at 54.12% from top (mirrors desktop: 486/898)
+   ─────────────────────────────────────────────────────────── */
+.ss-mob-bottom-fade {
+  position: absolute;
+  left: -1.74%;
+  top: 54.12%;
+  right: -1.74%;
+  bottom: 0;
+  background: linear-gradient(0deg,
+      rgba(0, 0, 0, 0.64) 0%,
+      rgba(102, 102, 102, 0) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ── 4. Scene / character image ──────────────────────────────
+   Figma: x:15 y:277 w:388 h:245 on 430×932
+   → left: 15/430   = 3.49%
+   → top:  277/932  = 29.72%
+   → width: 388/430 = 90.23%
+   Height auto — maintains 915×578 aspect ratio
+   ─────────────────────────────────────────────────────────── */
+.ss-mob-scene {
+  position: absolute;
+  left: 3.49%;
+  top: 29.72%;
+  width: 90.23%;
+  z-index: 4;
+}
+
+.ss-mob-scene-img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  object-fit: cover;
+}
+
+/* ── 5. เริ่มเกม button ───────────────────────────────────────
+   Figma: x:178 y:793 → center-x: 214/430 = 49.8% → left:50%
+   → top: 793/932 = 85.09%
+   Font: 24px at 430px wide → clamp scales for any width
+   ─────────────────────────────────────────────────────────── */
+.ss-mob-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 85.09%;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(18px, 5.58vw, 24px);
+  /* 24/430*100 = 5.58vw */
+  font-weight: 600;
+  color: #000000;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  z-index: 5;
+  transition: opacity 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ss-mob-btn:hover {
+  opacity: 0.65;
+}
+
+.ss-mob-btn:active {
+  opacity: 0.4;
+  transform: translateX(-50%) scale(0.97);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP LAYOUT — Figma node 53-99 (1440×898 reference)
+   All percentage values derived from Figma px ÷ frame size.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Full-viewport container, white background */
+.ss-desktop-layout {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+/* 1. bg_desktop.png at 39% opacity
+   Figma #53:120: x:-7 y:-1027 w:1456 h:2819
+   Visible slice of the 2819px-tall image:
+   y:1027→1925 → center of visible area = 1476/2819 = 52.3% from top
+   We approximate via background-position: center 52% */
+.ss-dt-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/firstpagebg_desktop.png');
+  background-size: cover;
+  background-position: center 52%;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* 2. Bottom dark gradient
+   Figma #53:104: x:-25 y:486 w:1474 h:612 (on 1440×898)
+   → top: 486/898 = 54.12%
+   linear-gradient(0deg, rgba(0,0,0,0.64) 0%, rgba(102,102,102,0) 100%) */
+.ss-dt-bottom-fade {
+  position: absolute;
+  left: -1.74%;
+  /* -25/1440 */
+  top: 54.12%;
+  /* 486/898 */
+  right: -1.74%;
+  bottom: 0;
+  background: linear-gradient(0deg,
+      rgba(0, 0, 0, 0.64) 0%,
+      rgba(102, 102, 102, 0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* 3. Top white gradient
+   Figma #53:116: x:0 y:0 w:1440 h:1645 (1645/898 = 183.2% tall)
+   linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%) */
+.ss-dt-top-fade {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 183.2%;
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* 4. Scene / character image
+   Figma #53:114: x:254 y:197 w:915 h:578 (on 1440×898)
+   → left: 254/1440 = 17.64%
+   → top:  197/898  = 21.94%
+   → width: 915/1440 = 63.54%
+   Center x = 711.5/1440 = 49.4% (visually centered) */
+.ss-dt-scene {
+  position: absolute;
+  left: 17.64%;
+  top: 21.94%;
+  width: 63.54%;
+  z-index: 4;
+}
+
+.ss-dt-scene-img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  object-fit: cover;
+}
+
+/* 5. เริ่มเกม button
+   Figma #53:118: x:639 y:809 w:146 h:58 (on 1440×898)
+   → top: 809/898 = 90.09%
+   Center x = 712/1440 = 49.4% → use left:50% + translateX(-50%)
+   Noto Sans Thai SemiBold 600, 48px, #000000 */
+.ss-dt-btn {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 90.09%;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(32px, 3.33vw, 48px);
+  /* 48px at 1440px wide, scales with viewport */
+  font-weight: 600;
+  color: #000000;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  z-index: 5;
+  transition: opacity 0.12s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ss-dt-btn:hover {
+  opacity: 0.65;
+}
+
+.ss-dt-btn:active {
+  opacity: 0.4;
+  transform: translateX(-50%) scale(0.97);
+}
+
+
+/* ═══════════════════════════════════════════════
+   GAME SCREEN (battle)
+   ═══════════════════════════════════════════════ */
+.game-viewport {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #000000;
+}
+
+.game-canvas-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.game-ui-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.game-ui-layer > * {
+  pointer-events: auto;
+}
+
+/* ─── Combat Background Layers (Figma #34:214 group) ──────── */
+/* Layer 1: main atmospheric artwork (645555006b4fe259957e2db033118cecf957715a) */
+.combat-bg-base {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/combat_bg_layer1.png');
+  background-size: cover;
+  background-position: center top;
+  z-index: 1;
+}
+
+/* Layer 2: secondary artwork overlay */
+.combat-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/combat_bg_layer2.png');
+  background-size: cover;
+  background-position: center top;
+  opacity: 0.72;
+  z-index: 2;
+}
+
+/* Layer 3: gradient fade to black (Figma #34:219)
+   Starts at ~y:484 on 932px = 51.9% from top */
+.combat-bg-gradient {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 51.9%;
+  bottom: 0;
+  background: linear-gradient(0deg, rgba(0, 0, 0, 1) 0%, rgba(102, 102, 102, 0) 100%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ─── Combat Enemy Actor: sprite + HP bar as one centered column ─── */
+/* Centered horizontally, sits above the quiz/dialogue card */
+.combat-enemy-actor {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 28%;           /* sits above the quiz card (quiz wrapper ~2.5rem from bottom) */
+  width: 78%;
+  max-width: 360px;
+  z-index: 15;           /* above canvas, visible through UI layer */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  animation: combatEnemyFloat 3s ease-in-out infinite;
+}
+
+/* Enemy sprite image — full width of actor container */
+.combat-enemy-sprite-img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+  filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.6));
+}
+
+@keyframes combatEnemyFloat {
+  0%, 100% { transform: translateX(-50%) translateY(0px); }
+  50%       { transform: translateX(-50%) translateY(-12px); }
+}
+
+/* ─── HP Bar (Figma #34:230 & #34:232) ───────────────── */
+/* When inside .combat-enemy-actor, the wrapper flows naturally (no absolute pos) */
+.combat-enemy-actor .combat-hp-bar-wrapper {
+  position: relative;  /* override: flow inside flex column, not absolute */
+  left: auto;
+  right: auto;
+  bottom: auto;
+  z-index: auto;
+}
+
+/* Standalone HP bar wrapper (fallback, not used in combat currently) */
+.combat-hp-bar-wrapper {
+  position: absolute;
+  left: 6.5%;
+  right: 6.5%;
+  bottom: 29.5%;
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.combat-hp-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.combat-hp-name {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 600;
+  color: #ffffff;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.8);
+}
+
+.combat-hp-value {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(14px, 1.8vw, 18px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Track: black fill + 4px black border (Figma #34:230) */
+.combat-hp-track {
+  position: relative;
+  width: 100%;
+  height: 40px;
+  background: #000000;
+  border: 4px solid #000000;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* Fill: white fill + 4px black border overlaid (Figma #34:232) */
+.combat-hp-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: #ffffff;
+  border-right: 4px solid #000000;
+  transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  min-width: 0;
+}
+
+/* ─── Combat Quiz Overlay (Figma #34:213 — same white card as dialogue) ─── */
+/* No dark overlay — bottom-anchored white card matching VN dialogue style */
+.combat-quiz-wrapper {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2.5rem);
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 20;
+  animation: slideUp 0.3s ease;
+}
+
+/* Speaker badge for quiz — same positioning as vn-speaker-badge */
+.combat-quiz-speaker {
+  margin-left: 12px;
+  margin-bottom: -10px;
+  z-index: 2;
+}
+
+/* White card — Figma #34:223: white, 8px radius */
+.combat-quiz-card {
+  position: relative;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.4rem 1.5rem 1.2rem 1.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+/* Question text — same as vn-dialogue-text (black, 24px semibold) */
+.combat-quiz-question {
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Choice buttons — white background, 2px black border */
+.combat-quiz-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.combat-quiz-choice {
+  width: 100%;
+  padding: 0.7rem 1.2rem;
+  background: #ffffff;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  color: #000000;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(16px, 2vw, 20px);
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease, transform 0.12s ease, box-shadow 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.combat-quiz-choice:hover:not(:disabled) {
+  background: #f0f0f0;
+  transform: translateX(4px);
+}
+
+.combat-quiz-choice:active:not(:disabled) {
+  transform: scale(0.97);
+}
+
+.combat-quiz-choice:disabled {
+  cursor: default;
+}
+
+/* Legacy quiz overlay classes (kept for compatibility) */
+.quiz-overlay {
+  display: none;
+}
+
+/* ─── Shared Animations ────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.3; }
+  50%       { opacity: 0.9; }
+}
+
+/* ─── Win Screen ──────────────────────────────── */
+.win-screen {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 40%, rgba(245, 200, 66, 0.18) 0%, rgba(0, 0, 0, 0.92) 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  z-index: 50;
+  animation: fadeIn 0.5s ease;
+}
+
+.win-title {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(2rem, 10vw, 3.5rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  animation: winPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes winPulse {
+
+  0%,
+  100% {
+    text-shadow: 0 0 40px rgba(245, 200, 66, 0.4);
+  }
+
+  50% {
+    text-shadow: 0 0 80px rgba(245, 200, 66, 0.9);
+  }
+}
+
+.win-subtitle {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.65);
+  text-align: center;
+}
+
+.win-button {
+  padding: 0.85rem 2.5rem;
+  background: var(--color-primary);
+  color: #1a1a1a;
+  border: none;
+  border-radius: 9999px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 24px rgba(245, 200, 66, 0.4);
+}
+
+.win-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 32px rgba(245, 200, 66, 0.6);
+}
+
+/* ─── Float animation ─────────────────────────── */
+@keyframes characterFloat {
+
+  0%,
+  100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+
+  50% {
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   INTRO / PROLOGUE SCREEN — Figma node 32:88
+   ═══════════════════════════════════════════════ */
+
+.intro-shell {
+  width: 100%;
+  height: 100dvh;
+  background: #ffffff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  -webkit-overflow-scrolling: touch;
+}
+
+.intro-container {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  min-height: 100dvh;
+  background: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem 1rem 4rem;
+}
+
+.intro-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 0 1rem;
+}
+
+.intro-title {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: 600;
+  color: #000000;
+  margin: 0;
+  line-height: 1.3;
+}
+
+.intro-body {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.intro-story-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+}
+
+.intro-footer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 1.5rem 0;
+}
+
+.intro-continue-btn {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: 600;
+  color: #000000;
+  background: transparent;
+  border: none;
+  padding: 0.75rem 2rem;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.intro-continue-btn:hover {
+  opacity: 0.7;
+  transform: scale(1.04);
+}
+
+.intro-continue-btn:active {
+  opacity: 0.4;
+  transform: scale(0.97);
+}
+
+/* ═══════════════════════════════════════════════
+   VN GAMEPLAY SCREEN — Figma node 30:47 (prolouge 2)
+   ═══════════════════════════════════════════════ */
+
+.vn-viewport {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vn-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/vn_prologue2_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.vn-bg-image.vn-bg-map {
+  background-image: url('/assets/map_mobile_bg.png');
+}
+
+.vn-top-logo {
+  position: absolute;
+  top: 1.25rem;
+  left: 1rem;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.vn-logo-img {
+  width: clamp(140px, 20vw, 219px);
+  height: auto;
+  object-fit: contain;
+}
+
+/* Dialogue Wrapper & Cards (Figma #34:171 & #59:127) */
+.vn-dialogue-wrapper {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 2.5rem);
+  max-width: 540px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  z-index: 20;
+}
+
+/* Speaker Badge: Black pill/card, 8px radius, white text */
+.vn-speaker-badge {
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 600;
+  padding: 4px 28px;
+  border-radius: 8px;
+  margin-left: 12px;
+  margin-bottom: -10px;
+  z-index: 2;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* Main Dialogue Card: White background, 8px radius, black text */
+.vn-dialogue-card {
+  position: relative;
+  width: 100%;
+  min-height: 129px;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 1.5rem 1.5rem 2.2rem 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.vn-dialogue-text {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(18px, 2.4vw, 24px);
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.5;
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* Next Prompt: "ต่อไป" in rgba(0, 0, 0, 0.5) */
+.vn-dialogue-next {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 1.25rem;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 600;
+  color: rgba(0, 0, 0, 0.5);
+  animation: fadeInOut 1.4s ease-in-out infinite;
+}
+
+.vn-dialogue-tap-target {
+  position: absolute;
+  inset: 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Dual Character Sprite Container (Bam & Aun) — separated outwards for minimal overlap */
+.vn-dual-sprites-container {
+  position: absolute;
+  bottom: 5.8rem;
+  left: 0;
+  right: 0;
+  height: clamp(310px, 52vh, 500px);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.vn-sprite-wrapper {
+  position: relative;
+  width: 38%;
+  max-width: 220px;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.vn-sprite-left {
+  justify-content: flex-start;
+  margin-left: -8%;
+}
+
+.vn-sprite-right {
+  justify-content: flex-end;
+  margin-right: -8%;
+}
+
+.vn-sprite-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom;
+  transform: scale(2.08);
+}
+
+.vn-sprite-left .vn-sprite-img {
+  transform-origin: bottom left;
+}
+
+.vn-sprite-right .vn-sprite-img {
+  transform-origin: bottom right;
+}
+
+/* Active Speaker Highlighting */
+.vn-sprite-wrapper.active {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: brightness(1) drop-shadow(0 10px 24px rgba(0, 0, 0, 0.45));
+  z-index: 6;
+}
+
+.vn-sprite-wrapper.inactive {
+  opacity: 0.65;
+  transform: translateY(12px) scale(0.93);
+  filter: brightness(0.7) drop-shadow(0 6px 12px rgba(0, 0, 0, 0.3));
+  z-index: 5;
+}
+
+.vn-sprite-wrapper.neutral {
+  opacity: 0.9;
+  transform: translateY(0) scale(0.97);
+  filter: brightness(0.9) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35));
+}
+
+/* ═══════════════════════════════════════════════
+   CHOICE OVERLAY SCREEN — Figma node 32:105
+   ═══════════════════════════════════════════════ */
+
+/* Dark Backdrop Overlay: rgba(0, 0, 0, 0.79) */
+.choice-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.79);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 28vh;
+  overflow: hidden;
+  animation: fadeIn 0.25s ease;
+}
+
+.choice-content {
+  position: relative;
+  width: calc(100% - 3rem);
+  max-width: 440px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 10;
+}
+
+/* Prompt Header Title */
+.choice-prompt-title {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  text-align: center;
+  line-height: 1.3;
+}
+
+/* Choice List & Cards (Figma #32:119 & #32:121) */
+.choice-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.choice-card-btn {
+  width: 100%;
+  min-height: 81px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: none;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(18px, 2.2vw, 24px);
+  font-weight: 600;
+  color: #000000;
+  text-align: center;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.choice-card-btn:hover {
+  transform: scale(1.03);
+  background: #f8f8f8;
+}
+
+.choice-card-btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+/* Bam Sprite on Down Right — Moved up & 1.6x Larger (Figma #32:144) */
+.choice-bam-sprite-container {
+  position: absolute;
+  bottom: -5%;
+  right: -2%;
+  width: clamp(416px, 64vw, 576px);
+  height: clamp(544px, 80vh, 832px);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.choice-bam-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: bottom right;
+  filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.55));
+}
+
+/* ─────────────────────────────────────────────────────────────
+   DESKTOP RESPONSIVENESS (≥ 768px)
+   ───────────────────────────────────────────────────────────── */
+
+@media (min-width: 768px) {
+  /* Desktop Background — bg_desktop.png */
+  .vn-bg-image {
+    background-image: url('/assets/bg_desktop.png');
+  }
+
+  .vn-bg-image.vn-bg-map {
+    background-image: url('/assets/map_desktop_bg.png');
+  }
+
+  .vn-top-logo {
+    top: 2rem;
+    left: 2.5rem;
+  }
+
+  .vn-logo-img {
+    width: clamp(200px, 18vw, 280px);
+  }
+
+  /* Desktop Dialogue Box */
+  .vn-dialogue-wrapper {
+    bottom: 3rem;
+    max-width: 880px;
+    width: calc(100% - 6rem);
+  }
+
+  .vn-speaker-badge {
+    font-size: clamp(20px, 1.8vw, 28px);
+    padding: 6px 36px;
+    margin-left: 20px;
+  }
+
+  .vn-dialogue-card {
+    min-height: 145px;
+    padding: 1.8rem 2.2rem 2.5rem 2.2rem;
+  }
+
+  .vn-dialogue-text {
+    font-size: clamp(20px, 2.1vw, 28px);
+    line-height: 1.6;
+  }
+
+  .vn-dialogue-next {
+    font-size: clamp(18px, 1.6vw, 22px);
+    right: 2rem;
+    bottom: 1rem;
+  }
+
+  /* Desktop Dual Sprites */
+  .vn-dual-sprites-container {
+    bottom: 2rem;
+    height: clamp(380px, 58vh, 660px);
+    padding: 0 8%;
+  }
+
+  .vn-sprite-wrapper {
+    max-width: 380px;
+  }
+
+  /* Desktop Choice Overlay */
+  .choice-backdrop {
+    padding-top: 20vh;
+  }
+
+  .choice-content {
+    max-width: 620px;
+  }
+
+  .choice-prompt-title {
+    font-size: clamp(26px, 2.8vw, 34px);
+    margin-bottom: 2.5rem;
+  }
+
+  .choice-card-btn {
+    min-height: 96px;
+    font-size: clamp(22px, 2.4vw, 28px);
+  }
+
+  .choice-bam-sprite-container {
+    width: clamp(480px, 45vw, 680px);
+    height: clamp(620px, 75vh, 920px);
+  }
+
+  /* Desktop Combat: HP Bar + Enemy Actor */
+  .combat-enemy-actor {
+    width: 60%;
+    max-width: 500px;
+    bottom: 26%;
+    gap: 14px;
+  }
+
+  .combat-hp-track {
+    height: 48px;
+  }
+
+  /* Desktop Combat: Quiz card */
+  .combat-quiz-wrapper {
+    bottom: 3rem;
+    max-width: 880px;
+    width: calc(100% - 6rem);
+  }
+
+  .combat-quiz-card {
+    padding: 1.8rem 2.2rem 1.5rem 2.2rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   GAME OVER / MISSION FAILED SCREEN — Figma node 65:131
+   ═══════════════════════════════════════════════ */
+
+/* Dark Backdrop Overlay: rgba(0, 0, 0, 0.79) */
+.fail-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.79);
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 22vh;
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+.fail-content {
+  position: relative;
+  width: calc(100% - 3rem);
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+}
+
+/* Main Title: ภารกิจล้มเหลว (Figma #65:146) — 40px #FFFFFF */
+.fail-title {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(32px, 4.5vw, 40px);
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.2;
+}
+
+/* Description Subtext (Figma #65:151) — 18px rgba(255, 255, 255, 0.63) */
+.fail-description {
+  font-family: var(--font-noto-thai);
+  font-size: clamp(16px, 2.2vw, 18px);
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.63);
+  line-height: 1.6;
+  margin: 0 0 4rem 0;
+  white-space: pre-line;
+  max-width: 420px;
+}
+
+/* Restart Button Container & Card (Figma #65:141 & #65:160) */
+.fail-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.fail-restart-btn {
+  width: 100%;
+  max-width: 380px;
+  min-height: 81px;
+  background: #ffffff;
+  border-radius: 8px;
+  border: none;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(20px, 2.5vw, 24px);
+  font-weight: 600;
+  color: #000000;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  transition: transform 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.fail-restart-btn:hover {
+  transform: scale(1.04);
+  background: #f8f8f8;
+}
+
+.fail-restart-btn:active {
+  transform: scale(0.97);
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
+  .fail-backdrop {
+    padding-top: 20vh;
+  }
+
+  .fail-content {
+    max-width: 640px;
+  }
+
+  .fail-title {
+    font-size: clamp(40px, 4vw, 54px);
+    margin-bottom: 2rem;
+  }
+
+  .fail-description {
+    font-size: clamp(20px, 2.2vw, 24px);
+    max-width: 580px;
+    margin-bottom: 5rem;
+  }
+
+  .fail-restart-btn {
+    max-width: 440px;
+    min-height: 90px;
+    font-size: clamp(24px, 2.6vw, 30px);
+  }
+}
+
+/* ═══════════════════════════════════════════════
+   MAP SCREEN — Figma nodes 35:292 (Mobile) & 45:58 (Desktop)
+   ═══════════════════════════════════════════════ */
+
+.map-viewport {
+  position: relative;
+  width: 100%;
+  height: 100dvh;
+  overflow: hidden;
+  background: #000000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s ease;
+}
+
+.map-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/map_mobile_bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.map-top-logo {
+  position: absolute;
+  top: 1.25rem;
+  left: 1rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.map-logo-img {
+  width: clamp(140px, 20vw, 219px);
+  height: auto;
+  object-fit: contain;
+}
+
+/* Toast Message */
+.map-toast {
+  position: absolute;
+  top: 5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(16px, 2vw, 20px);
+  padding: 10px 24px;
+  border-radius: 20px;
+  z-index: 30;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.25s ease;
+  white-space: nowrap;
+}
+
+/* Nodes Layer */
+.map-nodes-container {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+}
+
+.map-node-card {
+  position: absolute;
+  pointer-events: auto;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: 600;
+  padding: 6px 24px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.map-node-card:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  border-color: #ffffff;
+  box-shadow: 0 10px 28px rgba(255, 255, 255, 0.3);
+}
+
+.map-node-card:active {
+  transform: translate(-50%, -50%) scale(0.95);
+}
+
+/* Mobile Position Offsets (Figma #35:292) */
+.node-salmon-pool {
+  top: 31%;
+  left: 44%;
+  transform: translate(-50%, -50%);
+  border-color: rgba(255, 255, 255, 0.6);
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+.node-tofu-mansion {
+  top: 56%;
+  left: 28%;
+  transform: translate(-50%, -50%);
+}
+
+.node-nobles-castle {
+  top: 80%;
+  left: 54%;
+  transform: translate(-50%, -50%);
+  border-color: rgba(255, 255, 255, 0.6);
+  animation: pulseGlow 2.4s infinite ease-in-out;
+}
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.4), 0 6px 18px rgba(0, 0, 0, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 24px rgba(255, 255, 255, 0.9), 0 8px 24px rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* ─── Locked map node ─────────────────────────── */
+.node-locked {
+  opacity: 0.45;
+  filter: grayscale(0.6);
+  cursor: not-allowed;
+  border-color: transparent;
+}
+
+.node-locked:hover {
+  transform: translate(-50%, -50%) scale(1.0); /* no zoom on locked */
+  border-color: transparent;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.45);
+}
+
+/* ─── Unlocked map node ───────────────────────── */
+.node-unlocked {
+  border-color: rgba(255, 255, 255, 0.6);
+  animation: pulseGlow 2.2s infinite ease-in-out;
+}
+
+/* ─── SVG Lock Icon Badge ─────────────────────── */
+.map-node-lock-icon {
+  display: inline-block;
+  width: 0.9em;
+  height: 0.9em;
+  margin-left: 8px;
+  vertical-align: -0.12em;
+  stroke: currentColor;
+  opacity: 0.85;
+}
+
+/* Desktop Map (≥ 768px) (Figma #45:58) */
+@media (min-width: 768px) {
+  .map-bg-image {
+    background-image: url('/assets/map_desktop_bg.png');
+  }
+
+  .map-top-logo {
+    top: 2rem;
+    left: 2.5rem;
+  }
+
+  .map-logo-img {
+    width: clamp(240px, 20vw, 389px);
+  }
+
+  .map-node-card {
+    font-size: clamp(24px, 2.5vw, 36px);
+    padding: 10px 42px;
+    border-radius: 14px;
+  }
+
+  /* Desktop Position Offsets (Figma #45:58) */
+  .node-salmon-pool {
+    top: 58%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .node-nobles-castle {
+    top: 75%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+  }
+
+  .node-tofu-mansion {
+    top: 72%;
+    left: 82%;
+    transform: translate(-50%, -50%);
+  }
+}
