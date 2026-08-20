@@ -397,9 +397,9 @@ body {
   position: absolute;
   left: 50%;
   transform: translateX(-50%);
-  bottom: 28%;           /* sits above the quiz card (quiz wrapper ~2.5rem from bottom) */
-  width: 78%;
-  max-width: 360px;
+  bottom: 24%;           /* sits above the quiz card */
+  width: 90%;
+  max-width: 504px;      /* 1.4x larger scale (360px -> 504px) */
   z-index: 15;           /* above canvas, visible through UI layer */
   display: flex;
   flex-direction: column;

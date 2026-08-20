@@ -72,25 +72,23 @@ export default function GameScreen() {
   // Is Noble active speaker?
   const isNobleActive = speaker === "ขุนนางหนึ่ง";
 
-  // Noble stage pre-combat flag
-  const isNoblePrecombat = isNobleStage && !inCombatScene;
+  // Determine if we are actively in combat (requires enemyHp > 0)
+  const isCombatScene =
+    enemyHp > 0 && (isQuiz || (isNobleStage && inCombatScene) || currentStage === "stage_1");
 
-  // Determine if we are in a combat scene (quiz mode, noble combat, or stage 1 battle)
-  const isCombatScene = isQuiz || (isNobleStage && inCombatScene) || currentStage === "stage_1";
-
-  // Standard Dual Character Sprites (Bam & Aun) — only show during non-combat cutscenes
+  // Standard Dual Character Sprites (Bam & Aun) — show during non-combat cutscenes (intro/exploration)
   const showVnSprites =
     !isCombatScene &&
     (currentStage === "intro_stage" ||
       currentStage === "stage_1_exploration" ||
       (isDialogue && !isNobleStage));
 
-  // Noble stage pre-combat sprites (Bam & Noble) — only before entering combat
-  const showNoblePrecombatSprites = !isCombatScene && isNoblePrecombat && isDialogue;
+  // Noble stage conversation sprites (Bam & Noble) — show before entering combat AND after enemy HP is out (0)
+  const showNoblePrecombatSprites = !isCombatScene && isNobleStage && isDialogue;
 
   const isMapExploration = currentStage === "stage_1_exploration";
 
-  // Combat scene: show ONLY the enemy sprite in center
+  // Combat scene: show ONLY the enemy sprite in center while enemy HP > 0
   const showEnemySprite = isCombatScene && !isWin;
 
   // Background style override if custom non-default background set
