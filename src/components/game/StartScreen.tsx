@@ -30,6 +30,18 @@ export default function StartScreen() {
         {/* 1. Background — firstpagebg_mobile.png at opacity 0.20 */}
         <div className="ss-bg-group" />
 
+        {/* Logo — /assets/logo/logo.png */}
+        <div className="ss-mob-logo">
+          <Image
+            src="/assets/logo/logo.png"
+            alt="Bam's Quest Logo"
+            width={260}
+            height={130}
+            className="ss-logo-img"
+            priority
+          />
+        </div>
+
         {/* 2. Top white gradient — same as desktop
             linear-gradient(180deg, white → transparent) */}
         <div className="ss-mob-top-fade" />
@@ -75,6 +87,18 @@ export default function StartScreen() {
         {/* 1. firstpagebg_desktop.png at 39% opacity
             Visible slice: y:1027→1925 of 2819 → center ≈ 52% */}
         <div className="ss-dt-bg" />
+
+        {/* Logo — /assets/logo/logo.png */}
+        <div className="ss-dt-logo">
+          <Image
+            src="/assets/logo/logo.png"
+            alt="Bam's Quest Logo"
+            width={320}
+            height={160}
+            className="ss-logo-img"
+            priority
+          />
+        </div>
 
         {/* 2. Bottom dark gradient
             top: 486/898 = 54.12%, rgba(0,0,0,0.64)→transparent */}

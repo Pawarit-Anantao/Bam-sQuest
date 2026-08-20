@@ -87,6 +87,30 @@ body {
   z-index: 1;
 }
 
+.ss-mob-logo {
+  position: absolute;
+  top: 6.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ss-dt-logo {
+  position: absolute;
+  top: 5.5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.ss-logo-img {
+  width: clamp(160px, 22vw, 320px);
+  height: auto;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
 /* ── 2. Top white gradient — identical to desktop ───────────
    linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%)
    Height 183.2% so the fade mirrors the desktop proportionally
