@@ -133,8 +133,8 @@ export default function TurnbasedCombat() {
       logMsg = `ผู้กล้าแบม ใช้การ์ดฟื้นฟู! ฟื้นฟู HP 15 แต้ม`;
     } else if (skillType === "block") {
       const shieldAmt = 20;
-      setPlayerShield((prev) => prev + shieldAmt);
-      logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน! เพิ่มเกราะป้องกัน 20 แต้ม`;
+      setPlayerShield(shieldAmt); // Non-stackable: sets shield to 20
+      logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน! รับเกราะป้องกัน 20 แต้ม`;
     }
 
     setCombatLog(logMsg);
@@ -230,9 +230,9 @@ export default function TurnbasedCombat() {
           `บิ๊กกุย ใช้สกิลฟื้นฟู! ฟื้นฟู HP ${baseSkillVal} แต้มแก่ตนเอง`
         );
       } else if (chosenSkill === "defense") {
-        setBossShield((prev) => prev + baseSkillVal);
+        setBossShield(baseSkillVal); // Non-stackable: sets shield to baseSkillVal
         setCombatLog(
-          `บิ๊กกุย ใช้สกิลป้องกัน! เพิ่มเกราะป้องกัน ${baseSkillVal} แต้ม`
+          `บิ๊กกุย ใช้สกิลป้องกัน! รับเกราะป้องกัน ${baseSkillVal} แต้ม`
         );
       } else if (chosenSkill === "buff") {
         // Sets buff for 3 turns (non-stackable +5 bonus)
