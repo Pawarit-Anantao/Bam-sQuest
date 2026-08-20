@@ -90,7 +90,13 @@ export default function TurnbasedCombat() {
   const [isDefeat, setIsDefeat] = useState(false);
 
   // Player action handler
-  const handleUseSkill = (skillType: "attack" | "heal" | "block") => {
+  const handleUseSkill = (
+    skillType: "attack" | "heal" | "block",
+    e?: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    if (e?.currentTarget) {
+      e.currentTarget.blur();
+    }
     if (!isPlayerTurn || isAnimating || isVictory || isDefeat) return;
 
     setIsAnimating(true);
@@ -350,7 +356,7 @@ export default function TurnbasedCombat() {
           {/* Card 1: Heal 15 */}
           <button
             className={`turnbased-skill-card ${!isPlayerTurn || isAnimating ? "disabled" : ""}`}
-            onClick={() => handleUseSkill("heal")}
+            onClick={(e) => handleUseSkill("heal", e)}
             disabled={!isPlayerTurn || isAnimating}
             aria-label="การ์ดฟื้นฟู 15 HP"
           >
@@ -367,7 +373,7 @@ export default function TurnbasedCombat() {
           {/* Card 2: Attack 20 */}
           <button
             className={`turnbased-skill-card ${!isPlayerTurn || isAnimating ? "disabled" : ""}`}
-            onClick={() => handleUseSkill("attack")}
+            onClick={(e) => handleUseSkill("attack", e)}
             disabled={!isPlayerTurn || isAnimating}
             aria-label="การ์ดโจมตี 20 Damage"
           >
@@ -384,7 +390,7 @@ export default function TurnbasedCombat() {
           {/* Card 3: Block 20 */}
           <button
             className={`turnbased-skill-card ${!isPlayerTurn || isAnimating ? "disabled" : ""}`}
-            onClick={() => handleUseSkill("block")}
+            onClick={(e) => handleUseSkill("block", e)}
             disabled={!isPlayerTurn || isAnimating}
             aria-label="การ์ดป้องกัน 20 Shield"
           >

@@ -1954,9 +1954,17 @@ body {
   margin: 0;
   cursor: pointer;
   outline: none;
+  filter: brightness(1) contrast(1);
   transition: filter 0.15s ease;
   -webkit-tap-highlight-color: transparent;
   transform: none !important;
+}
+
+.turnbased-skill-card:focus,
+.turnbased-skill-card:focus-visible,
+.turnbased-skill-card:focus-within {
+  outline: none;
+  filter: brightness(1) contrast(1);
 }
 
 .turnbased-skill-card:hover:not(.disabled) {
