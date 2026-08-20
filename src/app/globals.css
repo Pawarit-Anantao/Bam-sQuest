@@ -1889,23 +1889,24 @@ body {
   40%, 60% { transform: translate3d(8px, 0, 0) scale(1.05); }
 }
 
-.turnbased-log-banner {
-  z-index: 15;
-  background: rgba(0, 0, 0, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 20px;
-  padding: 8px 24px;
-  width: min(92%, 480px);
-  text-align: center;
-  backdrop-filter: blur(8px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+/* Status text using standard VN Dialogue Box layout */
+.turnbased-dialogue-box {
+  position: relative;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  width: min(92%, 520px);
+  margin: 0.4rem auto;
+  z-index: 20;
 }
 
-.turnbased-log-text {
-  font-family: var(--font-noto-thai);
-  font-size: clamp(14px, 1.8vw, 17px);
-  font-weight: 600;
-  color: #ffffff;
+.turnbased-dialogue-box .vn-dialogue-card {
+  min-height: 70px;
+  padding: 1.1rem 1.4rem;
+}
+
+.turnbased-dialogue-box .vn-dialogue-text {
+  font-size: clamp(15px, 2vw, 20px);
 }
 
 .turnbased-player-section {

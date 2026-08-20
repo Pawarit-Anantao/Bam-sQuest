@@ -167,8 +167,8 @@ export default function TurnbasedCombat() {
 
   return (
     <div className="turnbased-viewport">
-      {/* Background Layer */}
-      <div className="turnbased-bg-image" />
+      {/* Background Layer — same standard VN background (vn_prologue2_bg.png) */}
+      <div className="vn-bg-image turnbased-bg-image" />
 
       {/* Top Logo */}
       <div className="turnbased-top-logo">
@@ -227,9 +227,14 @@ export default function TurnbasedCombat() {
         </div>
       </div>
 
-      {/* ── Combat Log Banner ── */}
-      <div className="turnbased-log-banner">
-        <span className="turnbased-log-text">{combatLog}</span>
+      {/* ── Status Text — Standard VN Dialogue Box ── */}
+      <div className="vn-dialogue-wrapper turnbased-dialogue-box">
+        <div className="vn-speaker-badge">
+          <span>บ่อแซลมอนวิเศษ</span>
+        </div>
+        <div className="vn-dialogue-card">
+          <p className="vn-dialogue-text">{combatLog}</p>
+        </div>
       </div>
 
       {/* ── Player (ผู้กล้าแบม) Section ── */}
