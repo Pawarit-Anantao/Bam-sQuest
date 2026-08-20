@@ -1811,7 +1811,7 @@ body {
 .turnbased-bg-image {
   position: absolute;
   inset: 0;
-  background-image: url('/assets/bg_desktop.png');
+  background-image: url('/assets/vn_prologue2_bg.png');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
