@@ -48,20 +48,24 @@ function ShieldIcon() {
 export default function TurnbasedCombat() {
   const { goToMap } = useGameStore();
 
-  // Turn-based Combat State
+  // Boss (บิ๊กกุย) State — 4 skills: attack(15), heal(15), defense(15), buff(+5 for 3 turns, non-stackable)
   const [bossHp, setBossHp] = useState(100);
   const bossMaxHp = 100;
+  const [bossShield, setBossShield] = useState(0);
+  const [bossBuffTurns, setBossBuffTurns] = useState(0);
 
+  // Player (ผู้กล้าแบม) State
   const [playerHp, setPlayerHp] = useState(100);
   const playerMaxHp = 100;
-
   const [playerShield, setPlayerShield] = useState(0);
+
+  // Speaker & Combat Text State
+  const [speakerName, setSpeakerName] = useState<string>("ผู้กล้าแบม");
+  const [combatLog, setCombatLog] = useState<string>("ตาของคุณ! เลือกการ์ดสกิลเพื่อต่อสู้กับบิ๊กกุย");
 
   const [isPlayerTurn, setIsPlayerTurn] = useState(true);
   const [isAnimating, setIsAnimating] = useState(false);
   const [hitAnimation, setHitAnimation] = useState<"boss-hit" | "player-hit" | null>(null);
-
-  const [combatLog, setCombatLog] = useState<string>("ตาของคุณ! เลือกการ์ดสกิลเพื่อต่อสู้กับบิ๊กกุย");
 
   const [isVictory, setIsVictory] = useState(false);
   const [isDefeat, setIsDefeat] = useState(false);
@@ -71,14 +75,37 @@ export default function TurnbasedCombat() {
     if (!isPlayerTurn || isAnimating || isVictory || isDefeat) return;
 
     setIsAnimating(true);
+    setSpeakerName("ผู้กล้าแบม");
     let logMsg = "";
     let newBossHp = bossHp;
 
     if (skillType === "attack") {
       const dmg = 20;
-      newBossHp = Math.max(0, bossHp - dmg);
-      setBossHp(newBossHp);
       setHitAnimation("boss-hit");
+
+      // Reduce boss shield first, remaining hits boss HP
+      setBossShield((prevShield) => {
+        let remainingDmg = dmg;
+        let newShield = prevShield;
+
+        if (prevShield > 0) {
+          if (prevShield >= dmg) {
+            newShield = prevShield - dmg;
+            remainingDmg = 0;
+          } else {
+            remainingDmg = dmg - prevShield;
+            newShield = 0;
+          }
+        }
+
+        setBossHp((prevHp) => {
+          newBossHp = Math.max(0, prevHp - remainingDmg);
+          return newBossHp;
+        });
+
+        return newShield;
+      });
+
       logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี! สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย`;
     } else if (skillType === "heal") {
       const healAmt = 15;
@@ -102,65 +129,117 @@ export default function TurnbasedCombat() {
       return;
     }
 
-    // Pass turn to Boss after 0.8s
+    // Pass turn to Boss after 0.9s
     setTimeout(() => {
       setHitAnimation(null);
       setIsPlayerTurn(false);
-      executeBossTurn(newBossHp);
+      executeBossTurn();
     }, 900);
   };
 
-  // Boss (บิ๊กกุย) AI turn
-  const executeBossTurn = (currentBossHp: number) => {
-    setCombatLog("ตาของ บิ๊กกุย กำลังเตรียมโจมตี...");
+  // Boss (บิ๊กกุย) AI turn — Uses 4 skills: attack, heal, defense, buff
+  const executeBossTurn = () => {
+    setSpeakerName("บิ๊กกุย");
+    setCombatLog("บิ๊กกุย กำลังเตรียมใช้ทักษะ...");
 
     setTimeout(() => {
-      const bossDmg = 20;
-      setHitAnimation("player-hit");
+      // Current buff bonus: +5 power if active (non-stackable)
+      const isBuffActive = bossBuffTurns > 0;
+      const powerBoost = isBuffActive ? 5 : 0;
+      const baseSkillVal = 15 + powerBoost; // 15 base or 20 if buffed
 
-      setPlayerShield((prevShield) => {
-        let remainingDmg = bossDmg;
-        let newShield = prevShield;
+      // Decrement buff turn count if active
+      if (isBuffActive) {
+        setBossBuffTurns((prev) => Math.max(0, prev - 1));
+      }
 
-        if (prevShield > 0) {
-          if (prevShield >= bossDmg) {
-            newShield = prevShield - bossDmg;
-            remainingDmg = 0;
-          } else {
-            remainingDmg = bossDmg - prevShield;
-            newShield = 0;
+      // Choose Boss Skill AI
+      let chosenSkill: "attack" | "heal" | "defense" | "buff";
+
+      if (!isBuffActive && Math.random() < 0.35) {
+        chosenSkill = "buff";
+      } else if (bossHp < 45 && Math.random() < 0.45) {
+        chosenSkill = "heal";
+      } else {
+        const skills: ("attack" | "heal" | "defense" | "buff")[] = [
+          "attack",
+          "attack",
+          "defense",
+          "heal",
+          "buff",
+        ];
+        chosenSkill = skills[Math.floor(Math.random() * skills.length)];
+      }
+
+      // Execute chosen Boss Skill
+      if (chosenSkill === "attack") {
+        setHitAnimation("player-hit");
+
+        setPlayerShield((prevShield) => {
+          let remainingDmg = baseSkillVal;
+          let newShield = prevShield;
+
+          if (prevShield > 0) {
+            if (prevShield >= baseSkillVal) {
+              newShield = prevShield - baseSkillVal;
+              remainingDmg = 0;
+            } else {
+              remainingDmg = baseSkillVal - prevShield;
+              newShield = 0;
+            }
           }
-        }
 
-        setPlayerHp((prevHp) => {
-          const newHp = Math.max(0, prevHp - remainingDmg);
-          if (newHp <= 0) {
-            setTimeout(() => setIsDefeat(true), 600);
-          }
-          return newHp;
+          setPlayerHp((prevHp) => {
+            const newHp = Math.max(0, prevHp - remainingDmg);
+            if (newHp <= 0) {
+              setTimeout(() => setIsDefeat(true), 600);
+            }
+            return newHp;
+          });
+
+          return newShield;
         });
 
-        return newShield;
-      });
-
-      setCombatLog(`บิ๊กกุย ใช้ หมัดมหาพรหม! โจมตีผู้กล้าแบม ${bossDmg} แต้ม`);
+        setCombatLog(
+          `บิ๊กกุย ใช้สกิลโจมตี! สร้างความเสียหาย ${baseSkillVal} แต้มแก่ ผู้กล้าแบม`
+        );
+      } else if (chosenSkill === "heal") {
+        setBossHp((prev) => Math.min(bossMaxHp, prev + baseSkillVal));
+        setCombatLog(
+          `บิ๊กกุย ใช้สกิลฟื้นฟู! ฟื้นฟู HP ${baseSkillVal} แต้มแก่ตนเอง`
+        );
+      } else if (chosenSkill === "defense") {
+        setBossShield((prev) => prev + baseSkillVal);
+        setCombatLog(
+          `บิ๊กกุย ใช้สกิลป้องกัน! เพิ่มเกราะป้องกัน ${baseSkillVal} แต้ม`
+        );
+      } else if (chosenSkill === "buff") {
+        // Sets buff for 3 turns (non-stackable +5 bonus)
+        setBossBuffTurns(3);
+        setCombatLog(
+          `บิ๊กกุย ใช้สกิลบัฟ! เพิ่มพลังสกิลทุกทักษะ +5 แต้ม เป็นเวลา 3 ตา!`
+        );
+      }
 
       setTimeout(() => {
         setHitAnimation(null);
         setIsPlayerTurn(true);
         setIsAnimating(false);
-      }, 900);
-    }, 1000);
+      }, 1000);
+    }, 900);
   };
 
   // Reset Battle
   const handleRestart = () => {
     setBossHp(100);
+    setBossShield(0);
+    setBossBuffTurns(0);
     setPlayerHp(100);
     setPlayerShield(0);
     setIsPlayerTurn(true);
     setIsAnimating(false);
     setHitAnimation(null);
+    setSpeakerName("ผู้กล้าแบม");
     setCombatLog("ตาของคุณ! เลือกการ์ดสกิลเพื่อต่อสู้กับบิ๊กกุย");
     setIsVictory(false);
     setIsDefeat(false);
@@ -197,7 +276,20 @@ export default function TurnbasedCombat() {
       {/* Top Boss HP Bar UI */}
       <div className="combat-hp-bar-wrapper boss-hp-bar-wrapper" role="status" aria-label="บิ๊กกุย HP">
         <div className="combat-hp-label">
-          <span className="combat-hp-name">บิ๊กกุย</span>
+          <span className="combat-hp-name">
+            บิ๊กกุย
+            {bossShield > 0 && (
+              <>
+                <ShieldIcon />
+                <span>+{bossShield}</span>
+              </>
+            )}
+            {bossBuffTurns > 0 && (
+              <span style={{ color: "#f5c842", marginLeft: "6px", fontSize: "13px" }}>
+                ⚡+5 ({bossBuffTurns} ตา)
+              </span>
+            )}
+          </span>
           <span className="combat-hp-value">{bossHp} / {bossMaxHp}</span>
         </div>
         <div className="combat-hp-track">
@@ -227,17 +319,17 @@ export default function TurnbasedCombat() {
 
       {/* ── Player Section & UI Overlay ── */}
       <div className="turnbased-player-section">
-        {/* Status Text — Standard VN Dialogue Box */}
+        {/* Status Text — Standard VN Dialogue Box with dynamic Speaker Name (ผู้กล้าแบม / บิ๊กกุย) */}
         <div className="vn-dialogue-wrapper turnbased-dialogue-box">
           <div className="vn-speaker-badge">
-            <span>บ่อแซลมอนวิเศษ</span>
+            <span>{speakerName}</span>
           </div>
           <div className="vn-dialogue-card">
             <p className="vn-dialogue-text">{combatLog}</p>
           </div>
         </div>
 
-        {/* ── 3 Skill Cards Container (Figma node #76:207, #76:208, #76:209) ── */}
+        {/* ── 3 Skill Cards Container ── */}
         <div className="turnbased-skills-container">
           {/* Card 1: Heal 15 */}
           <button
