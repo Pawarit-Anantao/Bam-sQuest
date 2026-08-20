@@ -45,6 +45,25 @@ function ShieldIcon() {
   );
 }
 
+function BuffIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#f5c842"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: "inline-block", verticalAlign: "-0.12em", marginRight: "3px", marginLeft: "6px" }}
+      aria-hidden="true"
+    >
+      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+    </svg>
+  );
+}
+
 export default function TurnbasedCombat() {
   const { goToMap } = useGameStore();
 
@@ -137,10 +156,10 @@ export default function TurnbasedCombat() {
     }, 900);
   };
 
-  // Boss (บิ๊กกุย) AI turn — Uses 4 skills: attack, heal, defense, buff
+  // Boss (บิ๊กกุย) Strategic AI turn — Smart decision making under 4-skill set
   const executeBossTurn = () => {
     setSpeakerName("บิ๊กกุย");
-    setCombatLog("บิ๊กกุย กำลังเตรียมใช้ทักษะ...");
+    setCombatLog("บิ๊กกุย กำลังวิเคราะห์สถานการณ์เพื่อเลือกทักษะ...");
 
     setTimeout(() => {
       // Current buff bonus: +5 power if active (non-stackable)
@@ -153,22 +172,27 @@ export default function TurnbasedCombat() {
         setBossBuffTurns((prev) => Math.max(0, prev - 1));
       }
 
-      // Choose Boss Skill AI
+      // Strategic AI Skill Selection logic
       let chosenSkill: "attack" | "heal" | "defense" | "buff";
 
-      if (!isBuffActive && Math.random() < 0.35) {
+      if (!isBuffActive && Math.random() < 0.7) {
+        // Priority 1: Cast buff on turn 1 or when expired
         chosenSkill = "buff";
-      } else if (bossHp < 45 && Math.random() < 0.45) {
+      } else if (bossHp <= 45 && Math.random() < 0.75) {
+        // Priority 2: Heal when HP falls below 45%
         chosenSkill = "heal";
+      } else if (playerHp + playerShield <= baseSkillVal && Math.random() < 0.85) {
+        // Priority 3: Attack if player is within kill range
+        chosenSkill = "attack";
+      } else if (bossShield < 15 && playerHp > 40 && Math.random() < 0.6) {
+        // Priority 4: Shield up if boss shield is low
+        chosenSkill = "defense";
       } else {
-        const skills: ("attack" | "heal" | "defense" | "buff")[] = [
-          "attack",
-          "attack",
-          "defense",
-          "heal",
-          "buff",
-        ];
-        chosenSkill = skills[Math.floor(Math.random() * skills.length)];
+        // Priority 5: Tactical mix
+        const roll = Math.random();
+        if (roll < 0.55) chosenSkill = "attack";
+        else if (roll < 0.8) chosenSkill = "defense";
+        else chosenSkill = "heal";
       }
 
       // Execute chosen Boss Skill
@@ -285,8 +309,9 @@ export default function TurnbasedCombat() {
               </>
             )}
             {bossBuffTurns > 0 && (
-              <span style={{ color: "#f5c842", marginLeft: "6px", fontSize: "13px" }}>
-                ⚡+5 ({bossBuffTurns} ตา)
+              <span style={{ color: "#f5c842", marginLeft: "4px", fontSize: "13px" }}>
+                <BuffIcon />
+                <span>+5 ({bossBuffTurns} ตา)</span>
               </span>
             )}
           </span>
