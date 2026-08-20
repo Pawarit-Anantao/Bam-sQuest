@@ -19,7 +19,7 @@ import TurnbasedCombat from "./TurnbasedCombat";
 // Game Screen — Dual Sprite VN Gameplay (Mobile & Desktop)
 // ─────────────────────────────────────────────────────────────
 export default function GameScreen() {
-  const { script, currentStage, currentNodeId, phase, enemyHp } = useGameStore();
+  const { script, currentStage, currentNodeId, phase, enemyHp, goToMap } = useGameStore();
 
   const [isStageSelectOpen, setIsStageSelectOpen] = useState(false);
 
@@ -127,6 +127,16 @@ export default function GameScreen() {
             />
           </button>
         </div>
+
+        {/* Top-right Map Button */}
+        <button
+          className="vn-top-map-btn"
+          onClick={goToMap}
+          aria-label="ไปยังแผนที่"
+          title="ไปยังแผนที่"
+        >
+          🗺️ แผนที่
+        </button>
 
         {/* Standard Dual Character Sprites (Bam on Left, Aun on Right) — intro/prologue */}
         {showVnSprites && (

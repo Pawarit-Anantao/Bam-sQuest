@@ -947,6 +947,37 @@ body {
   object-fit: contain;
 }
 
+/* ─── Top-Right Map Navigation Button ─── */
+.vn-top-map-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 50;
+  background: #000000;
+  color: #ffffff;
+  font-family: var(--font-noto-thai);
+  font-size: clamp(14px, 1.8vw, 17px);
+  font-weight: 600;
+  padding: 8px 18px;
+  border-radius: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.vn-top-map-btn:hover {
+  transform: scale(1.08);
+  background: #222222;
+  border-color: #ffffff;
+}
+
+.vn-top-map-btn:active {
+  transform: scale(0.96);
+}
+
 /* ═══════════════════════════════════════════════
    STAGE SELECT MODAL (Replay Cleared Scenes)
    ═══════════════════════════════════════════════ */

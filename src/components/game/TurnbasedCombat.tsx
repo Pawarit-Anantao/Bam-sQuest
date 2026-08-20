@@ -142,6 +142,16 @@ export default function TurnbasedCombat() {
         />
       </div>
 
+      {/* Top-right Map Button */}
+      <button
+        className="vn-top-map-btn turnbased-top-map-btn"
+        onClick={goToMap}
+        aria-label="ไปยังแผนที่"
+        title="ไปยังแผนที่"
+      >
+        🗺️ แผนที่
+      </button>
+
       {/* ── Boss (บิ๊กกุย) Section ── */}
       <div className="turnbased-boss-container">
         {/* Boss HP Bar */}
