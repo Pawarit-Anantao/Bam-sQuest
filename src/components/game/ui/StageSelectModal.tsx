@@ -47,7 +47,7 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
             <span className="stage-item-name">หมาแบมไปต่างโลก</span>
           </button>
 
-          {/* 2. บทที่ 1 - การตื่นขึ้น */}
+          {/* 2. บทที่ 1 */}
           <button
             className="stage-select-item"
             onClick={() => handleSelectStage("stage", "intro_stage")}
@@ -56,7 +56,7 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
             <span className="stage-item-name">การตื่นขึ้นของผู้กล้าแบม</span>
           </button>
 
-          {/* 3. บทที่ 2 - การเดินทางสู่กุยแลนด์ */}
+          {/* 3. บทที่ 2 */}
           <button
             className="stage-select-item"
             onClick={() => handleSelectStage("stage", "stage_1_exploration")}
@@ -65,33 +65,31 @@ export default function StageSelectModal({ isOpen, onClose }: StageSelectModalPr
             <span className="stage-item-name">การเดินทางสู่กุยแลนด์</span>
           </button>
 
-          {/* 4. บทที่ 3 - ปราสาทขุนนางหนึ่ง */}
+          {/* 4. บทที่ 3 */}
           <button
             className="stage-select-item"
             onClick={() => handleSelectStage("stage", "stage_1_noble_nueng")}
           >
             <span className="stage-item-badge">บทที่ 3</span>
-            <span className="stage-item-name">ปราสาทขุนนางหนึ่ง (ประลองปัญญา)</span>
+            <span className="stage-item-name">ปราสาทขุนนางหนึ่ง</span>
           </button>
 
-          {/* 5. บทพิเศษ - คฤหาสน์โทฟุ */}
+          {/* 5. บทที่ 4 - คฤหาสน์โทฟุ */}
           <button
-            className={`stage-select-item ${isTofuUnlocked ? "" : "stage-item-locked"}`}
+            className="stage-select-item"
             onClick={() => handleSelectStage("stage", "tofu_mansion")}
           >
-            <span className="stage-item-badge">บทพิเศษ</span>
-            <span className="stage-item-name">
-              คฤหาสน์โทฟุ {isTofuUnlocked ? "(ปลดล็อกแล้ว)" : "(ยังไม่ปลดล็อก)"}
-            </span>
+            <span className="stage-item-badge">บทที่ 4</span>
+            <span className="stage-item-name">คฤหาสน์โทฟุ</span>
           </button>
 
           {/* 6. บทสุดท้าย - บ่อแซลมอนวิเศษ */}
           <button
-            className="stage-select-item stage-final-item"
+            className="stage-select-item"
             onClick={() => handleSelectStage("stage", "salmon_pool")}
           >
-            <span className="stage-item-badge stage-final-badge">บทสุดท้าย</span>
-            <span className="stage-item-name">บ่อแซลมอนวิเศษ 🍣</span>
+            <span className="stage-item-badge">บทสุดท้าย</span>
+            <span className="stage-item-name">บ่อแซลมอนวิเศษ</span>
           </button>
         </div>
       </div>
