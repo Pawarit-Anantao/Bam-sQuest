@@ -37,8 +37,7 @@ export default function MapScreen() {
   const handleSelectLocation = (id: string, name: string) => {
     if (id === "salmon_pool") {
       if (isSalmonUnlocked) {
-        setToastMessage(`"${name}" - ยินดีด้วย! มาถึงบ่อแซลมอนวิเศษแล้ว`);
-        setTimeout(() => setToastMessage(null), 3000);
+        startStage("salmon_pool");
       } else {
         setToastMessage(`"${name}" ยังไม่ปลดล็อก — ชนะ คฤหาสโทฟุ ก่อน`);
         setTimeout(() => setToastMessage(null), 3500);
