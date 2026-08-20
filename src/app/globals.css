@@ -1066,6 +1066,19 @@ body {
   white-space: nowrap;
 }
 
+.stage-final-badge {
+  background: #f5c842;
+  color: #000000;
+}
+
+.stage-final-item {
+  border-color: #f5c842;
+}
+
+.stage-final-item:hover {
+  background: #fffdf5;
+}
+
 .stage-item-name {
   font-family: var(--font-noto-thai);
   font-size: clamp(15px, 1.8vw, 18px);
