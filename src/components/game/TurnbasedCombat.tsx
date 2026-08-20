@@ -193,41 +193,38 @@ export default function TurnbasedCombat() {
         <span>แผนที่</span>
       </button>
 
-      {/* ── Boss (บิ๊กกุย) Section ── */}
-      <div className="turnbased-boss-container">
-        {/* Boss HP Bar — standard Figma combat HP bar */}
-        <div className="combat-hp-bar-wrapper boss-hp-bar-wrapper" role="status" aria-label="บิ๊กกุย HP">
-          <div className="combat-hp-label">
-            <span className="combat-hp-name">บิ๊กกุย</span>
-            <span className="combat-hp-value">{bossHp} / {bossMaxHp}</span>
-          </div>
-          <div className="combat-hp-track">
-            <div
-              className="combat-hp-fill"
-              style={{ width: `${Math.max(0, (bossHp / bossMaxHp) * 100)}%` }}
-              role="progressbar"
-              aria-valuenow={bossHp}
-              aria-valuemin={0}
-              aria-valuemax={bossMaxHp}
-            />
-          </div>
+      {/* Top Boss HP Bar UI */}
+      <div className="combat-hp-bar-wrapper boss-hp-bar-wrapper" role="status" aria-label="บิ๊กกุย HP">
+        <div className="combat-hp-label">
+          <span className="combat-hp-name">บิ๊กกุย</span>
+          <span className="combat-hp-value">{bossHp} / {bossMaxHp}</span>
         </div>
-
-        {/* Boss Sprite (pha.png) with Hit Animation */}
-        <div className={`turnbased-boss-sprite-wrapper ${hitAnimation === "boss-hit" ? "anim-boss-hit" : ""}`}>
-          <Image
-            src="/assets/pha.png"
-            alt="บิ๊กกุย"
-            width={529}
-            height={749}
-            className="turnbased-boss-img"
-            priority
-            unoptimized
+        <div className="combat-hp-track">
+          <div
+            className="combat-hp-fill"
+            style={{ width: `${Math.max(0, (bossHp / bossMaxHp) * 100)}%` }}
+            role="progressbar"
+            aria-valuenow={bossHp}
+            aria-valuemin={0}
+            aria-valuemax={bossMaxHp}
           />
         </div>
       </div>
 
-      {/* ── Status Text — Standard VN Dialogue Box ── */}
+      {/* Boss Sprite (pha.png) — Sits underneath UI layers (z-index: 2) so UIs overlap over it */}
+      <div className={`turnbased-boss-sprite-wrapper ${hitAnimation === "boss-hit" ? "anim-boss-hit" : ""}`}>
+        <Image
+          src="/assets/pha.png"
+          alt="บิ๊กกุย"
+          width={529}
+          height={749}
+          className="turnbased-boss-img"
+          priority
+          unoptimized
+        />
+      </div>
+
+      {/* Status Text — Standard VN Dialogue Box */}
       <div className="vn-dialogue-wrapper turnbased-dialogue-box">
         <div className="vn-speaker-badge">
           <span>บ่อแซลมอนวิเศษ</span>

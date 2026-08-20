@@ -1843,31 +1843,36 @@ body {
 }
 
 .boss-hp-bar-wrapper {
-  position: relative;
-  left: auto;
-  right: auto;
-  bottom: auto;
+  position: absolute;
+  top: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: min(90%, 380px);
-  margin-bottom: 0.5rem;
-  z-index: 15;
+  z-index: 25;
 }
 
 .player-hp-bar-wrapper {
   position: relative;
-  left: auto;
-  right: auto;
-  bottom: auto;
   width: min(90%, 380px);
-  margin-bottom: 0.8rem;
-  z-index: 15;
+  margin-bottom: 0.5rem;
+  z-index: 30;
 }
 
+/* Boss Sprite sits underneath UIs (z-index: 2) so Dialogue Box & Skill Cards can overlap over it */
 .turnbased-boss-sprite-wrapper {
-  height: 48dvh;
+  position: absolute;
+  bottom: 22dvh;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 480px;
+  height: 58dvh;
   max-height: 520px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  z-index: 2;
+  pointer-events: none;
   transition: transform 0.2s ease, filter 0.2s ease;
 }
 
@@ -1889,43 +1894,48 @@ body {
   40%, 60% { transform: translate3d(8px, 0, 0) scale(1.05); }
 }
 
-/* Status text using standard VN Dialogue Box layout */
+/* Status text using standard VN Dialogue Box layout (overlaps over boss sprite) */
 .turnbased-dialogue-box {
-  position: relative;
-  left: auto;
-  bottom: auto;
-  transform: none;
+  position: absolute;
+  bottom: 26dvh;
+  left: 50%;
+  transform: translateX(-50%);
   width: min(92%, 520px);
-  margin: 0.4rem auto;
+  margin: 0;
   z-index: 20;
 }
 
 .turnbased-dialogue-box .vn-dialogue-card {
-  min-height: 70px;
-  padding: 1.1rem 1.4rem;
+  min-height: 65px;
+  padding: 1rem 1.3rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
 }
 
 .turnbased-dialogue-box .vn-dialogue-text {
-  font-size: clamp(15px, 2vw, 20px);
+  font-size: clamp(15px, 2vw, 19px);
 }
 
+/* Player section containing HP bar & 3 skill cards — moved UP (bottom: 1rem) */
 .turnbased-player-section {
-  position: relative;
-  z-index: 15;
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
+  max-width: 540px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-bottom: 1.5rem;
+  z-index: 30;
 }
 
 .turnbased-skills-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: clamp(10px, 3vw, 24px);
+  gap: clamp(8px, 2.5vw, 20px);
   width: 100%;
-  padding: 0 1rem;
+  padding: 0 0.8rem;
 }
 
 .turnbased-skill-card {
