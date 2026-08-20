@@ -1858,16 +1858,17 @@ body {
   z-index: 30;
 }
 
-/* Boss Sprite sits underneath UIs (z-index: 2) so Dialogue Box & Skill Cards can overlap over it */
+/* Boss Sprite sits underneath UIs (z-index: 2) — Moved higher up and made bigger */
 .turnbased-boss-sprite-wrapper {
   position: absolute;
-  bottom: 22dvh;
+  top: 4rem;
+  bottom: 26dvh;
   left: 50%;
   transform: translateX(-50%);
-  width: 90%;
-  max-width: 480px;
-  height: 58dvh;
-  max-height: 520px;
+  width: 95%;
+  max-width: 560px;
+  height: 65dvh;
+  max-height: 620px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -1880,7 +1881,7 @@ body {
   width: auto;
   height: 100%;
   object-fit: contain;
-  filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.6));
+  filter: drop-shadow(0 14px 32px rgba(0, 0, 0, 0.65));
 }
 
 .anim-boss-hit {
@@ -1894,10 +1895,10 @@ body {
   40%, 60% { transform: translate3d(8px, 0, 0) scale(1.05); }
 }
 
-/* Status text using standard VN Dialogue Box layout (overlaps over boss sprite) */
+/* Status text using standard VN Dialogue Box layout — Moved UP above player section */
 .turnbased-dialogue-box {
   position: absolute;
-  bottom: 26dvh;
+  bottom: clamp(225px, 33dvh, 300px);
   left: 50%;
   transform: translateX(-50%);
   width: min(92%, 520px);
@@ -1907,18 +1908,18 @@ body {
 
 .turnbased-dialogue-box .vn-dialogue-card {
   min-height: 65px;
-  padding: 1rem 1.3rem;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  padding: 0.9rem 1.3rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
 }
 
 .turnbased-dialogue-box .vn-dialogue-text {
   font-size: clamp(15px, 2vw, 19px);
 }
 
-/* Player section containing HP bar & 3 skill cards — moved UP (bottom: 1rem) */
+/* Player section containing HP bar & 3 skill cards */
 .turnbased-player-section {
   position: absolute;
-  bottom: 1rem;
+  bottom: 0.6rem;
   left: 50%;
   transform: translateX(-50%);
   width: 100%;
