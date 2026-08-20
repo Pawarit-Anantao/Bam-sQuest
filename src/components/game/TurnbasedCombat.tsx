@@ -290,8 +290,8 @@ export default function TurnbasedCombat() {
           </button>
         </div>
 
-        {/* Player HP & Shield Bar — Positioned below skill cards, centered with equal left/right margins */}
-        <div className="combat-hp-bar-wrapper player-hp-bar-wrapper" role="status" aria-label="ผู้กล้าแบม HP">
+        {/* Player HP & Shield Bar — Positioned below skill cards, strictly centered */}
+        <div className="player-hp-bar-wrapper" role="status" aria-label="ผู้กล้าแบม HP">
           <div className="combat-hp-label">
             <span className="combat-hp-name">
               ผู้กล้าแบม
