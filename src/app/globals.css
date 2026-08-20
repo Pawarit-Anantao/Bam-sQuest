@@ -1842,65 +1842,24 @@ body {
   margin-top: 1rem;
 }
 
-.turnbased-hp-card {
-  background: #000000;
-  border: 2px solid #ffffff;
-  border-radius: 12px;
-  padding: 8px 18px;
-  width: min(90%, 360px);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+.boss-hp-bar-wrapper {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: min(90%, 380px);
+  margin-bottom: 0.5rem;
   z-index: 15;
 }
 
-.boss-hp-card {
-  margin-bottom: 0.5rem;
-}
-
-.player-hp-card {
+.player-hp-bar-wrapper {
+  position: relative;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  width: min(90%, 380px);
   margin-bottom: 0.8rem;
-}
-
-.turnbased-hp-label {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-}
-
-.turnbased-speaker-name {
-  font-family: var(--font-noto-thai);
-  font-size: 16px;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.turnbased-hp-num {
-  font-family: var(--font-noto-thai);
-  font-size: 14px;
-  font-weight: 600;
-  color: #f5c842;
-}
-
-.turnbased-hp-track {
-  width: 100%;
-  height: 12px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-  overflow: hidden;
-}
-
-.turnbased-hp-fill {
-  height: 100%;
-  transition: width 0.3s ease-out;
-  border-radius: 6px;
-}
-
-.boss-hp-fill {
-  background: linear-gradient(90deg, #ff4d4f, #ff7875);
-}
-
-.player-hp-fill {
-  background: linear-gradient(90deg, #52c41a, #73d13d);
+  z-index: 15;
 }
 
 .turnbased-boss-sprite-wrapper {

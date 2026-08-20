@@ -195,16 +195,20 @@ export default function TurnbasedCombat() {
 
       {/* ── Boss (บิ๊กกุย) Section ── */}
       <div className="turnbased-boss-container">
-        {/* Boss HP Bar */}
-        <div className="turnbased-hp-card boss-hp-card">
-          <div className="turnbased-hp-label">
-            <span className="turnbased-speaker-name">บิ๊กกุย</span>
-            <span className="turnbased-hp-num">{bossHp} / {bossMaxHp}</span>
+        {/* Boss HP Bar — standard Figma combat HP bar */}
+        <div className="combat-hp-bar-wrapper boss-hp-bar-wrapper" role="status" aria-label="บิ๊กกุย HP">
+          <div className="combat-hp-label">
+            <span className="combat-hp-name">บิ๊กกุย</span>
+            <span className="combat-hp-value">{bossHp} / {bossMaxHp}</span>
           </div>
-          <div className="turnbased-hp-track">
+          <div className="combat-hp-track">
             <div
-              className="turnbased-hp-fill boss-hp-fill"
-              style={{ width: `${(bossHp / bossMaxHp) * 100}%` }}
+              className="combat-hp-fill"
+              style={{ width: `${Math.max(0, (bossHp / bossMaxHp) * 100)}%` }}
+              role="progressbar"
+              aria-valuenow={bossHp}
+              aria-valuemin={0}
+              aria-valuemax={bossMaxHp}
             />
           </div>
         </div>
@@ -230,10 +234,10 @@ export default function TurnbasedCombat() {
 
       {/* ── Player (ผู้กล้าแบม) Section ── */}
       <div className="turnbased-player-section">
-        {/* Player HP & Shield Bar */}
-        <div className="turnbased-hp-card player-hp-card">
-          <div className="turnbased-hp-label">
-            <span className="turnbased-speaker-name">
+        {/* Player HP & Shield Bar — standard Figma combat HP bar */}
+        <div className="combat-hp-bar-wrapper player-hp-bar-wrapper" role="status" aria-label="ผู้กล้าแบม HP">
+          <div className="combat-hp-label">
+            <span className="combat-hp-name">
               ผู้กล้าแบม
               {playerShield > 0 && (
                 <>
@@ -242,12 +246,16 @@ export default function TurnbasedCombat() {
                 </>
               )}
             </span>
-            <span className="turnbased-hp-num">{playerHp} / {playerMaxHp}</span>
+            <span className="combat-hp-value">{playerHp} / {playerMaxHp}</span>
           </div>
-          <div className="turnbased-hp-track">
+          <div className="combat-hp-track">
             <div
-              className="turnbased-hp-fill player-hp-fill"
-              style={{ width: `${(playerHp / playerMaxHp) * 100}%` }}
+              className="combat-hp-fill"
+              style={{ width: `${Math.max(0, (playerHp / playerMaxHp) * 100)}%` }}
+              role="progressbar"
+              aria-valuenow={playerHp}
+              aria-valuemin={0}
+              aria-valuemax={playerMaxHp}
             />
           </div>
         </div>
