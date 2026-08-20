@@ -4,6 +4,46 @@ import { useState } from "react";
 import Image from "next/image";
 import { useGameStore } from "@/store/gameStore";
 
+function MapIcon() {
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: "inline-block", verticalAlign: "-0.18em", marginRight: "6px" }}
+      aria-hidden="true"
+    >
+      <polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6" />
+      <line x1="8" y1="2" x2="8" y2="18" />
+      <line x1="16" y1="6" x2="16" y2="22" />
+    </svg>
+  );
+}
+
+function ShieldIcon() {
+  return (
+    <svg
+      width="14"
+      height="14"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      style={{ display: "inline-block", verticalAlign: "-0.12em", marginRight: "4px", marginLeft: "6px" }}
+      aria-hidden="true"
+    >
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+    </svg>
+  );
+}
+
 export default function TurnbasedCombat() {
   const { goToMap } = useGameStore();
 
@@ -38,16 +78,16 @@ export default function TurnbasedCombat() {
       newBossHp = Math.max(0, bossHp - dmg);
       setBossHp(newBossHp);
       setHitAnimation("boss-hit");
-      logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี ⚔️ สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย!`;
+      logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี! สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย`;
     } else if (skillType === "heal") {
       const healAmt = 15;
       const newHp = Math.min(playerMaxHp, playerHp + healAmt);
       setPlayerHp(newHp);
-      logMsg = `ผู้กล้าแบม ใช้การ์ดฟื้นฟู 💖 ฟื้นฟู HP 15 แต้ม!`;
+      logMsg = `ผู้กล้าแบม ใช้การ์ดฟื้นฟู! ฟื้นฟู HP 15 แต้ม`;
     } else if (skillType === "block") {
       const shieldAmt = 20;
       setPlayerShield((prev) => prev + shieldAmt);
-      logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน 🛡️ เพิ่มเกราะป้องกัน 20 แต้ม!`;
+      logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน! เพิ่มเกราะป้องกัน 20 แต้ม`;
     }
 
     setCombatLog(logMsg);
@@ -102,7 +142,7 @@ export default function TurnbasedCombat() {
         return newShield;
       });
 
-      setCombatLog(`บิ๊กกุย ใช้ หมัดมหาพรหม! โจมตีผู้กล้าแบม ${bossDmg} แต้ม!`);
+      setCombatLog(`บิ๊กกุย ใช้ หมัดมหาพรหม! โจมตีผู้กล้าแบม ${bossDmg} แต้ม`);
 
       setTimeout(() => {
         setHitAnimation(null);
@@ -149,7 +189,8 @@ export default function TurnbasedCombat() {
         aria-label="ไปยังแผนที่"
         title="ไปยังแผนที่"
       >
-        🗺️ แผนที่
+        <MapIcon />
+        <span>แผนที่</span>
       </button>
 
       {/* ── Boss (บิ๊กกุย) Section ── */}
@@ -192,7 +233,15 @@ export default function TurnbasedCombat() {
         {/* Player HP & Shield Bar */}
         <div className="turnbased-hp-card player-hp-card">
           <div className="turnbased-hp-label">
-            <span className="turnbased-speaker-name">ผู้กล้าแบม {playerShield > 0 && `🛡️+${playerShield}`}</span>
+            <span className="turnbased-speaker-name">
+              ผู้กล้าแบม
+              {playerShield > 0 && (
+                <>
+                  <ShieldIcon />
+                  <span>+{playerShield}</span>
+                </>
+              )}
+            </span>
             <span className="turnbased-hp-num">{playerHp} / {playerMaxHp}</span>
           </div>
           <div className="turnbased-hp-track">
@@ -262,7 +311,7 @@ export default function TurnbasedCombat() {
       {isVictory && (
         <div className="turnbased-overlay victory-overlay" role="dialog" aria-label="Victory">
           <div className="turnbased-modal-content">
-            <h2 className="turnbased-modal-title">🎉 ชัยชนะสุดยิ่งใหญ่!</h2>
+            <h2 className="turnbased-modal-title">ชัยชนะสุดยิ่งใหญ่!</h2>
             <p className="turnbased-modal-desc">
               ผู้กล้าแบม ปราบ บิ๊กกุย ได้สำเร็จและทวงคืนบ่อแซลมอนวิเศษให้แก่กุยโทเปีย!
             </p>
@@ -277,7 +326,7 @@ export default function TurnbasedCombat() {
       {isDefeat && (
         <div className="turnbased-overlay defeat-overlay" role="dialog" aria-label="Defeat">
           <div className="turnbased-modal-content">
-            <h2 className="turnbased-modal-title">💥 พ่ายแพ้...</h2>
+            <h2 className="turnbased-modal-title">พ่ายแพ้...</h2>
             <p className="turnbased-modal-desc">
               พลังของ บิ๊กกุย แข็งแกร่งเกินไป! ลองวางแผนการใช้การ์ดสกิลอีกครั้ง!
             </p>
