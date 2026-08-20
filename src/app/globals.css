@@ -1954,33 +1954,26 @@ body {
   margin: 0;
   cursor: pointer;
   outline: none;
-  filter: brightness(1) contrast(1);
-  transition: filter 0.15s ease;
+  filter: none !important;
+  transition: opacity 0.2s ease;
   -webkit-tap-highlight-color: transparent;
   transform: none !important;
 }
 
 .turnbased-skill-card:focus,
 .turnbased-skill-card:focus-visible,
-.turnbased-skill-card:focus-within {
-  outline: none;
-  filter: brightness(1) contrast(1);
-}
-
-.turnbased-skill-card:hover:not(.disabled) {
-  transform: none !important;
-  filter: brightness(0.68) contrast(1.15);
-}
-
+.turnbased-skill-card:focus-within,
+.turnbased-skill-card:hover:not(.disabled),
 .turnbased-skill-card:active:not(.disabled) {
+  outline: none;
   transform: none !important;
-  filter: brightness(0.48);
+  filter: none !important;
 }
 
 .turnbased-skill-card.disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  filter: grayscale(0.7);
+  filter: grayscale(0.7) !important;
 }
 
 .turnbased-card-img {
