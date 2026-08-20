@@ -52,7 +52,7 @@ function BuffIcon() {
       height="14"
       viewBox="0 0 24 24"
       fill="none"
-      stroke="#f5c842"
+      stroke="#ffffff"
       strokeWidth="2.2"
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -172,26 +172,23 @@ export default function TurnbasedCombat() {
         setBossBuffTurns((prev) => Math.max(0, prev - 1));
       }
 
-      // Strategic AI Skill Selection logic
+      // Aggressive Strategic AI Skill Selection logic — Attacks player more frequently
       let chosenSkill: "attack" | "heal" | "defense" | "buff";
 
-      if (!isBuffActive && Math.random() < 0.7) {
-        // Priority 1: Cast buff on turn 1 or when expired
-        chosenSkill = "buff";
-      } else if (bossHp <= 45 && Math.random() < 0.75) {
-        // Priority 2: Heal when HP falls below 45%
-        chosenSkill = "heal";
-      } else if (playerHp + playerShield <= baseSkillVal && Math.random() < 0.85) {
-        // Priority 3: Attack if player is within kill range
+      if (playerHp + playerShield <= baseSkillVal && Math.random() < 0.95) {
+        // Priority 1: Finish off player if within kill range (95% chance)
         chosenSkill = "attack";
-      } else if (bossShield < 15 && playerHp > 40 && Math.random() < 0.6) {
-        // Priority 4: Shield up if boss shield is low
-        chosenSkill = "defense";
+      } else if (!isBuffActive && Math.random() < 0.65) {
+        // Priority 2: Cast buff on turn 1 or when expired to boost attack
+        chosenSkill = "buff";
+      } else if (bossHp <= 30 && Math.random() < 0.45) {
+        // Priority 3: Emergency heal only when HP drops very low (≤ 30%)
+        chosenSkill = "heal";
       } else {
-        // Priority 5: Tactical mix
+        // Priority 4: Aggressive attack focus (80% Attack, 12% Defense, 8% Heal)
         const roll = Math.random();
-        if (roll < 0.55) chosenSkill = "attack";
-        else if (roll < 0.8) chosenSkill = "defense";
+        if (roll < 0.8) chosenSkill = "attack";
+        else if (roll < 0.92) chosenSkill = "defense";
         else chosenSkill = "heal";
       }
 
@@ -309,7 +306,7 @@ export default function TurnbasedCombat() {
               </>
             )}
             {bossBuffTurns > 0 && (
-              <span style={{ color: "#f5c842", marginLeft: "4px", fontSize: "13px" }}>
+              <span style={{ color: "#ffffff", marginLeft: "4px", fontSize: "13px" }}>
                 <BuffIcon />
                 <span>+5 ({bossBuffTurns} ตา)</span>
               </span>
