@@ -64,6 +64,57 @@ function BuffIcon() {
   );
 }
 
+function WhiteFireDust() {
+  const particles = [
+    { id: 1, left: "4%", size: 3, duration: 5.2, delay: 0.1 },
+    { id: 2, left: "11%", size: 4, duration: 6.8, delay: 1.5 },
+    { id: 3, left: "18%", size: 2, duration: 4.5, delay: 0.8 },
+    { id: 4, left: "24%", size: 5, duration: 7.1, delay: 2.2 },
+    { id: 5, left: "29%", size: 3, duration: 5.9, delay: 0.4 },
+    { id: 6, left: "35%", size: 4, duration: 6.3, delay: 3.1 },
+    { id: 7, left: "41%", size: 2, duration: 4.8, delay: 1.2 },
+    { id: 8, left: "47%", size: 5, duration: 7.5, delay: 2.7 },
+    { id: 9, left: "53%", size: 3, duration: 5.4, delay: 0.6 },
+    { id: 10, left: "59%", size: 4, duration: 6.1, delay: 1.8 },
+    { id: 11, left: "64%", size: 2, duration: 4.2, delay: 3.5 },
+    { id: 12, left: "71%", size: 5, duration: 7.8, delay: 0.3 },
+    { id: 13, left: "77%", size: 3, duration: 5.6, delay: 2.0 },
+    { id: 14, left: "83%", size: 4, duration: 6.5, delay: 1.0 },
+    { id: 15, left: "89%", size: 2, duration: 4.9, delay: 2.8 },
+    { id: 16, left: "95%", size: 5, duration: 7.2, delay: 0.5 },
+    { id: 17, left: "7%", size: 3, duration: 5.1, delay: 3.2 },
+    { id: 18, left: "15%", size: 4, duration: 6.4, delay: 2.4 },
+    { id: 19, left: "22%", size: 2, duration: 4.7, delay: 1.1 },
+    { id: 20, left: "32%", size: 5, duration: 7.9, delay: 0.7 },
+    { id: 21, left: "44%", size: 3, duration: 5.3, delay: 2.9 },
+    { id: 22, left: "56%", size: 4, duration: 6.7, delay: 1.6 },
+    { id: 23, left: "67%", size: 2, duration: 4.4, delay: 3.8 },
+    { id: 24, left: "74%", size: 5, duration: 7.0, delay: 0.2 },
+    { id: 25, left: "81%", size: 3, duration: 5.8, delay: 2.1 },
+    { id: 26, left: "88%", size: 4, duration: 6.2, delay: 1.4 },
+    { id: 27, left: "93%", size: 2, duration: 4.6, delay: 3.0 },
+    { id: 28, left: "49%", size: 4, duration: 6.9, delay: 2.5 },
+  ];
+
+  return (
+    <div className="white-fire-dust-overlay" aria-hidden="true">
+      {particles.map((p) => (
+        <div
+          key={p.id}
+          className="white-dust-ember"
+          style={{
+            left: p.left,
+            width: `${p.size}px`,
+            height: `${p.size}px`,
+            animationDuration: `${p.duration}s`,
+            animationDelay: `${p.delay}s`,
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
 export default function TurnbasedCombat() {
   const { goToMap } = useGameStore();
 
@@ -310,6 +361,9 @@ export default function TurnbasedCombat() {
     <div className="turnbased-viewport">
       {/* Background Layer — same standard VN background (vn_prologue2_bg.png) */}
       <div className="vn-bg-image turnbased-bg-image" />
+
+      {/* White Fire Dust / Floating Ambient Embers Layer */}
+      <WhiteFireDust />
 
       {/* Top Logo */}
       <div className="turnbased-top-logo">

@@ -2041,3 +2041,46 @@ body {
   transform: scale(1.05);
   background: #222222;
 }
+
+/* White Fire Dust / Embers floating overlay for final battle scene */
+.white-fire-dust-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.white-dust-ember {
+  position: absolute;
+  bottom: -20px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow:
+    0 0 6px rgba(255, 255, 255, 0.95),
+    0 0 12px rgba(255, 255, 255, 0.7),
+    0 0 20px rgba(255, 255, 255, 0.4);
+  animation: floatWhiteDust infinite linear;
+  will-change: transform, opacity;
+}
+
+@keyframes floatWhiteDust {
+  0% {
+    transform: translateY(0) translateX(0) scale(0.6);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(-50vh) translateX(25px) scale(1.1);
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-105vh) translateX(-20px) scale(0.3);
+    opacity: 0;
+  }
+}
