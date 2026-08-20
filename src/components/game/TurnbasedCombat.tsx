@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { useGameStore } from "@/store/gameStore";
 import StageFail from "./ui/StageFail";
@@ -67,16 +67,31 @@ function BuffIcon() {
 export default function TurnbasedCombat() {
   const { goToMap } = useGameStore();
 
-  // Boss (บิ๊กกุย) State — 4 skills: attack(15), heal(15), defense(15), buff(+5 for 3 turns, non-stackable)
+  // Boss (บิ๊กกุย) State — synchronized with Refs to prevent stale closures in async timeouts
   const [bossHp, setBossHp] = useState(100);
-  const bossMaxHp = 100;
-  const [bossShield, setBossShield] = useState(0);
-  const [bossBuffTurns, setBossBuffTurns] = useState(0);
+  const bossHpRef = useRef(bossHp);
+  bossHpRef.current = bossHp;
 
-  // Player (ผู้กล้าแบม) State
+  const bossMaxHp = 100;
+
+  const [bossShield, setBossShield] = useState(0);
+  const bossShieldRef = useRef(bossShield);
+  bossShieldRef.current = bossShield;
+
+  const [bossBuffTurns, setBossBuffTurns] = useState(0);
+  const bossBuffTurnsRef = useRef(bossBuffTurns);
+  bossBuffTurnsRef.current = bossBuffTurns;
+
+  // Player (ผู้กล้าแบม) State — synchronized with Refs
   const [playerHp, setPlayerHp] = useState(100);
+  const playerHpRef = useRef(playerHp);
+  playerHpRef.current = playerHp;
+
   const playerMaxHp = 100;
+
   const [playerShield, setPlayerShield] = useState(0);
+  const playerShieldRef = useRef(playerShield);
+  playerShieldRef.current = playerShield;
 
   // Speaker & Combat Text State
   const [speakerName, setSpeakerName] = useState<string>("ผู้กล้าแบม");
@@ -109,19 +124,23 @@ export default function TurnbasedCombat() {
       setHitAnimation("boss-hit");
 
       let remainingDmg = dmg;
-      let newBossShield = bossShield;
+      let currentBossShield = bossShieldRef.current;
+      let newBossShield = currentBossShield;
 
-      if (bossShield > 0) {
-        if (bossShield >= dmg) {
-          newBossShield = bossShield - dmg;
+      if (currentBossShield > 0) {
+        if (currentBossShield >= dmg) {
+          newBossShield = currentBossShield - dmg;
           remainingDmg = 0;
         } else {
-          remainingDmg = dmg - bossShield;
+          remainingDmg = dmg - currentBossShield;
           newBossShield = 0;
         }
       }
 
-      const nextBossHp = Math.max(0, bossHp - remainingDmg);
+      const nextBossHp = Math.max(0, bossHpRef.current - remainingDmg);
+
+      bossShieldRef.current = newBossShield;
+      bossHpRef.current = nextBossHp;
 
       setBossShield(newBossShield);
       setBossHp(nextBossHp);
@@ -138,11 +157,13 @@ export default function TurnbasedCombat() {
       }
     } else if (skillType === "heal") {
       const healAmt = 15;
-      const nextPlayerHp = Math.min(playerMaxHp, playerHp + healAmt);
+      const nextPlayerHp = Math.min(playerMaxHp, playerHpRef.current + healAmt);
+      playerHpRef.current = nextPlayerHp;
       setPlayerHp(nextPlayerHp);
       logMsg = `ผู้กล้าแบม ใช้การ์ดฟื้นฟู! ฟื้นฟู HP 15 แต้ม`;
     } else if (skillType === "block") {
       const shieldAmt = 20;
+      playerShieldRef.current = shieldAmt;
       setPlayerShield(shieldAmt); // Non-stackable max 20 shield
       logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน! รับเกราะป้องกัน 20 แต้ม`;
     }
@@ -166,25 +187,30 @@ export default function TurnbasedCombat() {
 
     setTimeout(() => {
       // Current buff bonus: +5 power if active (non-stackable)
-      const isBuffActive = bossBuffTurns > 0;
+      const isBuffActive = bossBuffTurnsRef.current > 0;
       const powerBoost = isBuffActive ? 5 : 0;
       const baseSkillVal = 15 + powerBoost; // 15 base or 20 if buffed
 
       // Decrement buff turn count if active
       if (isBuffActive) {
-        setBossBuffTurns((prev) => Math.max(0, prev - 1));
+        const nextBuffTurns = Math.max(0, bossBuffTurnsRef.current - 1);
+        bossBuffTurnsRef.current = nextBuffTurns;
+        setBossBuffTurns(nextBuffTurns);
       }
 
       // Aggressive Strategic AI Skill Selection logic — Attacks player more frequently
       let chosenSkill: "attack" | "heal" | "defense" | "buff";
 
-      if (playerHp + playerShield <= baseSkillVal && Math.random() < 0.95) {
+      const currentEffectivePlayerHp = playerHpRef.current + playerShieldRef.current;
+      const currentBossHp = bossHpRef.current;
+
+      if (currentEffectivePlayerHp <= baseSkillVal && Math.random() < 0.95) {
         // Priority 1: Finish off player if within kill range (95% chance)
         chosenSkill = "attack";
       } else if (!isBuffActive && Math.random() < 0.65) {
         // Priority 2: Cast buff on turn 1 or when expired to boost attack
         chosenSkill = "buff";
-      } else if (bossHp <= 30 && Math.random() < 0.45) {
+      } else if (currentBossHp <= 30 && Math.random() < 0.45) {
         // Priority 3: Emergency heal only when HP drops very low (≤ 30%)
         chosenSkill = "heal";
       } else {
@@ -200,19 +226,24 @@ export default function TurnbasedCombat() {
         setHitAnimation("player-hit");
 
         let remainingDmg = baseSkillVal;
-        let newPlayerShield = playerShield;
+        let currentShield = playerShieldRef.current;
+        let newPlayerShield = currentShield;
 
-        if (playerShield > 0) {
-          if (playerShield >= baseSkillVal) {
-            newPlayerShield = playerShield - baseSkillVal;
+        if (currentShield > 0) {
+          if (currentShield >= baseSkillVal) {
+            newPlayerShield = currentShield - baseSkillVal;
             remainingDmg = 0;
           } else {
-            remainingDmg = baseSkillVal - playerShield;
+            remainingDmg = baseSkillVal - currentShield;
             newPlayerShield = 0;
           }
         }
 
-        const nextPlayerHp = Math.max(0, playerHp - remainingDmg);
+        const currentHp = playerHpRef.current;
+        const nextPlayerHp = Math.max(0, currentHp - remainingDmg);
+
+        playerShieldRef.current = newPlayerShield;
+        playerHpRef.current = nextPlayerHp;
 
         setPlayerShield(newPlayerShield);
         setPlayerHp(nextPlayerHp);
@@ -225,17 +256,21 @@ export default function TurnbasedCombat() {
           setTimeout(() => setIsDefeat(true), 600);
         }
       } else if (chosenSkill === "heal") {
-        setBossHp((prev) => Math.min(bossMaxHp, prev + baseSkillVal));
+        const nextBossHp = Math.min(bossMaxHp, bossHpRef.current + baseSkillVal);
+        bossHpRef.current = nextBossHp;
+        setBossHp(nextBossHp);
         setCombatLog(
           `บิ๊กกุย ใช้สกิลฟื้นฟู! ฟื้นฟู HP ${baseSkillVal} แต้มแก่ตนเอง`
         );
       } else if (chosenSkill === "defense") {
-        setBossShield(baseSkillVal); // Non-stackable: sets shield to baseSkillVal
+        bossShieldRef.current = baseSkillVal;
+        setBossShield(baseSkillVal);
         setCombatLog(
           `บิ๊กกุย ใช้สกิลป้องกัน! รับเกราะป้องกัน ${baseSkillVal} แต้ม`
         );
       } else if (chosenSkill === "buff") {
         // Sets buff for 3 turns (non-stackable +5 bonus)
+        bossBuffTurnsRef.current = 3;
         setBossBuffTurns(3);
         setCombatLog(
           `บิ๊กกุย ใช้สกิลบัฟ! เพิ่มพลังสกิลทุกทักษะ +5 แต้ม เป็นเวลา 3 ตา!`
@@ -253,10 +288,15 @@ export default function TurnbasedCombat() {
   // Reset Battle
   const handleRestart = () => {
     setBossHp(100);
+    bossHpRef.current = 100;
     setBossShield(0);
+    bossShieldRef.current = 0;
     setBossBuffTurns(0);
+    bossBuffTurnsRef.current = 0;
     setPlayerHp(100);
+    playerHpRef.current = 100;
     setPlayerShield(0);
+    playerShieldRef.current = 0;
     setIsPlayerTurn(true);
     setIsAnimating(false);
     setHitAnimation(null);
