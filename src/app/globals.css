@@ -1891,14 +1891,15 @@ body {
 }
 
 .anim-boss-hit {
-  animation: bossHitShake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  animation: subtleEnemyShake 0.3s ease-in-out;
 }
 
-@keyframes bossHitShake {
-  10%, 90% { transform: translate3d(-4px, 0, 0) scale(1.05); filter: brightness(1.5) drop-shadow(0 0 16px #ff4d4f); }
-  20%, 80% { transform: translate3d(6px, 0, 0) scale(1.05); }
-  30%, 50%, 70% { transform: translate3d(-8px, 0, 0) scale(1.05); }
-  40%, 60% { transform: translate3d(8px, 0, 0) scale(1.05); }
+@keyframes subtleEnemyShake {
+  0%, 100% { transform: translateX(-50%); }
+  20%       { transform: translateX(calc(-50% - 5px)); }
+  40%       { transform: translateX(calc(-50% + 5px)); }
+  60%       { transform: translateX(calc(-50% - 3px)); }
+  80%       { transform: translateX(calc(-50% + 3px)); }
 }
 
 /* Status text using standard VN Dialogue Box layout (Placed OVER player HP, higher z-index than boss sprite) */
