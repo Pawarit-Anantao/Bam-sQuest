@@ -1908,7 +1908,7 @@ body {
   bottom: auto;
   transform: none;
   width: min(94%, 520px);
-  margin: 0 0 0.5rem 0;
+  margin: 0 0 clamp(1.5rem, 3.8vh, 2.5rem) 0;
   z-index: 35;
 }
 
