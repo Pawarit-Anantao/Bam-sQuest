@@ -43,8 +43,8 @@ export const useGameStore = create<GameState>((set, get) => ({
   enemyMaxHp: 100,
   enemyHp: 100,
 
-  // Progression — persists across stages within a session
-  unlockedLocations: [],
+  // Progression — all stages unlocked for play
+  unlockedLocations: ["tofu_mansion", "stage_2_tofu", "salmon_pool"],
 
   // ── Actions ───────────────────────────────────────────────
 
