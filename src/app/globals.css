@@ -1844,7 +1844,7 @@ body {
 
 .boss-hp-bar-wrapper {
   position: absolute;
-  top: 1.25rem;
+  top: clamp(4.2rem, 9.5dvh, 5.8rem);
   left: 50%;
   transform: translateX(-50%);
   width: min(90%, 380px);
