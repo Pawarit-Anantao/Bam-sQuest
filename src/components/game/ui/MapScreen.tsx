@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import StageSelectModal from "./StageSelectModal";
 import { useGameStore } from "@/store/gameStore";
 
 function LockIcon() {
@@ -28,6 +29,7 @@ function LockIcon() {
 export default function MapScreen() {
   const { startStage, unlockedLocations } = useGameStore();
   const [toastMessage, setToastMessage] = useState<string | null>(null);
+  const [isStageSelectOpen, setIsStageSelectOpen] = useState(false);
 
   const isTofuUnlocked = unlockedLocations.includes("tofu_mansion");
   const isSalmonUnlocked = unlockedLocations.includes("salmon_pool") || unlockedLocations.includes("stage_1");
@@ -62,16 +64,23 @@ export default function MapScreen() {
       {/* Map Background Layer — map_mobile_bg.png on Mobile, map_desktop_bg.png on Desktop */}
       <div className="map-bg-image" />
 
-      {/* Top Logo */}
+      {/* Top Logo (Click to open Stage Select Modal) */}
       <div className="map-top-logo">
-        <Image
-          src="/assets/logo/logo_negative.png"
-          alt="Logo"
-          width={219}
-          height={116}
-          className="map-logo-img"
-          priority
-        />
+        <button
+          className="map-top-logo-btn"
+          onClick={() => setIsStageSelectOpen(true)}
+          aria-label="เลือกบท / ฉากที่ต้องการเล่น"
+          title="เลือกบท / ฉากที่ต้องการเล่น"
+        >
+          <Image
+            src="/assets/logo/logo_negative.png"
+            alt="Logo"
+            width={219}
+            height={116}
+            className="map-logo-img"
+            priority
+          />
+        </button>
       </div>
 
       {/* Toast Notification */}
@@ -118,6 +127,12 @@ export default function MapScreen() {
           <span className="map-node-pulse" />
         </button>
       </div>
+
+      {/* Stage Select Modal */}
+      <StageSelectModal
+        isOpen={isStageSelectOpen}
+        onClose={() => setIsStageSelectOpen(false)}
+      />
     </div>
   );
 }

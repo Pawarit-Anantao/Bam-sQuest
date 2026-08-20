@@ -12,11 +12,15 @@ import StageFail from "./ui/StageFail";
 import MapScreen from "./ui/MapScreen";
 import Image from "next/image";
 
+import StageSelectModal from "./ui/StageSelectModal";
+
 // ─────────────────────────────────────────────────────────────
 // Game Screen — Dual Sprite VN Gameplay (Mobile & Desktop)
 // ─────────────────────────────────────────────────────────────
 export default function GameScreen() {
   const { script, currentStage, currentNodeId, phase, enemyHp } = useGameStore();
+
+  const [isStageSelectOpen, setIsStageSelectOpen] = useState(false);
 
   // Active Bam expression state
   const [activeBamSprite, setActiveBamSprite] = useState<string>("Bam_normal");
@@ -112,16 +116,23 @@ export default function GameScreen() {
             for all cutscenes and combat. Map screen uses its own bg via MapScreen component. */}
         <div className={`vn-bg-image ${isMapExploration ? "vn-bg-map" : ""}`} style={customBgStyle} />
 
-        {/* Top-left Logo (Figma node #32:75) */}
+        {/* Top-left Logo (Click to open Stage Select Modal) */}
         <div className="vn-top-logo">
-          <Image
-            src="/assets/logo/logo_negative.png"
-            alt="Logo"
-            width={219}
-            height={116}
-            className="vn-logo-img"
-            priority
-          />
+          <button
+            className="vn-top-logo-btn"
+            onClick={() => setIsStageSelectOpen(true)}
+            aria-label="เลือกบท / ฉากที่ต้องการเล่น"
+            title="เลือกบท / ฉากที่ต้องการเล่น"
+          >
+            <Image
+              src="/assets/logo/logo_negative.png"
+              alt="Logo"
+              width={219}
+              height={116}
+              className="vn-logo-img"
+              priority
+            />
+          </button>
         </div>
 
         {/* Standard Dual Character Sprites (Bam on Left, Aun on Right) — intro/prologue */}
@@ -251,6 +262,12 @@ export default function GameScreen() {
 
         {/* Fail screen (Figma node #65:131) */}
         {phase === "fail" && <StageFail />}
+
+        {/* Stage Select Modal */}
+        <StageSelectModal
+          isOpen={isStageSelectOpen}
+          onClose={() => setIsStageSelectOpen(false)}
+        />
       </div>
     </div>
   );
