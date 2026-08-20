@@ -21,7 +21,7 @@ export default function IntroScreen() {
         {/* Story Image Section */}
         <div className="intro-body">
           <Image
-            src="/assets/intro_story.png"
+            src="/assets/Story.png"
             alt="บทนำ หมาแบมไปต่างโลก"
             width={1136}
             height={4096}
