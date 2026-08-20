@@ -96,57 +96,54 @@ export default function TurnbasedCombat() {
     setIsAnimating(true);
     setSpeakerName("ผู้กล้าแบม");
     let logMsg = "";
-    let newBossHp = bossHp;
+    let isFinished = false;
 
     if (skillType === "attack") {
       const dmg = 20;
       setHitAnimation("boss-hit");
 
-      // Reduce boss shield first, remaining hits boss HP
-      setBossShield((prevShield) => {
-        let remainingDmg = dmg;
-        let newShield = prevShield;
+      let remainingDmg = dmg;
+      let newBossShield = bossShield;
 
-        if (prevShield > 0) {
-          if (prevShield >= dmg) {
-            newShield = prevShield - dmg;
-            remainingDmg = 0;
-          } else {
-            remainingDmg = dmg - prevShield;
-            newShield = 0;
-          }
+      if (bossShield > 0) {
+        if (bossShield >= dmg) {
+          newBossShield = bossShield - dmg;
+          remainingDmg = 0;
+        } else {
+          remainingDmg = dmg - bossShield;
+          newBossShield = 0;
         }
+      }
 
-        setBossHp((prevHp) => {
-          newBossHp = Math.max(0, prevHp - remainingDmg);
-          return newBossHp;
-        });
+      const nextBossHp = Math.max(0, bossHp - remainingDmg);
 
-        return newShield;
-      });
+      setBossShield(newBossShield);
+      setBossHp(nextBossHp);
 
       logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี! สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย`;
+
+      // Check Victory
+      if (nextBossHp <= 0) {
+        isFinished = true;
+        setTimeout(() => {
+          setIsVictory(true);
+          setIsAnimating(false);
+        }, 600);
+      }
     } else if (skillType === "heal") {
       const healAmt = 15;
-      const newHp = Math.min(playerMaxHp, playerHp + healAmt);
-      setPlayerHp(newHp);
+      const nextPlayerHp = Math.min(playerMaxHp, playerHp + healAmt);
+      setPlayerHp(nextPlayerHp);
       logMsg = `ผู้กล้าแบม ใช้การ์ดฟื้นฟู! ฟื้นฟู HP 15 แต้ม`;
     } else if (skillType === "block") {
       const shieldAmt = 20;
-      setPlayerShield(shieldAmt); // Non-stackable: sets shield to 20
+      setPlayerShield(shieldAmt); // Non-stackable max 20 shield
       logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน! รับเกราะป้องกัน 20 แต้ม`;
     }
 
     setCombatLog(logMsg);
 
-    // Check Victory
-    if (newBossHp <= 0) {
-      setTimeout(() => {
-        setIsVictory(true);
-        setIsAnimating(false);
-      }, 600);
-      return;
-    }
+    if (isFinished) return;
 
     // Pass turn to Boss after 0.9s
     setTimeout(() => {
@@ -196,34 +193,31 @@ export default function TurnbasedCombat() {
       if (chosenSkill === "attack") {
         setHitAnimation("player-hit");
 
-        setPlayerShield((prevShield) => {
-          let remainingDmg = baseSkillVal;
-          let newShield = prevShield;
+        let remainingDmg = baseSkillVal;
+        let newPlayerShield = playerShield;
 
-          if (prevShield > 0) {
-            if (prevShield >= baseSkillVal) {
-              newShield = prevShield - baseSkillVal;
-              remainingDmg = 0;
-            } else {
-              remainingDmg = baseSkillVal - prevShield;
-              newShield = 0;
-            }
+        if (playerShield > 0) {
+          if (playerShield >= baseSkillVal) {
+            newPlayerShield = playerShield - baseSkillVal;
+            remainingDmg = 0;
+          } else {
+            remainingDmg = baseSkillVal - playerShield;
+            newPlayerShield = 0;
           }
+        }
 
-          setPlayerHp((prevHp) => {
-            const newHp = Math.max(0, prevHp - remainingDmg);
-            if (newHp <= 0) {
-              setTimeout(() => setIsDefeat(true), 600);
-            }
-            return newHp;
-          });
+        const nextPlayerHp = Math.max(0, playerHp - remainingDmg);
 
-          return newShield;
-        });
+        setPlayerShield(newPlayerShield);
+        setPlayerHp(nextPlayerHp);
 
         setCombatLog(
           `บิ๊กกุย ใช้สกิลโจมตี! สร้างความเสียหาย ${baseSkillVal} แต้มแก่ ผู้กล้าแบม`
         );
+
+        if (nextPlayerHp <= 0) {
+          setTimeout(() => setIsDefeat(true), 600);
+        }
       } else if (chosenSkill === "heal") {
         setBossHp((prev) => Math.min(bossMaxHp, prev + baseSkillVal));
         setCombatLog(
