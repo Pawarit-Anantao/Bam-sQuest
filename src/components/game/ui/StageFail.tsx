@@ -6,10 +6,10 @@ import { useGameStore } from "@/store/gameStore";
 // StageFail Component — Game Error / Mission Failed (Figma #65:131)
 // ─────────────────────────────────────────────────────────────
 export default function StageFail() {
-  const { startStage } = useGameStore();
+  const { startStage, currentStage } = useGameStore();
 
   const handleRestart = () => {
-    startStage("intro_stage");
+    startStage(currentStage || "intro_stage");
   };
 
   return (

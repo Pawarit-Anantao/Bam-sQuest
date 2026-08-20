@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useGameStore } from "@/store/gameStore";
+import StageFail from "./ui/StageFail";
 
 function MapIcon() {
   return (
@@ -332,20 +333,8 @@ export default function TurnbasedCombat() {
         </div>
       )}
 
-      {/* ── Defeat Overlay ── */}
-      {isDefeat && (
-        <div className="turnbased-overlay defeat-overlay" role="dialog" aria-label="Defeat">
-          <div className="turnbased-modal-content">
-            <h2 className="turnbased-modal-title">พ่ายแพ้...</h2>
-            <p className="turnbased-modal-desc">
-              พลังของ บิ๊กกุย แข็งแกร่งเกินไป! ลองวางแผนการใช้การ์ดสกิลอีกครั้ง!
-            </p>
-            <button className="turnbased-modal-btn" onClick={handleRestart}>
-              ลองใหม่อีกครั้ง
-            </button>
-          </div>
-        </div>
-      )}
+      {/* ── Defeat / Game Over Overlay — Same StageFail component as other stages ── */}
+      {isDefeat && <StageFail />}
     </div>
   );
 }
