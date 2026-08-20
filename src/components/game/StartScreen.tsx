@@ -30,13 +30,13 @@ export default function StartScreen() {
         {/* 1. Background — firstpagebg_mobile.png at opacity 0.20 */}
         <div className="ss-bg-group" />
 
-        {/* Logo — /assets/logo/logo.png */}
+        {/* Logo — /assets/logo/logo.png (centered in middle of screen) */}
         <div className="ss-mob-logo">
           <Image
             src="/assets/logo/logo.png"
             alt="Bam's Quest Logo"
-            width={260}
-            height={130}
+            width={480}
+            height={240}
             className="ss-logo-img"
             priority
           />
@@ -50,24 +50,7 @@ export default function StartScreen() {
             linear-gradient(0deg, rgba(0,0,0,0.64) → transparent), starts at 54% */}
         <div className="ss-mob-bottom-fade" />
 
-        {/* 4. Scene / character image
-            Figma: x:15 y:277 w:388 h:245 on 430×932
-            → left: 3.49%  top: 29.72%  width: 90.23% */}
-        <div className="ss-mob-scene">
-          <Image
-            src="/assets/scene_character.png"
-            alt="Character scene"
-            width={388}
-            height={245}
-            className="ss-mob-scene-img"
-            priority
-          />
-        </div>
-
-        {/* 5. เริ่มเกม button
-            Figma: x:178 y:793 — center: 214/430=49.8% → left:50%
-            top: 793/932 = 85.09%
-            24px SemiBold Noto Sans Thai #000 */}
+        {/* 5. เริ่มเกม button */}
         <button
           id="btn-start-game"
           className="ss-mob-btn"
@@ -84,43 +67,28 @@ export default function StartScreen() {
           ══════════════════════════════════════════════════ */}
       <div className="ss-desktop-layout">
 
-        {/* 1. firstpagebg_desktop.png at 39% opacity
-            Visible slice: y:1027→1925 of 2819 → center ≈ 52% */}
+        {/* 1. firstpagebg_desktop.png at 39% opacity */}
         <div className="ss-dt-bg" />
 
-        {/* Logo — /assets/logo/logo.png */}
+        {/* Logo — /assets/logo/logo.png (centered in middle of screen) */}
         <div className="ss-dt-logo">
           <Image
             src="/assets/logo/logo.png"
             alt="Bam's Quest Logo"
-            width={320}
-            height={160}
+            width={720}
+            height={360}
             className="ss-logo-img"
             priority
           />
         </div>
 
-        {/* 2. Bottom dark gradient
-            top: 486/898 = 54.12%, rgba(0,0,0,0.64)→transparent */}
+        {/* 2. Bottom dark gradient */}
         <div className="ss-dt-bottom-fade" />
 
-        {/* 3. Top white gradient — 1645/898 = 183.2% tall */}
+        {/* 3. Top white gradient */}
         <div className="ss-dt-top-fade" />
 
-        {/* 4. Scene image
-            left: 254/1440=17.64%  top: 197/898=21.94%  width: 63.54% */}
-        <div className="ss-dt-scene">
-          <Image
-            src="/assets/scene_character.png"
-            alt="Character scene"
-            width={915}
-            height={578}
-            className="ss-dt-scene-img"
-            priority
-          />
-        </div>
-
-        {/* 5. เริ่มเกม — top: 809/898=90.09%, center=left:50% */}
+        {/* 5. เริ่มเกม button */}
         <button
           id="btn-start-game-desktop"
           className="ss-dt-btn"

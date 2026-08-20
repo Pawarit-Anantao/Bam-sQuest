@@ -89,26 +89,30 @@ body {
 
 .ss-mob-logo {
   position: absolute;
-  top: 6.5%;
+  top: 42%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  width: 85%;
+  max-width: 480px;
   z-index: 10;
 }
 
 .ss-dt-logo {
   position: absolute;
-  top: 5.5%;
+  top: 42%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
+  width: 60%;
+  max-width: 720px;
   z-index: 10;
 }
 
 .ss-logo-img {
-  width: clamp(160px, 22vw, 320px);
-  height: auto;
+  width: 100% !important;
+  height: auto !important;
   display: block;
   object-fit: contain;
-  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(0 12px 32px rgba(0, 0, 0, 0.25));
 }
 
 /* ── 2. Top white gradient — identical to desktop ───────────
