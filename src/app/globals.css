@@ -1854,7 +1854,10 @@ body {
 .player-hp-bar-wrapper {
   position: relative;
   width: min(90%, 380px);
-  margin-bottom: 0.5rem;
+  margin-top: 0.6rem;
+  margin-bottom: 0.2rem;
+  margin-left: auto;
+  margin-right: auto;
   z-index: 30;
 }
 

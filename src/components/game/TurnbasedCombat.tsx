@@ -224,41 +224,15 @@ export default function TurnbasedCombat() {
         />
       </div>
 
-      {/* ── Player Section & UI Overlay (Higher than enemy sprite) ── */}
+      {/* ── Player Section & UI Overlay ── */}
       <div className="turnbased-player-section">
-        {/* Status Text — Standard VN Dialogue Box (Placed directly over Player HP) */}
+        {/* Status Text — Standard VN Dialogue Box */}
         <div className="vn-dialogue-wrapper turnbased-dialogue-box">
           <div className="vn-speaker-badge">
             <span>บ่อแซลมอนวิเศษ</span>
           </div>
           <div className="vn-dialogue-card">
             <p className="vn-dialogue-text">{combatLog}</p>
-          </div>
-        </div>
-
-        {/* Player HP & Shield Bar — standard Figma combat HP bar */}
-        <div className="combat-hp-bar-wrapper player-hp-bar-wrapper" role="status" aria-label="ผู้กล้าแบม HP">
-          <div className="combat-hp-label">
-            <span className="combat-hp-name">
-              ผู้กล้าแบม
-              {playerShield > 0 && (
-                <>
-                  <ShieldIcon />
-                  <span>+{playerShield}</span>
-                </>
-              )}
-            </span>
-            <span className="combat-hp-value">{playerHp} / {playerMaxHp}</span>
-          </div>
-          <div className="combat-hp-track">
-            <div
-              className="combat-hp-fill"
-              style={{ width: `${Math.max(0, (playerHp / playerMaxHp) * 100)}%` }}
-              role="progressbar"
-              aria-valuenow={playerHp}
-              aria-valuemin={0}
-              aria-valuemax={playerMaxHp}
-            />
           </div>
         </div>
 
@@ -314,6 +288,32 @@ export default function TurnbasedCombat() {
               unoptimized
             />
           </button>
+        </div>
+
+        {/* Player HP & Shield Bar — Positioned below skill cards, centered with equal left/right margins */}
+        <div className="combat-hp-bar-wrapper player-hp-bar-wrapper" role="status" aria-label="ผู้กล้าแบม HP">
+          <div className="combat-hp-label">
+            <span className="combat-hp-name">
+              ผู้กล้าแบม
+              {playerShield > 0 && (
+                <>
+                  <ShieldIcon />
+                  <span>+{playerShield}</span>
+                </>
+              )}
+            </span>
+            <span className="combat-hp-value">{playerHp} / {playerMaxHp}</span>
+          </div>
+          <div className="combat-hp-track">
+            <div
+              className="combat-hp-fill"
+              style={{ width: `${Math.max(0, (playerHp / playerMaxHp) * 100)}%` }}
+              role="progressbar"
+              aria-valuenow={playerHp}
+              aria-valuemin={0}
+              aria-valuemax={playerMaxHp}
+            />
+          </div>
         </div>
       </div>
 
