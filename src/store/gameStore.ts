@@ -63,12 +63,13 @@ export const useGameStore = create<GameState>((set, get) => ({
   startStage: (stageId: string) => {
     const { script } = get();
     if (!script) return;
-    const stage = script[stageId];
+    const targetKey = stageId === "tofu_mansion" ? "stage_2_tofu" : stageId;
+    const stage = script[targetKey];
     if (!stage || !stage.sequence.length) return;
 
     const firstNode = stage.sequence[0];
     set({
-      currentStage: stageId,
+      currentStage: targetKey,
       enemyName: stage.enemy_name ?? "",
       enemyMaxHp: stage.enemy_max_hp ?? 100,
       enemyHp: stage.enemy_max_hp ?? 100,
@@ -86,9 +87,12 @@ export const useGameStore = create<GameState>((set, get) => ({
     if (!targetId) {
       // ── End of sequence ──────────────────────────────────
       if (currentStage === "stage_1_noble_nueng") {
-        // Noble stage: no win screen — after last dialogue, go back to map
-        // คฤหาสน์โทฟุ unlocked as reward for defeating ขุนนางหนึ่ง
+        // Noble stage: unlock tofu_mansion and return to map
         get().unlockLocation("tofu_mansion");
+        set({ phase: "map" });
+      } else if (currentStage === "stage_2_tofu") {
+        // Tofu stage: unlock salmon_pool and return to map
+        get().unlockLocation("salmon_pool");
         set({ phase: "map" });
       } else if (enemyHp <= 0) {
         // Other combat stages: show win screen
@@ -115,8 +119,8 @@ export const useGameStore = create<GameState>((set, get) => ({
         set({ phase: "fail" });
         return;
       }
-      // enter_combat_scene: advance to next node (visual transition handled by GameScreen)
-      if (actionNode.action === "enter_combat_scene") {
+      // enter_combat_scene / end_combat_scene: advance to next node
+      if (actionNode.action === "enter_combat_scene" || actionNode.action === "end_combat_scene") {
         const afterId = getNextLinearId(script, currentStage, targetId);
         if (!afterId) return;
         const afterNode = getNodeById(script, currentStage, afterId);

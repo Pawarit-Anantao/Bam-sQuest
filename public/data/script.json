@@ -513,5 +513,167 @@
         "text": "เค"
       }
     ]
+  },
+  "stage_2_tofu": {
+    "enemy_name": "โทฟุ",
+    "enemy_max_hp": 100,
+    "enemy_sprite": "tofu.png",
+    "background": "vn_prologue2_bg.png",
+    "sequence": [
+      {
+        "id": "seq_01",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ยินดีต้อนรับ ท่านอ้วนและไอหมาแบม"
+      },
+      {
+        "id": "seq_02",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "มาที่นี่ ต้องการอะไร"
+      },
+      {
+        "id": "seq_03",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ถ้าอยากมาเกลี้ยกล่อมให้ข้ากลับไปอยุ่ด้วย ไม่มีทางนะฟุบอกเลย"
+      },
+      {
+        "id": "seq_04",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "เจ้านายใหม่เลี้ยงฟุดีมาก ไม่เหมือนหมาแบม"
+      },
+      {
+        "id": "seq_05",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ฟุได้กินอิ่ม นอนหลับสบาย และมีคนลูบเสมอ ฟุมีความสุขมาก"
+      },
+      {
+        "id": "seq_06",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ท่านโทฟุ อย่าไปหลงกลบิ๊กกุยมันนะครับ เจ้าบิ๊กกุยมันกำลังทำให้ดินแดนของเราล่มจมครับ"
+      },
+      {
+        "id": "seq_07",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "มันยึดบ่อแซลมอนวิเศษไป ทำให้ต่อไปประชาชนของเราจะไม่มีแซลมอนอร่อย ๆ กินอยู่แล้ว"
+      },
+      {
+        "id": "seq_08",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ฟุต้องสนใจมั้ยเนี่ย ฟุชอบกินแค่อาห... อุ่ย เกือบหลุดปาก"
+      },
+      {
+        "id": "seq_09",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ฟุก็ไม่ได้เกียดแบมนะ งั้นถ้าแบมเอาใจฟุได้ ฟุจะยอมไปด้วยละกัน"
+      },
+      {
+        "id": "seq_10",
+        "type": "action",
+        "action": "enter_combat_scene"
+      },
+      {
+        "id": "seq_11_quiz",
+        "type": "quiz",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ถ้าแบมต้องเกาฟุ แบมห้ามจับตรงไหน!!",
+        "choices": [
+          { "text": "พุง", "is_correct": false, "damage": 0, "next_id": "seq_11_quiz" },
+          { "text": "มือ", "is_correct": true, "damage": 34, "next_id": "seq_12" },
+          { "text": "หัว", "is_correct": false, "damage": 0, "next_id": "seq_11_quiz" },
+          { "text": "หาง", "is_correct": false, "damage": 0, "next_id": "seq_11_quiz" }
+        ]
+      },
+      {
+        "id": "seq_12",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "หึ หึ หึ โอเค ฟุถุกใจ"
+      },
+      {
+        "id": "seq_13",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "แต่แค่นี้ไม่พอนะ"
+      },
+      {
+        "id": "seq_14_quiz",
+        "type": "quiz",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "บ้านเกิดของฟุอยู่ที่ไหน ตอบให้ชื่นใจซิ",
+        "choices": [
+          { "text": "เมืองเวเนซุส", "is_correct": false, "damage": 0, "next_id": "seq_14_quiz" },
+          { "text": "อาณาจักรราชเทบุส", "is_correct": false, "damage": 0, "next_id": "seq_14_quiz" },
+          { "text": "เมืองไดมอนุส", "is_correct": true, "damage": 33, "next_id": "seq_15" },
+          { "text": "อาณาจักรพญาทุส", "is_correct": false, "damage": 0, "next_id": "seq_14_quiz" }
+        ]
+      },
+      {
+        "id": "seq_15",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "หืม เก่งมาก ฟุเริ่มถูกใจ"
+      },
+      {
+        "id": "seq_16_quiz",
+        "type": "quiz",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "แล้วถ้าจะให้อาหารฟุ ฟุอยากกินอะไร!!",
+        "choices": [
+          { "text": "ปลาทู", "is_correct": false, "damage": 0, "next_id": "seq_16_quiz" },
+          { "text": "ข้าวคลุก", "is_correct": false, "damage": 0, "next_id": "seq_16_quiz" },
+          { "text": "อาหารเม็ด", "is_correct": true, "damage": 33, "next_id": "seq_17" },
+          { "text": "แมงสาป", "is_correct": false, "damage": 0, "next_id": "seq_16_quiz" }
+        ]
+      },
+      {
+        "id": "seq_17",
+        "type": "action",
+        "action": "end_combat_scene"
+      },
+      {
+        "id": "seq_18",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "อาเง ฟุพอใจมาก ฟุจะเดินทางไปด้วยละกัน"
+      },
+      {
+        "id": "seq_19",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "แบมอย่าลืมให้ข้าวฟุบ่อย ๆ ด้วยนะ"
+      },
+      {
+        "id": "seq_20",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "ได้เลยหมาฟุ"
+      }
+    ]
   }
 }

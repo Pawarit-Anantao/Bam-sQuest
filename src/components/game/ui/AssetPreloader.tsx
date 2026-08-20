@@ -44,6 +44,16 @@ const STAGE_ASSETS: Record<string, string[]> = {
     "/assets/1.png",
     "/assets/logo/logo_negative.png",
   ],
+  stage_2_tofu: [
+    "/assets/vn_prologue2_bg.png",
+    "/assets/Bam_sprites/Bam_normal.png",
+    "/assets/Bam_sprites/Bam_smile.png",
+    "/assets/Bam_sprites/Bam_badsmile.png",
+    "/assets/Bam_sprites/Bam_angry.png",
+    "/assets/aun.png",
+    "/assets/tofu.png",
+    "/assets/logo/logo_negative.png",
+  ],
 };
 
 interface AssetPreloaderProps {

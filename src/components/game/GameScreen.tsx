@@ -33,26 +33,6 @@ export default function GameScreen() {
   const stage = script?.[currentStage];
   const currentNode = stage?.sequence.find((n) => n.id === currentNodeId);
 
-  const isNobleStage = currentStage === "stage_1_noble_nueng";
-
-  // Detect when we pass seq_14 (enter_combat_scene) — once quiz/combat nodes appear
-  useEffect(() => {
-    if (!isNobleStage) {
-      combatEnteredRef.current = false;
-      setInCombatScene(false);
-      return;
-    }
-    // Nodes after enter_combat_scene start from seq_15
-    const combatNodeIds = [
-      "seq_15", "seq_16", "seq_17_quiz", "seq_18", "seq_19",
-      "seq_20_quiz", "seq_21", "seq_22", "seq_23_quiz", "seq_24",
-      "seq_25", "seq_26",
-    ];
-    const entered = combatNodeIds.includes(currentNodeId);
-    combatEnteredRef.current = entered;
-    setInCombatScene(entered);
-  }, [isNobleStage, currentNodeId]);
-
   const isWin = phase === "win";
   const isQuiz = phase === "quiz";
   const isDialogue = phase === "dialogue" && currentNode?.type === "dialogue";
@@ -69,25 +49,33 @@ export default function GameScreen() {
     }
   }, [dialogueNode]);
 
+  const isNobleStage = currentStage === "stage_1_noble_nueng";
+  const isTofuStage = currentStage === "stage_2_tofu" || currentStage === "tofu_mansion";
+
   // Is Aun active speaker?
   const isAunActive = speaker === "อ้วน";
   // Is Bam active speaker?
   const isBamActive = speaker === "แบม";
   // Is Noble active speaker?
   const isNobleActive = speaker === "ขุนนางหนึ่ง";
+  // Is Tofu active speaker?
+  const isTofuActive = speaker === "โทฟุ";
 
-  // Determine if we are actively in combat (requires enemyHp > 0)
-  const isCombatScene = enemyHp > 0 && (isQuiz || (isNobleStage && inCombatScene));
+  // Determine if we are actively in combat (requires enemyHp > 0 and quiz)
+  const isCombatScene = enemyHp > 0 && isQuiz;
 
   // Standard Dual Character Sprites (Bam & Aun) — show during non-combat cutscenes (intro/exploration)
   const showVnSprites =
     !isCombatScene &&
     (currentStage === "intro_stage" ||
       currentStage === "stage_1_exploration" ||
-      (isDialogue && !isNobleStage));
+      (isDialogue && !isNobleStage && !isTofuStage));
 
   // Noble stage conversation sprites (Bam & Noble) — show before entering combat AND after enemy HP is out (0)
   const showNoblePrecombatSprites = !isCombatScene && isNobleStage && isDialogue;
+
+  // Tofu stage conversation sprites (Bam & Tofu) — show during dialogue scenes
+  const showTofuPrecombatSprites = !isCombatScene && isTofuStage && isDialogue;
 
   const isMapExploration = currentStage === "stage_1_exploration";
 
@@ -207,6 +195,48 @@ export default function GameScreen() {
               <Image
                 src="/assets/1.png"
                 alt="ขุนนางหนึ่ง"
+                width={509}
+                height={771}
+                className="vn-sprite-img"
+                style={{ width: "auto", height: "100%" }}
+                unoptimized
+                priority
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Tofu Stage Pre-Combat: Bam (left) + Tofu (right) */}
+        {showTofuPrecombatSprites && (
+          <div className="vn-dual-sprites-container">
+            {/* Left Sprite: Bam */}
+            <div
+              className={`vn-sprite-wrapper vn-sprite-left ${
+                isBamActive ? "active" : isTofuActive || isAunActive ? "inactive" : "neutral"
+              }`}
+            >
+              <Image
+                key={activeBamSprite}
+                src={`/assets/Bam sprites/${activeBamSprite}.png`}
+                alt="แบม"
+                width={509}
+                height={771}
+                className="vn-sprite-img"
+                style={{ width: "auto", height: "100%" }}
+                unoptimized
+                priority
+              />
+            </div>
+
+            {/* Right Sprite: โทฟุ (tofu.png) */}
+            <div
+              className={`vn-sprite-wrapper vn-sprite-right ${
+                isTofuActive || isAunActive ? "active" : isBamActive ? "inactive" : "neutral"
+              }`}
+            >
+              <Image
+                src="/assets/tofu.png"
+                alt="โทฟุ"
                 width={509}
                 height={771}
                 className="vn-sprite-img"

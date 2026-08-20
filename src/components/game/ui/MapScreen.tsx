@@ -47,9 +47,7 @@ export default function MapScreen() {
       startStage("stage_1_noble_nueng");
     } else if (id === "tofu_mansion") {
       if (isTofuUnlocked) {
-        // TODO: navigate to tofu mansion stage when built
-        setToastMessage(`"${name}" กำลังจะมาเร็ว ๆ นี้!`);
-        setTimeout(() => setToastMessage(null), 3000);
+        startStage("stage_2_tofu");
       } else {
         setToastMessage(`"${name}" ยังไม่ปลดล็อก — ชนะ ปราสาทขุนนางหนึ่ง ก่อน`);
         setTimeout(() => setToastMessage(null), 3500);
