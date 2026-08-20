@@ -1,0 +1,282 @@
+"use client";
+
+import { useState } from "react";
+import Image from "next/image";
+import { useGameStore } from "@/store/gameStore";
+
+export default function TurnbasedCombat() {
+  const { goToMap } = useGameStore();
+
+  // Turn-based Combat State
+  const [bossHp, setBossHp] = useState(100);
+  const bossMaxHp = 100;
+
+  const [playerHp, setPlayerHp] = useState(100);
+  const playerMaxHp = 100;
+
+  const [playerShield, setPlayerShield] = useState(0);
+
+  const [isPlayerTurn, setIsPlayerTurn] = useState(true);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [hitAnimation, setHitAnimation] = useState<"boss-hit" | "player-hit" | null>(null);
+
+  const [combatLog, setCombatLog] = useState<string>("ตาของคุณ! เลือกการ์ดสกิลเพื่อต่อสู้กับบิ๊กกุย");
+
+  const [isVictory, setIsVictory] = useState(false);
+  const [isDefeat, setIsDefeat] = useState(false);
+
+  // Player action handler
+  const handleUseSkill = (skillType: "attack" | "heal" | "block") => {
+    if (!isPlayerTurn || isAnimating || isVictory || isDefeat) return;
+
+    setIsAnimating(true);
+    let logMsg = "";
+    let newBossHp = bossHp;
+
+    if (skillType === "attack") {
+      const dmg = 20;
+      newBossHp = Math.max(0, bossHp - dmg);
+      setBossHp(newBossHp);
+      setHitAnimation("boss-hit");
+      logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี ⚔️ สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย!`;
+    } else if (skillType === "heal") {
+      const healAmt = 15;
+      const newHp = Math.min(playerMaxHp, playerHp + healAmt);
+      setPlayerHp(newHp);
+      logMsg = `ผู้กล้าแบม ใช้การ์ดฟื้นฟู 💖 ฟื้นฟู HP 15 แต้ม!`;
+    } else if (skillType === "block") {
+      const shieldAmt = 20;
+      setPlayerShield((prev) => prev + shieldAmt);
+      logMsg = `ผู้กล้าแบม ใช้การ์ดป้องกัน 🛡️ เพิ่มเกราะป้องกัน 20 แต้ม!`;
+    }
+
+    setCombatLog(logMsg);
+
+    // Check Victory
+    if (newBossHp <= 0) {
+      setTimeout(() => {
+        setIsVictory(true);
+        setIsAnimating(false);
+      }, 600);
+      return;
+    }
+
+    // Pass turn to Boss after 0.8s
+    setTimeout(() => {
+      setHitAnimation(null);
+      setIsPlayerTurn(false);
+      executeBossTurn(newBossHp);
+    }, 900);
+  };
+
+  // Boss (บิ๊กกุย) AI turn
+  const executeBossTurn = (currentBossHp: number) => {
+    setCombatLog("ตาของ บิ๊กกุย กำลังเตรียมโจมตี...");
+
+    setTimeout(() => {
+      const bossDmg = 20;
+      setHitAnimation("player-hit");
+
+      setPlayerShield((prevShield) => {
+        let remainingDmg = bossDmg;
+        let newShield = prevShield;
+
+        if (prevShield > 0) {
+          if (prevShield >= bossDmg) {
+            newShield = prevShield - bossDmg;
+            remainingDmg = 0;
+          } else {
+            remainingDmg = bossDmg - prevShield;
+            newShield = 0;
+          }
+        }
+
+        setPlayerHp((prevHp) => {
+          const newHp = Math.max(0, prevHp - remainingDmg);
+          if (newHp <= 0) {
+            setTimeout(() => setIsDefeat(true), 600);
+          }
+          return newHp;
+        });
+
+        return newShield;
+      });
+
+      setCombatLog(`บิ๊กกุย ใช้ หมัดมหาพรหม! โจมตีผู้กล้าแบม ${bossDmg} แต้ม!`);
+
+      setTimeout(() => {
+        setHitAnimation(null);
+        setIsPlayerTurn(true);
+        setIsAnimating(false);
+      }, 900);
+    }, 1000);
+  };
+
+  // Reset Battle
+  const handleRestart = () => {
+    setBossHp(100);
+    setPlayerHp(100);
+    setPlayerShield(0);
+    setIsPlayerTurn(true);
+    setIsAnimating(false);
+    setHitAnimation(null);
+    setCombatLog("ตาของคุณ! เลือกการ์ดสกิลเพื่อต่อสู้กับบิ๊กกุย");
+    setIsVictory(false);
+    setIsDefeat(false);
+  };
+
+  return (
+    <div className="turnbased-viewport">
+      {/* Background Layer */}
+      <div className="turnbased-bg-image" />
+
+      {/* Top Logo */}
+      <div className="turnbased-top-logo">
+        <Image
+          src="/assets/logo/logo_negative.png"
+          alt="Logo"
+          width={219}
+          height={116}
+          className="turnbased-logo-img"
+          priority
+        />
+      </div>
+
+      {/* ── Boss (บิ๊กกุย) Section ── */}
+      <div className="turnbased-boss-container">
+        {/* Boss HP Bar */}
+        <div className="turnbased-hp-card boss-hp-card">
+          <div className="turnbased-hp-label">
+            <span className="turnbased-speaker-name">บิ๊กกุย</span>
+            <span className="turnbased-hp-num">{bossHp} / {bossMaxHp}</span>
+          </div>
+          <div className="turnbased-hp-track">
+            <div
+              className="turnbased-hp-fill boss-hp-fill"
+              style={{ width: `${(bossHp / bossMaxHp) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* Boss Sprite (pha.png) with Hit Animation */}
+        <div className={`turnbased-boss-sprite-wrapper ${hitAnimation === "boss-hit" ? "anim-boss-hit" : ""}`}>
+          <Image
+            src="/assets/pha.png"
+            alt="บิ๊กกุย"
+            width={529}
+            height={749}
+            className="turnbased-boss-img"
+            priority
+            unoptimized
+          />
+        </div>
+      </div>
+
+      {/* ── Combat Log Banner ── */}
+      <div className="turnbased-log-banner">
+        <span className="turnbased-log-text">{combatLog}</span>
+      </div>
+
+      {/* ── Player (ผู้กล้าแบม) Section ── */}
+      <div className="turnbased-player-section">
+        {/* Player HP & Shield Bar */}
+        <div className="turnbased-hp-card player-hp-card">
+          <div className="turnbased-hp-label">
+            <span className="turnbased-speaker-name">ผู้กล้าแบม {playerShield > 0 && `🛡️+${playerShield}`}</span>
+            <span className="turnbased-hp-num">{playerHp} / {playerMaxHp}</span>
+          </div>
+          <div className="turnbased-hp-track">
+            <div
+              className="turnbased-hp-fill player-hp-fill"
+              style={{ width: `${(playerHp / playerMaxHp) * 100}%` }}
+            />
+          </div>
+        </div>
+
+        {/* ── 3 Skill Cards Container (Figma node #76:207, #76:208, #76:209) ── */}
+        <div className="turnbased-skills-container">
+          {/* Card 1: Heal 15 */}
+          <button
+            className={`turnbased-skill-card ${!isPlayerTurn || isAnimating ? "disabled" : ""}`}
+            onClick={() => handleUseSkill("heal")}
+            disabled={!isPlayerTurn || isAnimating}
+            aria-label="การ์ดฟื้นฟู 15 HP"
+          >
+            <Image
+              src="/assets/skills/heal 15.png"
+              alt="Heal 15"
+              width={122}
+              height={267}
+              className="turnbased-card-img"
+              unoptimized
+            />
+          </button>
+
+          {/* Card 2: Attack 20 */}
+          <button
+            className={`turnbased-skill-card ${!isPlayerTurn || isAnimating ? "disabled" : ""}`}
+            onClick={() => handleUseSkill("attack")}
+            disabled={!isPlayerTurn || isAnimating}
+            aria-label="การ์ดโจมตี 20 Damage"
+          >
+            <Image
+              src="/assets/skills/attack 20.png"
+              alt="Attack 20"
+              width={122}
+              height={267}
+              className="turnbased-card-img"
+              unoptimized
+            />
+          </button>
+
+          {/* Card 3: Block 20 */}
+          <button
+            className={`turnbased-skill-card ${!isPlayerTurn || isAnimating ? "disabled" : ""}`}
+            onClick={() => handleUseSkill("block")}
+            disabled={!isPlayerTurn || isAnimating}
+            aria-label="การ์ดป้องกัน 20 Shield"
+          >
+            <Image
+              src="/assets/skills/block 20.png"
+              alt="Block 20"
+              width={122}
+              height={267}
+              className="turnbased-card-img"
+              unoptimized
+            />
+          </button>
+        </div>
+      </div>
+
+      {/* ── Victory Overlay ── */}
+      {isVictory && (
+        <div className="turnbased-overlay victory-overlay" role="dialog" aria-label="Victory">
+          <div className="turnbased-modal-content">
+            <h2 className="turnbased-modal-title">🎉 ชัยชนะสุดยิ่งใหญ่!</h2>
+            <p className="turnbased-modal-desc">
+              ผู้กล้าแบม ปราบ บิ๊กกุย ได้สำเร็จและทวงคืนบ่อแซลมอนวิเศษให้แก่กุยโทเปีย!
+            </p>
+            <button className="turnbased-modal-btn" onClick={goToMap}>
+              กลับสู่แผนที่
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Defeat Overlay ── */}
+      {isDefeat && (
+        <div className="turnbased-overlay defeat-overlay" role="dialog" aria-label="Defeat">
+          <div className="turnbased-modal-content">
+            <h2 className="turnbased-modal-title">💥 พ่ายแพ้...</h2>
+            <p className="turnbased-modal-desc">
+              พลังของ บิ๊กกุย แข็งแกร่งเกินไป! ลองวางแผนการใช้การ์ดสกิลอีกครั้ง!
+            </p>
+            <button className="turnbased-modal-btn" onClick={handleRestart}>
+              ลองใหม่อีกครั้ง
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

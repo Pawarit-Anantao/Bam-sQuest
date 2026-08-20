@@ -13,6 +13,7 @@ import MapScreen from "./ui/MapScreen";
 import Image from "next/image";
 
 import StageSelectModal from "./ui/StageSelectModal";
+import TurnbasedCombat from "./TurnbasedCombat";
 
 // ─────────────────────────────────────────────────────────────
 // Game Screen — Dual Sprite VN Gameplay (Mobile & Desktop)
@@ -93,6 +94,11 @@ export default function GameScreen() {
 
   if (phase === "map") {
     return <MapScreen />;
+  }
+
+  // Final Stage: บ่อแซลมอนวิเศษ — Turn-Based Boss Battle against บิ๊กกุย (pha.png)
+  if (currentStage === "salmon_pool") {
+    return <TurnbasedCombat />;
   }
 
   return (

@@ -675,5 +675,18 @@
         "text": "ได้เลยหมาฟุ"
       }
     ]
+  },
+  "salmon_pool": {
+    "enemy_name": "บิ๊กกุย",
+    "enemy_max_hp": 100,
+    "enemy_sprite": "pha.png",
+    "background": "bg_desktop.png",
+    "sequence": [
+      {
+        "id": "seq_01_combat",
+        "type": "action",
+        "action": "turnbased_combat"
+      }
+    ]
   }
 }

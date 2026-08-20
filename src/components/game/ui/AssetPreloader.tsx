@@ -54,6 +54,14 @@ const STAGE_ASSETS: Record<string, string[]> = {
     "/assets/tofu.png",
     "/assets/logo/logo_negative.png",
   ],
+  salmon_pool: [
+    "/assets/bg_desktop.png",
+    "/assets/pha.png",
+    "/assets/skills/heal 15.png",
+    "/assets/skills/attack 20.png",
+    "/assets/skills/block 20.png",
+    "/assets/logo/logo_negative.png",
+  ],
 };
 
 interface AssetPreloaderProps {
