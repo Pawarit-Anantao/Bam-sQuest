@@ -373,10 +373,11 @@ export default function TurnbasedCombat() {
           `บิ๊กกุย ใช้สกิลฟื้นฟู! ฟื้นฟู HP ${baseSkillVal} แต้มแก่ตนเอง`
         );
       } else if (chosenSkill === "defense") {
-        bossShieldRef.current = baseSkillVal;
-        setBossShield(baseSkillVal);
+        const nextShield = bossShieldRef.current + baseSkillVal;
+        bossShieldRef.current = nextShield;
+        setBossShield(nextShield);
         setCombatLog(
-          `บิ๊กกุย ใช้สกิลป้องกัน! รับเกราะป้องกัน ${baseSkillVal} แต้ม`
+          `บิ๊กกุย ใช้สกิลป้องกัน! เพิ่มเกราะป้องกัน ${baseSkillVal} แต้ม`
         );
       } else if (chosenSkill === "buff") {
         // Sets buff for 3 turns (non-stackable +5 bonus)
@@ -478,6 +479,16 @@ export default function TurnbasedCombat() {
             aria-valuemin={0}
             aria-valuemax={bossMaxHp}
           />
+        </div>
+
+        {/* 3 White Boxes Ultimate Skill Charger — Prominently displayed under HP track */}
+        <div className="boss-ult-bar-row" title={`Ultimate Charge: ${bossUltCharge}/3`}>
+          <span className="boss-ult-bar-text">ไม้ตาย:</span>
+          <div className="boss-ult-boxes-row">
+            <div className={`boss-ult-box ${bossUltCharge >= 1 ? "filled" : ""}`} />
+            <div className={`boss-ult-box ${bossUltCharge >= 2 ? "filled" : ""}`} />
+            <div className={`boss-ult-box ${bossUltCharge >= 3 ? "filled full" : ""}`} />
+          </div>
         </div>
       </div>
 
