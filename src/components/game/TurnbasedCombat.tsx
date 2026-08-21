@@ -432,8 +432,27 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
     }, 900);
   };
 
+  // Secret Cheat Code: Click top-left logo 3 times to win immediately against บิ๊กกุย!
+  const secretClickCountRef = useRef(0);
+  const handleSecretLogoClick = () => {
+    secretClickCountRef.current += 1;
+    if (secretClickCountRef.current >= 3) {
+      secretClickCountRef.current = 0;
+      bossHpRef.current = 0;
+      bossShieldRef.current = 0;
+      setBossHp(0);
+      setBossShield(0);
+      setCombatLog("ปลดล็อกรหัสลับ! ผู้กล้าแบม เอาชนะ บิ๊กกุย ทันที!");
+      setTimeout(() => {
+        setIsVictory(true);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+
   // Reset Battle
   const handleRestart = () => {
+    secretClickCountRef.current = 0;
     setBossHp(100);
     bossHpRef.current = 100;
     setBossShield(0);
@@ -465,8 +484,15 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
       {/* White Fire Dust / Floating Ambient Embers Layer */}
       <WhiteFireDust />
 
-      {/* Top Logo */}
-      <div className="turnbased-top-logo">
+      {/* Top Logo (Secret win: click 3 times) */}
+      <div
+        className="turnbased-top-logo"
+        onClick={handleSecretLogoClick}
+        style={{ cursor: "pointer" }}
+        role="button"
+        tabIndex={0}
+        aria-label="Secret win button"
+      >
         <Image
           src="/assets/logo/logo_negative.png"
           alt="Logo"
