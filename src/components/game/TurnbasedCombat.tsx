@@ -267,13 +267,13 @@ export default function TurnbasedCombat() {
         const isUltHeal = !canFinishPlayer && currentBossHp <= 50;
 
         if (isUltHeal) {
-          const ultHeal = 30;
+          const ultHeal = 40;
           const nextBossHp = Math.min(bossMaxHp, currentBossHp + ultHeal);
           bossHpRef.current = nextBossHp;
           setBossHp(nextBossHp);
 
           setCombatLog(
-            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 30 แต้มมหาศาล!`
+            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 40 แต้มมหาศาล!`
           );
         } else {
           setHitAnimation("player-hit");
