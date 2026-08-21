@@ -123,8 +123,21 @@ export const useGameStore = create<GameState>((set, get) => ({
         set({ phase: "fail" });
         return;
       }
-      // enter_combat_scene or end_combat_scene: advance automatically to next node in sequence
-      if (actionNode.action === "enter_combat_scene" || actionNode.action === "end_combat_scene") {
+      // enter_combat_scene: trigger combat scene view for boss stage, advance automatically for quiz stages
+      if (actionNode.action === "enter_combat_scene") {
+        if (currentStage === "salmon_pool" || currentStage === "stage_3_boss_biggui") {
+          set({ currentNodeId: targetId, phase: "action" });
+          return;
+        }
+        const afterId = getNextLinearId(script, currentStage, targetId);
+        if (!afterId) return;
+        const afterNode = getNodeById(script, currentStage, afterId);
+        if (!afterNode) return;
+        set({ currentNodeId: afterId, phase: resolvePhase(afterNode) });
+        return;
+      }
+      // end_combat_scene: advance automatically to next node in sequence
+      if (actionNode.action === "end_combat_scene") {
         const afterId = getNextLinearId(script, currentStage, targetId);
         if (!afterId) return;
         const afterNode = getNodeById(script, currentStage, afterId);
