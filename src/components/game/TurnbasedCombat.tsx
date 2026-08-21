@@ -123,11 +123,11 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
   const { goToMap } = useGameStore();
 
   // Boss (บิ๊กกุย) State — synchronized with Refs to prevent stale closures in async timeouts
-  const [bossHp, setBossHp] = useState(200);
+  const [bossHp, setBossHp] = useState(100);
   const bossHpRef = useRef(bossHp);
   bossHpRef.current = bossHp;
 
-  const bossMaxHp = 200;
+  const bossMaxHp = 100;
 
   const [bossShield, setBossShield] = useState(0);
   const bossShieldRef = useRef(bossShield);
@@ -434,8 +434,8 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
 
   // Reset Battle
   const handleRestart = () => {
-    setBossHp(200);
-    bossHpRef.current = 200;
+    setBossHp(100);
+    bossHpRef.current = 100;
     setBossShield(0);
     bossShieldRef.current = 0;
     setBossBuffTurns(0);
@@ -667,8 +667,29 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
         </div>
       )}
 
-      {/* ── Defeat / Game Over Overlay — Same StageFail component as other stages ── */}
-      {isDefeat && <StageFail />}
+      {/* ── Defeat / Game Over Overlay — Custom defeat modal connected to handleRestart ── */}
+      {isDefeat && (
+        <div className="fail-backdrop" role="dialog" aria-modal="true" aria-label="ภารกิจล้มเหลว">
+          <div className="fail-content">
+            <h1 className="fail-title">ภารกิจล้มเหลว</h1>
+            <p className="fail-description">
+              แบมพ่ายแพ้ต่อความขี้เกียจ อ้วนไม่สามารถทวงอาณาจักรกลับมาได้
+              <br />
+              กุยแลนด์ยังคงต้องการผู้กล้าต่อไป ........
+            </p>
+            <div className="fail-button-container">
+              <button
+                id="btn-fail-restart"
+                className="fail-restart-btn"
+                onClick={handleRestart}
+                aria-label="เริ่มใหม่"
+              >
+                <span>เริ่มใหม่</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
