@@ -387,7 +387,7 @@ export default function TurnbasedCombat() {
           `บิ๊กกุย ใช้สกิลฟื้นฟู! ฟื้นฟู HP ${baseSkillVal} แต้มแก่ตนเอง`
         );
       } else if (chosenSkill === "defense") {
-        const nextShield = bossShieldRef.current + baseSkillVal;
+        const nextShield = Math.min(40, bossShieldRef.current + baseSkillVal);
         bossShieldRef.current = nextShield;
         setBossShield(nextShield);
         setCombatLog(
