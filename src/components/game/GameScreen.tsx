@@ -342,11 +342,16 @@ export default function GameScreen() {
               />
             </div>
 
-            {/* Right Sprite: Current Speaker */}
+            {/* Right Sprite: Current Speaker (scaled 1.6x for บิ๊กกุย pha.png) */}
             <div
               className={`vn-sprite-wrapper vn-sprite-right ${
                 !isBamActive ? "active" : "inactive"
               }`}
+              style={
+                (getSalmonRightSprite() === "/assets/pha.png" || speaker === "บิ๊กกุย")
+                  ? { transform: "scale(1.6)", transformOrigin: "bottom center" }
+                  : undefined
+              }
             >
               <Image
                 key={getSalmonRightSprite() || "pha.png"}
