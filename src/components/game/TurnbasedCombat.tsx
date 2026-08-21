@@ -289,7 +289,7 @@ export default function TurnbasedCombat() {
           setPlayerHp(nextPlayerHp);
 
           setCombatLog(
-            `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! สร้างความเสียหาย 40 แต้มมหาศาล!`
+            `บิ๊กกุย ปลดปล่อยบังไค! สร้างความเสียหาย 40 แต้มมหาศาล!`
           );
 
           if (nextPlayerHp <= 0) {
@@ -302,7 +302,7 @@ export default function TurnbasedCombat() {
           setBossHp(nextBossHp);
 
           setCombatLog(
-            `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! ฟื้นฟู HP 40 แต้มมหาศาล!`
+            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 40 แต้มมหาศาล!`
           );
         }
 
