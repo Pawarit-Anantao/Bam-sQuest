@@ -264,20 +264,20 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
       if (bossUltChargeRef.current >= 3) {
         const currentBossHp = bossHpRef.current;
         const effectivePlayerHealth = playerHpRef.current + playerShieldRef.current;
-        const ultDmg = 40;
+        const ultDmg = 30;
 
-        // Finisher check: If 40 damage Bankai Attack can defeat the player, ignore boss HP and attack!
+        // Finisher check: If 30 damage Bankai Attack can defeat the player, ignore boss HP and attack!
         const canFinishPlayer = effectivePlayerHealth <= ultDmg;
         const isUltHeal = !canFinishPlayer && currentBossHp <= 50;
 
         if (isUltHeal) {
-          const ultHeal = 40;
+          const ultHeal = 30;
           const nextBossHp = Math.min(bossMaxHp, currentBossHp + ultHeal);
           bossHpRef.current = nextBossHp;
           setBossHp(nextBossHp);
 
           setCombatLog(
-            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 40 แต้มมหาศาล!`
+            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 30 แต้มมหาศาล!`
           );
         } else {
           setHitAnimation("player-hit");
@@ -306,7 +306,7 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
           setPlayerHp(nextPlayerHp);
 
           setCombatLog(
-            `บิ๊กกุย ปลดปล่อยบังไค! สร้างความเสียหาย 40 แต้มมหาศาล!`
+            `บิ๊กกุย ปลดปล่อยบังไค! สร้างความเสียหาย 30 แต้มมหาศาล!`
           );
 
           if (nextPlayerHp <= 0) {
