@@ -432,9 +432,9 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
     }, 900);
   };
 
-  // Secret Cheat Code: Click top-left logo 3 times to win immediately against บิ๊กกุย!
+  // Secret Cheat Code: Click บิ๊กกุย sprite 3 times to win immediately!
   const secretClickCountRef = useRef(0);
-  const handleSecretLogoClick = () => {
+  const handleSecretBossClick = () => {
     secretClickCountRef.current += 1;
     if (secretClickCountRef.current >= 3) {
       secretClickCountRef.current = 0;
@@ -484,15 +484,8 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
       {/* White Fire Dust / Floating Ambient Embers Layer */}
       <WhiteFireDust />
 
-      {/* Top Logo (Secret win: click 3 times) */}
-      <div
-        className="turnbased-top-logo"
-        onClick={handleSecretLogoClick}
-        style={{ cursor: "pointer" }}
-        role="button"
-        tabIndex={0}
-        aria-label="Secret win button"
-      >
+      {/* Top Logo */}
+      <div className="turnbased-top-logo">
         <Image
           src="/assets/logo/logo_negative.png"
           alt="Logo"
@@ -557,7 +550,14 @@ export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}
       </div>
 
       {/* Boss Sprite (pha.png) — Sits underneath UI layers (z-index: 2) so UIs overlap over it */}
-      <div className={`turnbased-boss-sprite-wrapper ${hitAnimation === "boss-hit" ? "anim-boss-hit" : ""}`}>
+      <div
+        className={`turnbased-boss-sprite-wrapper ${hitAnimation === "boss-hit" ? "anim-boss-hit" : ""}`}
+        onClick={handleSecretBossClick}
+        style={{ cursor: "pointer", pointerEvents: "auto" }}
+        role="button"
+        tabIndex={0}
+        aria-label="บิ๊กกุย sprite secret trigger"
+      >
         <Image
           src="/assets/pha.png"
           alt="บิ๊กกุย"
