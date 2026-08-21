@@ -119,11 +119,11 @@ export default function TurnbasedCombat() {
   const { goToMap } = useGameStore();
 
   // Boss (บิ๊กกุย) State — synchronized with Refs to prevent stale closures in async timeouts
-  const [bossHp, setBossHp] = useState(100);
+  const [bossHp, setBossHp] = useState(200);
   const bossHpRef = useRef(bossHp);
   bossHpRef.current = bossHp;
 
-  const bossMaxHp = 100;
+  const bossMaxHp = 200;
 
   const [bossShield, setBossShield] = useState(0);
   const bossShieldRef = useRef(bossShield);
@@ -430,8 +430,8 @@ export default function TurnbasedCombat() {
 
   // Reset Battle
   const handleRestart = () => {
-    setBossHp(100);
-    bossHpRef.current = 100;
+    setBossHp(200);
+    bossHpRef.current = 200;
     setBossShield(0);
     bossShieldRef.current = 0;
     setBossBuffTurns(0);

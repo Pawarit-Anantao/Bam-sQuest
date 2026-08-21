@@ -676,16 +676,547 @@
       }
     ]
   },
-  "salmon_pool": {
+  "stage_3_boss_biggui": {
     "enemy_name": "บิ๊กกุย",
-    "enemy_max_hp": 100,
+    "enemy_max_hp": 200,
     "enemy_sprite": "pha.png",
     "background": "vn_prologue2_bg.png",
     "sequence": [
       {
-        "id": "seq_01_combat",
+        "id": "seq_01",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "นั่นไงล่ะบิ๊กกุย"
+      },
+      {
+        "id": "seq_02",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "งืม ง่า ทำไรอะ"
+      },
+      {
+        "id": "seq_03",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "มาล้มล้างแกไงล่ะ บิ๊กกุย"
+      },
+      {
+        "id": "seq_04",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "อ่าว ไมอะ"
+      },
+      {
+        "id": "seq_05",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เพราะแกปกครอบพวกเราด้วยความโหดร้าย พวกเราจะไม่ได้กินแซลมอลอร่อย ๆ อีกต่อไปแล้ว"
+      },
+      {
+        "id": "seq_06",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แมวเด็กต้องอยู่อย่างหิวโหย"
+      },
+      {
+        "id": "seq_07",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ส่วนบิ๊กกุยอยู่อย่างสบายเหรอ ไอเวน กุยจริง ๆ"
+      },
+      {
+        "id": "seq_08",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "โอย บ่นไร"
+      },
+      {
+        "id": "seq_09",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "เบื่อมากเลย แมวเรื่องเยอะ"
+      },
+      {
+        "id": "seq_10",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "กินแซลมอนไม่ได้ก็กินซูชิสิ บ้าบอ"
+      },
+      {
+        "id": "seq_11",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "หึ้ย ไอนี่มันรูเรื่องอะไรไหมวะ"
+      },
+      {
+        "id": "seq_12",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เดี๋ยวแบมจัดการมันเอง อ้วน"
+      },
+      {
+        "id": "seq_13",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เดี๋ยวก่อนแบม"
+      },
+      {
+        "id": "seq_14",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "พวกเรามาจัดการมันมันเถอะ!"
+      },
+      {
+        "id": "seq_15",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ใช่แล้ว คนแบบนี้เราต้องสั่งสอนให้มันหลาบจำ"
+      },
+      {
+        "id": "seq_16",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ความคิดแบบนี้ ฟุชอบลงไปได้ไง"
+      },
+      {
+        "id": "seq_17",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "งืม แบมเหรอ แบมมาได้ไง"
+      },
+      {
+        "id": "seq_18",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "นึกว่าส่งไปต่างมิติแล้ว"
+      },
+      {
+        "id": "seq_19",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "พูดเรื่องอะไร เราไม่เข้าใจนะบิ๊กกุย"
+      },
+      {
+        "id": "seq_20",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "ก็ส่งผู้กล้าแบมไปต่างโลกไง"
+      },
+      {
+        "id": "seq_21",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "สลับกับอีกคนที่อ่อนกว่า"
+      },
+      {
+        "id": "seq_22",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "จะได้ชนะง่าย ๆ อิอิอิ"
+      },
+      {
+        "id": "seq_23",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แปลว่าแบมตอนนี ไม่ใช่ผู้กล้าของเรา"
+      },
+      {
+        "id": "seq_24",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ถึงว่าล่ะ ไม่มีความทรงจำ"
+      },
+      {
+        "id": "seq_25",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "ไม่เป็นไร แบมจะเตะตดูมันอง"
+      },
+      {
+        "id": "seq_26",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เข้าใจแล้วหมาแบม มาเตะตูดมันก่อน ที่เหือค่อยว่ากัน"
+      },
+      {
+        "id": "seq_27",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "เหอะ ๆ ชนะไม่ได้หรอกก๊าก ๆ"
+      },
+      {
+        "id": "seq_28",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "มาจิมาจิ"
+      },
+      {
+        "id": "seq_29",
         "type": "action",
-        "action": "turnbased_combat"
+        "action": "enter_combat_scene"
+      },
+      {
+        "id": "seq_30",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "เก่งมากนะ ชนะได้"
+      },
+      {
+        "id": "seq_31",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "แต่บิ๊กกุยยังไม่แพ้หรอก"
+      },
+      {
+        "id": "seq_32",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "ฝีมือแค่นี้ เด็ก ๆ เด็กน่อย ๆ"
+      },
+      {
+        "id": "seq_33",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "บิ๊กกุยไปและ แค่บ่อปลา หาใหม่ได้น่า"
+      },
+      {
+        "id": "seq_34",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ท่านแบม อย่าปล่อยให้มันหนีไปได้"
+      },
+      {
+        "id": "seq_35",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "โถ่เอ้ย เจ้าบิ๊กกุยหนีไปแล้ว"
+      },
+      {
+        "id": "seq_36",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เราจะไปตามจัดการเจ้าบิ๊กกุยกัน"
+      },
+      {
+        "id": "seq_37",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แต่ก่อนหน้านั้น"
+      },
+      {
+        "id": "seq_38",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เรามาจัดปาร์ตี้แซลมอนกันเถอะหมาแบม...."
+      }
+    ]
+  },
+  "salmon_pool": {
+    "enemy_name": "บิ๊กกุย",
+    "enemy_max_hp": 200,
+    "enemy_sprite": "pha.png",
+    "background": "vn_prologue2_bg.png",
+    "sequence": [
+      {
+        "id": "seq_01",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "นั่นไงล่ะบิ๊กกุย"
+      },
+      {
+        "id": "seq_02",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "งืม ง่า ทำไรอะ"
+      },
+      {
+        "id": "seq_03",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "มาล้มล้างแกไงล่ะ บิ๊กกุย"
+      },
+      {
+        "id": "seq_04",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "อ่าว ไมอะ"
+      },
+      {
+        "id": "seq_05",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เพราะแกปกครอบพวกเราด้วยความโหดร้าย พวกเราจะไม่ได้กินแซลมอลอร่อย ๆ อีกต่อไปแล้ว"
+      },
+      {
+        "id": "seq_06",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แมวเด็กต้องอยู่อย่างหิวโหย"
+      },
+      {
+        "id": "seq_07",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ส่วนบิ๊กกุยอยู่อย่างสบายเหรอ ไอเวน กุยจริง ๆ"
+      },
+      {
+        "id": "seq_08",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "โอย บ่นไร"
+      },
+      {
+        "id": "seq_09",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "เบื่อมากเลย แมวเรื่องเยอะ"
+      },
+      {
+        "id": "seq_10",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "กินแซลมอนไม่ได้ก็กินซูชิสิ บ้าบอ"
+      },
+      {
+        "id": "seq_11",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "หึ้ย ไอนี่มันรูเรื่องอะไรไหมวะ"
+      },
+      {
+        "id": "seq_12",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "เดี๋ยวแบมจัดการมันเอง อ้วน"
+      },
+      {
+        "id": "seq_13",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เดี๋ยวก่อนแบม"
+      },
+      {
+        "id": "seq_14",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "พวกเรามาจัดการมันมันเถอะ!"
+      },
+      {
+        "id": "seq_15",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ใช่แล้ว คนแบบนี้เราต้องสั่งสอนให้มันหลาบจำ"
+      },
+      {
+        "id": "seq_16",
+        "type": "dialogue",
+        "speaker": "โทฟุ",
+        "sprite": "tofu.png",
+        "text": "ความคิดแบบนี้ ฟุชอบลงไปได้ไง"
+      },
+      {
+        "id": "seq_17",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "งืม แบมเหรอ แบมมาได้ไง"
+      },
+      {
+        "id": "seq_18",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "นึกว่าส่งไปต่างมิติแล้ว"
+      },
+      {
+        "id": "seq_19",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "พูดเรื่องอะไร เราไม่เข้าใจนะบิ๊กกุย"
+      },
+      {
+        "id": "seq_20",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "ก็ส่งผู้กล้าแบมไปต่างโลกไง"
+      },
+      {
+        "id": "seq_21",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "สลับกับอีกคนที่อ่อนกว่า"
+      },
+      {
+        "id": "seq_22",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "จะได้ชนะง่าย ๆ อิอิอิ"
+      },
+      {
+        "id": "seq_23",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แปลว่าแบมตอนนี ไม่ใช่ผู้กล้าของเรา"
+      },
+      {
+        "id": "seq_24",
+        "type": "dialogue",
+        "speaker": "ขุนนางหนึ่ง",
+        "sprite": "1.png",
+        "text": "ถึงว่าล่ะ ไม่มีความทรงจำ"
+      },
+      {
+        "id": "seq_25",
+        "type": "dialogue",
+        "speaker": "แบม",
+        "sprite": "Bam_normal",
+        "text": "ไม่เป็นไร แบมจะเตะตดูมันอง"
+      },
+      {
+        "id": "seq_26",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เข้าใจแล้วหมาแบม มาเตะตูดมันก่อน ที่เหือค่อยว่ากัน"
+      },
+      {
+        "id": "seq_27",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "เหอะ ๆ ชนะไม่ได้หรอกก๊าก ๆ"
+      },
+      {
+        "id": "seq_28",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "มาจิมาจิ"
+      },
+      {
+        "id": "seq_29",
+        "type": "action",
+        "action": "enter_combat_scene"
+      },
+      {
+        "id": "seq_30",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "เก่งมากนะ ชนะได้"
+      },
+      {
+        "id": "seq_31",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "แต่บิ๊กกุยยังไม่แพ้หรอก"
+      },
+      {
+        "id": "seq_32",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "ฝีมือแค่นี้ เด็ก ๆ เด็กน่อย ๆ"
+      },
+      {
+        "id": "seq_33",
+        "type": "dialogue",
+        "speaker": "บิ๊กกุย",
+        "sprite": "pha.png",
+        "text": "บิ๊กกุยไปและ แค่บ่อปลา หาใหม่ได้น่า"
+      },
+      {
+        "id": "seq_34",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "ท่านแบม อย่าปล่อยให้มันหนีไปได้"
+      },
+      {
+        "id": "seq_35",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "โถ่เอ้ย เจ้าบิ๊กกุยหนีไปแล้ว"
+      },
+      {
+        "id": "seq_36",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เราจะไปตามจัดการเจ้าบิ๊กกุยกัน"
+      },
+      {
+        "id": "seq_37",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "แต่ก่อนหน้านั้น"
+      },
+      {
+        "id": "seq_38",
+        "type": "dialogue",
+        "speaker": "อ้วน",
+        "sprite": "aun.png",
+        "text": "เรามาจัดปาร์ตี้แซลมอนกันเถอะหมาแบม...."
       }
     ]
   }
