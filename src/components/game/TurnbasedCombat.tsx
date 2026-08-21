@@ -133,6 +133,11 @@ export default function TurnbasedCombat() {
   const bossBuffTurnsRef = useRef(bossBuffTurns);
   bossBuffTurnsRef.current = bossBuffTurns;
 
+  // Boss Ultimate Charger (0 to 3 squares). Full (3) triggers 30 damage ultimate attack!
+  const [bossUltCharge, setBossUltCharge] = useState(0);
+  const bossUltChargeRef = useRef(bossUltCharge);
+  bossUltChargeRef.current = bossUltCharge;
+
   // Player (ผู้กล้าแบม) State — synchronized with Refs
   const [playerHp, setPlayerHp] = useState(100);
   const playerHpRef = useRef(playerHp);
@@ -231,12 +236,66 @@ export default function TurnbasedCombat() {
     }, 900);
   };
 
-  // Boss (บิ๊กกุย) Strategic AI turn — Smart decision making under 4-skill set
+  // Boss (บิ๊กกุย) Strategic AI turn — Ultimate charger & 4-skill set
   const executeBossTurn = () => {
     setSpeakerName("บิ๊กกุย");
     setCombatLog("บิ๊กกุย กำลังวิเคราะห์สถานการณ์เพื่อเลือกทักษะ...");
 
     setTimeout(() => {
+      // Check if Ultimate Skill Charger is Full (3/3)
+      if (bossUltChargeRef.current >= 3) {
+        setHitAnimation("player-hit");
+        const ultDmg = 30;
+
+        let remainingDmg = ultDmg;
+        let currentShield = playerShieldRef.current;
+        let newPlayerShield = currentShield;
+
+        if (currentShield > 0) {
+          if (currentShield >= ultDmg) {
+            newPlayerShield = currentShield - ultDmg;
+            remainingDmg = 0;
+          } else {
+            remainingDmg = ultDmg - currentShield;
+            newPlayerShield = 0;
+          }
+        }
+
+        const currentHp = playerHpRef.current;
+        const nextPlayerHp = Math.max(0, currentHp - remainingDmg);
+
+        playerShieldRef.current = newPlayerShield;
+        playerHpRef.current = nextPlayerHp;
+
+        setPlayerShield(newPlayerShield);
+        setPlayerHp(nextPlayerHp);
+
+        setCombatLog(
+          `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! สร้างความเสียหาย 30 แต้มมหาศาล!`
+        );
+
+        // Reset Ultimate Charger
+        bossUltChargeRef.current = 0;
+        setBossUltCharge(0);
+
+        if (nextPlayerHp <= 0) {
+          setTimeout(() => setIsDefeat(true), 600);
+        }
+
+        setTimeout(() => {
+          setHitAnimation(null);
+          setIsPlayerTurn(true);
+          setIsAnimating(false);
+        }, 1000);
+
+        return;
+      }
+
+      // Increment Ultimate Charger by 1 on normal action turn
+      const nextUltCharge = Math.min(3, bossUltChargeRef.current + 1);
+      bossUltChargeRef.current = nextUltCharge;
+      setBossUltCharge(nextUltCharge);
+
       // Current buff bonus: +5 power if active (non-stackable)
       const isBuffActive = bossBuffTurnsRef.current > 0;
       const powerBoost = isBuffActive ? 5 : 0;
@@ -344,6 +403,8 @@ export default function TurnbasedCombat() {
     bossShieldRef.current = 0;
     setBossBuffTurns(0);
     bossBuffTurnsRef.current = 0;
+    setBossUltCharge(0);
+    bossUltChargeRef.current = 0;
     setPlayerHp(100);
     playerHpRef.current = 100;
     setPlayerShield(0);
@@ -417,6 +478,16 @@ export default function TurnbasedCombat() {
             aria-valuemin={0}
             aria-valuemax={bossMaxHp}
           />
+        </div>
+
+        {/* 3 Little Square Ultimate Skill Charger at bottom-right of HP bar */}
+        <div className="boss-ult-charger-container" title={`Ultimate Charge: ${bossUltCharge}/3`}>
+          <span className="boss-ult-charger-label">ULT</span>
+          <div className="boss-ult-squares">
+            <div className={`boss-ult-square ${bossUltCharge >= 1 ? "filled" : ""}`} />
+            <div className={`boss-ult-square ${bossUltCharge >= 2 ? "filled" : ""}`} />
+            <div className={`boss-ult-square ${bossUltCharge >= 3 ? "filled full" : ""}`} />
+          </div>
         </div>
       </div>
 

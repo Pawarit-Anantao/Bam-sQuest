@@ -1982,6 +1982,61 @@ body {
   object-fit: contain;
   display: block;
   border-radius: 0;
+  filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.85)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6)) !important;
+}
+
+/* 3-Square Ultimate Charger at bottom-right of Boss HP bar */
+.boss-ult-charger-container {
+  position: absolute;
+  right: 12px;
+  bottom: -22px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0, 0, 0, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 5px;
+  padding: 3px 8px;
+  backdrop-filter: blur(6px);
+  z-index: 30;
+}
+
+.boss-ult-charger-label {
+  font-size: 10px;
+  font-weight: 900;
+  color: #ff4d4f;
+  letter-spacing: 0.6px;
+}
+
+.boss-ult-squares {
+  display: flex;
+  gap: 5px;
+}
+
+.boss-ult-square {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  border-radius: 2px;
+  background: rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease;
+}
+
+.boss-ult-square.filled {
+  background: #ff3333;
+  border-color: #ff6666;
+  box-shadow: 0 0 8px rgba(255, 51, 51, 0.9);
+}
+
+.boss-ult-square.full {
+  background: #ff0033;
+  border-color: #ffffff;
+  animation: ultPulse 0.8s infinite alternate;
+}
+
+@keyframes ultPulse {
+  0% { box-shadow: 0 0 6px #ff0033; }
+  100% { box-shadow: 0 0 14px #ff3366, 0 0 22px #ffffff; }
 }
 
 .turnbased-overlay {
