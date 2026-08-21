@@ -133,10 +133,15 @@ export default function TurnbasedCombat() {
   const bossBuffTurnsRef = useRef(bossBuffTurns);
   bossBuffTurnsRef.current = bossBuffTurns;
 
-  // Boss Ultimate Charger (0 to 3 squares). Full (3) triggers 30 damage ultimate attack!
+  // Boss Ultimate Charger (0 to 3 squares). Full (3) triggers 50 damage ultimate attack!
   const [bossUltCharge, setBossUltCharge] = useState(0);
   const bossUltChargeRef = useRef(bossUltCharge);
   bossUltChargeRef.current = bossUltCharge;
+
+  // Boss Last Stand mechanic tracking (Boss survives at 1 HP once for 1 final turn)
+  const [bossHasLastStand, setBossHasLastStand] = useState(false);
+  const bossHasLastStandRef = useRef(bossHasLastStand);
+  bossHasLastStandRef.current = bossHasLastStand;
 
   // Player (ผู้กล้าแบม) State — synchronized with Refs
   const [playerHp, setPlayerHp] = useState(100);
@@ -193,7 +198,18 @@ export default function TurnbasedCombat() {
         }
       }
 
-      const nextBossHp = Math.max(0, bossHpRef.current - remainingDmg);
+      const rawNextBossHp = bossHpRef.current - remainingDmg;
+      let nextBossHp = Math.max(0, rawNextBossHp);
+
+      // Boss Last Stand Mechanic: When boss takes lethal damage for the first time, HP clamps to 1 HP for 1 final turn!
+      if (rawNextBossHp <= 0 && !bossHasLastStandRef.current) {
+        nextBossHp = 1;
+        bossHasLastStandRef.current = true;
+        setBossHasLastStand(true);
+        logMsg = `ผู้กล้าแบม โจมตีหนัก! บิ๊กกุย ทนทานด้วยพลังเฮือกสุดท้ายเหลือ 1 HP!`;
+      } else {
+        logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี! สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย`;
+      }
 
       bossShieldRef.current = newBossShield;
       bossHpRef.current = nextBossHp;
@@ -201,9 +217,7 @@ export default function TurnbasedCombat() {
       setBossShield(newBossShield);
       setBossHp(nextBossHp);
 
-      logMsg = `ผู้กล้าแบม ใช้การ์ดโจมตี! สร้างความเสียหาย 20 แต้มแก่ บิ๊กกุย`;
-
-      // Check Victory
+      // Check Victory — only if boss HP reaches 0 (after last stand turn)
       if (nextBossHp <= 0) {
         isFinished = true;
         setTimeout(() => {
@@ -406,6 +420,8 @@ export default function TurnbasedCombat() {
     bossBuffTurnsRef.current = 0;
     setBossUltCharge(0);
     bossUltChargeRef.current = 0;
+    setBossHasLastStand(false);
+    bossHasLastStandRef.current = false;
     setPlayerHp(100);
     playerHpRef.current = 100;
     setPlayerShield(0);
