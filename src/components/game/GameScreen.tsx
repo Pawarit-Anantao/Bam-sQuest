@@ -14,6 +14,7 @@ import Image from "next/image";
 
 import StageSelectModal from "./ui/StageSelectModal";
 import TurnbasedCombat from "./TurnbasedCombat";
+import SalmonCardReward from "./ui/SalmonCardReward";
 
 function MapIcon() {
   return (
@@ -406,8 +407,8 @@ export default function GameScreen() {
           <QuizOverlay node={currentNode as QuizNode} />
         )}
 
-        {/* Win screen */}
-        {isWin && <StageWin />}
+        {/* Win screen / Salmon Ticket Reward */}
+        {isWin && (isSalmonStage ? <SalmonCardReward /> : <StageWin />)}
 
         {/* Fail screen (Figma node #65:131) */}
         {phase === "fail" && <StageFail />}
