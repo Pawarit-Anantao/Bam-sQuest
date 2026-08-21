@@ -258,10 +258,20 @@ export default function TurnbasedCombat() {
     setTimeout(() => {
       // Check if Ultimate Skill Charger is Full (3/3)
       if (bossUltChargeRef.current >= 3) {
-        // Randomly choose 40 Damage Attack or 40 Heal (50% chance each)
-        const isUltAttack = Math.random() < 0.5;
+        const currentBossHp = bossHpRef.current;
+        // Strategic Ult Choice: Heal 40 if HP is low (≤ 50), otherwise Attack 40!
+        const isUltHeal = currentBossHp <= 50;
 
-        if (isUltAttack) {
+        if (isUltHeal) {
+          const ultHeal = 40;
+          const nextBossHp = Math.min(bossMaxHp, currentBossHp + ultHeal);
+          bossHpRef.current = nextBossHp;
+          setBossHp(nextBossHp);
+
+          setCombatLog(
+            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 40 แต้มมหาศาล!`
+          );
+        } else {
           setHitAnimation("player-hit");
           const ultDmg = 40;
 
@@ -295,15 +305,6 @@ export default function TurnbasedCombat() {
           if (nextPlayerHp <= 0) {
             setTimeout(() => setIsDefeat(true), 600);
           }
-        } else {
-          const ultHeal = 40;
-          const nextBossHp = Math.min(bossMaxHp, bossHpRef.current + ultHeal);
-          bossHpRef.current = nextBossHp;
-          setBossHp(nextBossHp);
-
-          setCombatLog(
-            `บิ๊กกุย ปลดปล่อยบังไค! ฟื้นฟู HP 40 แต้มมหาศาล!`
-          );
         }
 
         // Reset Ultimate Charger
