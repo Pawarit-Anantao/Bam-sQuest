@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useGameStore } from "@/store/gameStore";
-import type { DialogueNode, QuizNode, ChoiceNode } from "@/types/game";
+import type { DialogueNode, QuizNode, ChoiceNode, ActionNode } from "@/types/game";
 import HPBar from "./ui/HPBar";
 import DialogueBox from "./ui/DialogueBox";
 import QuizOverlay from "./ui/QuizOverlay";
@@ -40,15 +40,14 @@ function MapIcon() {
 // Game Screen — Dual Sprite VN Gameplay (Mobile & Desktop)
 // ─────────────────────────────────────────────────────────────
 export default function GameScreen() {
-  const { script, currentStage, currentNodeId, phase, enemyHp, goToMap } = useGameStore();
+  const { script, currentStage, currentNodeId, phase, enemyHp, goToMap, advanceSequence } = useGameStore();
 
   const [isStageSelectOpen, setIsStageSelectOpen] = useState(false);
 
   // Active Bam expression state
   const [activeBamSprite, setActiveBamSprite] = useState<string>("Bam_normal");
 
-  // Track whether we've passed the enter_combat_scene action for the noble stage
-  const combatEnteredRef = useRef(false);
+  // Track whether we've entered the combat scene for stage 3 boss
   const [inCombatScene, setInCombatScene] = useState(false);
 
   // Resolve current script node
@@ -73,6 +72,18 @@ export default function GameScreen() {
 
   const isNobleStage = currentStage === "stage_1_noble_nueng";
   const isTofuStage = currentStage === "stage_2_tofu" || currentStage === "tofu_mansion";
+  const isSalmonStage = currentStage === "salmon_pool" || currentStage === "stage_3_boss_biggui";
+
+  // Auto-enter combat scene when reaching seq_29 or enter_combat_scene action in salmon stage
+  useEffect(() => {
+    if (isSalmonStage) {
+      if (currentNodeId === "seq_29" || (currentNode?.type === "action" && (currentNode as ActionNode).action === "enter_combat_scene")) {
+        setInCombatScene(true);
+      }
+    } else {
+      setInCombatScene(false);
+    }
+  }, [isSalmonStage, currentNodeId, currentNode]);
 
   // Is Aun active speaker?
   const isAunActive = speaker === "อ้วน";
@@ -89,15 +100,31 @@ export default function GameScreen() {
   // Standard Dual Character Sprites (Bam & Aun) — show during non-combat cutscenes (intro/exploration)
   const showVnSprites =
     !isCombatScene &&
+    !inCombatScene &&
     (currentStage === "intro_stage" ||
       currentStage === "stage_1_exploration" ||
-      (isDialogue && !isNobleStage && !isTofuStage));
+      (isDialogue && !isNobleStage && !isTofuStage && !isSalmonStage));
 
   // Noble stage conversation sprites (Bam & Noble) — show before entering combat AND after enemy HP is out (0)
   const showNoblePrecombatSprites = !isCombatScene && isNobleStage && isDialogue;
 
   // Tofu stage conversation sprites (Bam & Tofu) — show during dialogue scenes
   const showTofuPrecombatSprites = !isCombatScene && isTofuStage && isDialogue;
+
+  // Salmon pool conversation sprites (Bam & Speaker) — show during pre/post-combat dialogue scenes
+  const showSalmonPrecombatSprites = !isCombatScene && !inCombatScene && isSalmonStage && isDialogue;
+
+  const getSalmonRightSprite = () => {
+    if (dialogueNode?.sprite) {
+      if (dialogueNode.sprite.startsWith("Bam")) return null;
+      return `/assets/${dialogueNode.sprite}`;
+    }
+    if (speaker === "ขุนนางหนึ่ง") return "/assets/1.png";
+    if (speaker === "บิ๊กกุย") return "/assets/pha.png";
+    if (speaker === "อ้วน") return "/assets/aun.png";
+    if (speaker === "โทฟุ") return "/assets/tofu.png";
+    return "/assets/pha.png";
+  };
 
   const isMapExploration = currentStage === "stage_1_exploration";
 
@@ -117,9 +144,16 @@ export default function GameScreen() {
     return <MapScreen />;
   }
 
-  // Final Stage: บ่อแซลมอนวิเศษ — Turn-Based Boss Battle against บิ๊กกุย (pha.png)
-  if (currentStage === "salmon_pool") {
-    return <TurnbasedCombat />;
+  // Final Stage: บ่อแซลมอนวิเศษ — Turn-Based Boss Battle against บิ๊กกุย (pha.png) when in combat scene
+  if (isSalmonStage && inCombatScene) {
+    return (
+      <TurnbasedCombat
+        onVictory={() => {
+          setInCombatScene(false);
+          advanceSequence("seq_30");
+        }}
+      />
+    );
   }
 
   return (
@@ -275,6 +309,49 @@ export default function GameScreen() {
               <Image
                 src="/assets/tofu.png"
                 alt="โทฟุ"
+                width={509}
+                height={771}
+                className="vn-sprite-img"
+                style={{ width: "auto", height: "100%" }}
+                unoptimized
+                priority
+              />
+            </div>
+          </div>
+        )}
+
+        {/* Salmon Pool Stage Cutscene: Bam (left) + Dialogue Partner (right: pha.png / 1.png / aun.png / tofu.png) */}
+        {showSalmonPrecombatSprites && (
+          <div className="vn-dual-sprites-container">
+            {/* Left Sprite: Bam */}
+            <div
+              className={`vn-sprite-wrapper vn-sprite-left ${
+                isBamActive ? "active" : "inactive"
+              }`}
+            >
+              <Image
+                key={activeBamSprite}
+                src={`/assets/Bam sprites/${activeBamSprite}.png`}
+                alt="แบม"
+                width={509}
+                height={771}
+                className="vn-sprite-img"
+                style={{ width: "auto", height: "100%" }}
+                unoptimized
+                priority
+              />
+            </div>
+
+            {/* Right Sprite: Current Speaker */}
+            <div
+              className={`vn-sprite-wrapper vn-sprite-right ${
+                !isBamActive ? "active" : "inactive"
+              }`}
+            >
+              <Image
+                key={getSalmonRightSprite() || "pha.png"}
+                src={getSalmonRightSprite() || "/assets/pha.png"}
+                alt={speaker || "คู่สนทนา"}
                 width={509}
                 height={771}
                 className="vn-sprite-img"

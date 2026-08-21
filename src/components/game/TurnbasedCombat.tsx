@@ -115,7 +115,11 @@ function WhiteFireDust() {
   );
 }
 
-export default function TurnbasedCombat() {
+interface TurnbasedCombatProps {
+  onVictory?: () => void;
+}
+
+export default function TurnbasedCombat({ onVictory }: TurnbasedCombatProps = {}) {
   const { goToMap } = useGameStore();
 
   // Boss (บิ๊กกุย) State — synchronized with Refs to prevent stale closures in async timeouts
@@ -647,8 +651,17 @@ export default function TurnbasedCombat() {
             <p className="turnbased-modal-desc">
               ผู้กล้าแบม ปราบ บิ๊กกุย ได้สำเร็จและทวงคืนบ่อแซลมอนวิเศษให้แก่กุยโทเปีย!
             </p>
-            <button className="turnbased-modal-btn" onClick={goToMap}>
-              กลับสู่แผนที่
+            <button
+              className="turnbased-modal-btn"
+              onClick={() => {
+                if (onVictory) {
+                  onVictory();
+                } else {
+                  goToMap();
+                }
+              }}
+            >
+              {onVictory ? "อ่านเรื่องราวต่อ" : "กลับสู่แผนที่"}
             </button>
           </div>
         </div>
