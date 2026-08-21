@@ -479,16 +479,6 @@ export default function TurnbasedCombat() {
             aria-valuemax={bossMaxHp}
           />
         </div>
-
-        {/* 3 Little Square Ultimate Skill Charger at bottom-right of HP bar */}
-        <div className="boss-ult-charger-container" title={`Ultimate Charge: ${bossUltCharge}/3`}>
-          <span className="boss-ult-charger-label">ULT</span>
-          <div className="boss-ult-squares">
-            <div className={`boss-ult-square ${bossUltCharge >= 1 ? "filled" : ""}`} />
-            <div className={`boss-ult-square ${bossUltCharge >= 2 ? "filled" : ""}`} />
-            <div className={`boss-ult-square ${bossUltCharge >= 3 ? "filled full" : ""}`} />
-          </div>
-        </div>
       </div>
 
       {/* Boss Sprite (pha.png) — Sits underneath UI layers (z-index: 2) so UIs overlap over it */}
@@ -502,6 +492,13 @@ export default function TurnbasedCombat() {
           priority
           unoptimized
         />
+
+        {/* 3 White Boxes Ultimate Skill Charger floating over Boss Sprite */}
+        <div className="boss-sprite-ult-charger" title={`Ultimate Charge: ${bossUltCharge}/3`}>
+          <div className={`boss-ult-box ${bossUltCharge >= 1 ? "filled" : ""}`} />
+          <div className={`boss-ult-box ${bossUltCharge >= 2 ? "filled" : ""}`} />
+          <div className={`boss-ult-box ${bossUltCharge >= 3 ? "filled full" : ""}`} />
+        </div>
       </div>
 
       {/* ── Player Section & UI Overlay ── */}

@@ -1985,58 +1985,48 @@ body {
   filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.85)) drop-shadow(0 4px 10px rgba(0, 0, 0, 0.6)) !important;
 }
 
-/* 3-Square Ultimate Charger at bottom-right of Boss HP bar */
-.boss-ult-charger-container {
+/* 3 White Boxes Ultimate Charger positioned floating over the boss sprite */
+.boss-sprite-ult-charger {
   position: absolute;
-  right: 12px;
-  bottom: -22px;
+  top: 10%;
+  right: 14%;
   display: flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(0, 0, 0, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 5px;
-  padding: 3px 8px;
-  backdrop-filter: blur(6px);
-  z-index: 30;
+  gap: 8px;
+  z-index: 10;
+  pointer-events: none;
 }
 
-.boss-ult-charger-label {
-  font-size: 10px;
-  font-weight: 900;
-  color: #ff4d4f;
-  letter-spacing: 0.6px;
-}
-
-.boss-ult-squares {
-  display: flex;
-  gap: 5px;
-}
-
-.boss-ult-square {
-  width: 10px;
-  height: 10px;
-  border: 1.5px solid rgba(255, 255, 255, 0.4);
+.boss-ult-box {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
   border-radius: 2px;
-  background: rgba(0, 0, 0, 0.5);
-  transition: all 0.25s ease;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(2px);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
-.boss-ult-square.filled {
-  background: #ff3333;
-  border-color: #ff6666;
-  box-shadow: 0 0 8px rgba(255, 51, 51, 0.9);
-}
-
-.boss-ult-square.full {
-  background: #ff0033;
+.boss-ult-box.filled {
+  background: #ffffff;
   border-color: #ffffff;
-  animation: ultPulse 0.8s infinite alternate;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 18px rgba(255, 255, 255, 0.6);
 }
 
-@keyframes ultPulse {
-  0% { box-shadow: 0 0 6px #ff0033; }
-  100% { box-shadow: 0 0 14px #ff3366, 0 0 22px #ffffff; }
+.boss-ult-box.full {
+  background: #ffffff;
+  border-color: #ffffff;
+  animation: whiteUltPulse 0.7s infinite alternate;
+}
+
+@keyframes whiteUltPulse {
+  0% {
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 0 18px rgba(255, 255, 255, 1), 0 0 28px rgba(255, 255, 255, 0.8);
+    transform: scale(1.15);
+  }
 }
 
 .turnbased-overlay {
