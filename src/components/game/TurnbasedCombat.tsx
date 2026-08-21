@@ -258,43 +258,57 @@ export default function TurnbasedCombat() {
     setTimeout(() => {
       // Check if Ultimate Skill Charger is Full (3/3)
       if (bossUltChargeRef.current >= 3) {
-        setHitAnimation("player-hit");
-        const ultDmg = 30;
+        // Randomly choose 40 Damage Attack or 40 Heal (50% chance each)
+        const isUltAttack = Math.random() < 0.5;
 
-        let remainingDmg = ultDmg;
-        let currentShield = playerShieldRef.current;
-        let newPlayerShield = currentShield;
+        if (isUltAttack) {
+          setHitAnimation("player-hit");
+          const ultDmg = 40;
 
-        if (currentShield > 0) {
-          if (currentShield >= ultDmg) {
-            newPlayerShield = currentShield - ultDmg;
-            remainingDmg = 0;
-          } else {
-            remainingDmg = ultDmg - currentShield;
-            newPlayerShield = 0;
+          let remainingDmg = ultDmg;
+          let currentShield = playerShieldRef.current;
+          let newPlayerShield = currentShield;
+
+          if (currentShield > 0) {
+            if (currentShield >= ultDmg) {
+              newPlayerShield = currentShield - ultDmg;
+              remainingDmg = 0;
+            } else {
+              remainingDmg = ultDmg - currentShield;
+              newPlayerShield = 0;
+            }
           }
+
+          const currentHp = playerHpRef.current;
+          const nextPlayerHp = Math.max(0, currentHp - remainingDmg);
+
+          playerShieldRef.current = newPlayerShield;
+          playerHpRef.current = nextPlayerHp;
+
+          setPlayerShield(newPlayerShield);
+          setPlayerHp(nextPlayerHp);
+
+          setCombatLog(
+            `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! สร้างความเสียหาย 40 แต้มมหาศาล!`
+          );
+
+          if (nextPlayerHp <= 0) {
+            setTimeout(() => setIsDefeat(true), 600);
+          }
+        } else {
+          const ultHeal = 40;
+          const nextBossHp = Math.min(bossMaxHp, bossHpRef.current + ultHeal);
+          bossHpRef.current = nextBossHp;
+          setBossHp(nextBossHp);
+
+          setCombatLog(
+            `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! ฟื้นฟู HP 40 แต้มมหาศาล!`
+          );
         }
-
-        const currentHp = playerHpRef.current;
-        const nextPlayerHp = Math.max(0, currentHp - remainingDmg);
-
-        playerShieldRef.current = newPlayerShield;
-        playerHpRef.current = nextPlayerHp;
-
-        setPlayerShield(newPlayerShield);
-        setPlayerHp(nextPlayerHp);
-
-        setCombatLog(
-          `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! สร้างความเสียหาย 30 แต้มมหาศาล!`
-        );
 
         // Reset Ultimate Charger
         bossUltChargeRef.current = 0;
         setBossUltCharge(0);
-
-        if (nextPlayerHp <= 0) {
-          setTimeout(() => setIsDefeat(true), 600);
-        }
 
         setTimeout(() => {
           setHitAnimation(null);
