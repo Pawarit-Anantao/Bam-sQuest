@@ -245,7 +245,7 @@ export default function TurnbasedCombat() {
       // Check if Ultimate Skill Charger is Full (3/3)
       if (bossUltChargeRef.current >= 3) {
         setHitAnimation("player-hit");
-        const ultDmg = 30;
+        const ultDmg = 50;
 
         let remainingDmg = ultDmg;
         let currentShield = playerShieldRef.current;
@@ -271,7 +271,7 @@ export default function TurnbasedCombat() {
         setPlayerHp(nextPlayerHp);
 
         setCombatLog(
-          `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! สร้างความเสียหาย 30 แต้มมหาศาล!`
+          `บิ๊กกุย ปลดปล่อยไม้ตายมหาพรหม! สร้างความเสียหาย 50 แต้มมหาศาล!`
         );
 
         // Reset Ultimate Charger
