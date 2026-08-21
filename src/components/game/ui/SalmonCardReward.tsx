@@ -8,7 +8,7 @@ import { useGameStore } from "@/store/gameStore";
 // Heading -> Image -> Description -> Back to First Page Button
 // ─────────────────────────────────────────────────────────────
 export default function SalmonCardReward() {
-  const { goToStart } = useGameStore();
+  const { goToMap, goToStart } = useGameStore();
 
   return (
     <div className="fail-backdrop" role="dialog" aria-modal="true" aria-label="รับตั๋วกินแซลมอน">
@@ -47,11 +47,20 @@ export default function SalmonCardReward() {
           ตั๋วกินแซลม่อนสำหรับผู้เข้าร่วมงานแซลมอนประจำกุยโทเปีย สามารถกินแซลมอนได้ไม่อั้น
         </p>
 
-        {/* Back to First Page button */}
-        <div className="fail-button-container">
+        {/* Action Buttons — Back to Map & Back to Start Page */}
+        <div className="fail-button-container" style={{ display: "flex", gap: "12px", justifyContent: "center", flexWrap: "wrap" }}>
+          <button
+            id="btn-back-to-map"
+            className="fail-restart-btn"
+            onClick={goToMap}
+            aria-label="กลับสู่แผนที่"
+          >
+            <span>กลับสู่แผนที่</span>
+          </button>
           <button
             id="btn-back-to-first-page"
             className="fail-restart-btn"
+            style={{ opacity: 0.85 }}
             onClick={goToStart}
             aria-label="กลับสู่หน้าแรก"
           >

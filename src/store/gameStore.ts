@@ -94,8 +94,12 @@ export const useGameStore = create<GameState>((set, get) => ({
         // Tofu stage: unlock salmon_pool and return to map
         get().unlockLocation("salmon_pool");
         set({ phase: "map" });
-      } else if (enemyHp <= 0) {
-        // Other combat stages: show win screen
+      } else if (
+        enemyHp <= 0 ||
+        currentStage === "salmon_pool" ||
+        currentStage === "stage_3_boss_biggui"
+      ) {
+        // Other combat stages or salmon pool: show win screen
         set({ phase: "win" });
       }
       return;
