@@ -259,8 +259,12 @@ export default function TurnbasedCombat() {
       // Check if Ultimate Skill Charger is Full (3/3)
       if (bossUltChargeRef.current >= 3) {
         const currentBossHp = bossHpRef.current;
-        // Strategic Ult Choice: Heal 40 if HP is low (≤ 50), otherwise Attack 40!
-        const isUltHeal = currentBossHp <= 50;
+        const effectivePlayerHealth = playerHpRef.current + playerShieldRef.current;
+        const ultDmg = 30;
+
+        // Finisher check: If 30 damage Bankai Attack can defeat the player, ignore boss HP and attack!
+        const canFinishPlayer = effectivePlayerHealth <= ultDmg;
+        const isUltHeal = !canFinishPlayer && currentBossHp <= 50;
 
         if (isUltHeal) {
           const ultHeal = 30;
