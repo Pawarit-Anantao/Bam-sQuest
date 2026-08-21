@@ -950,7 +950,7 @@ body {
 /* ─── Top-Right Map Navigation Button ─── */
 .vn-top-map-btn {
   position: absolute;
-  top: 1.25rem;
+  top: clamp(1.6rem, 2.8vw, 2.5rem);
   right: 1.25rem;
   z-index: 50;
   background: #000000;
@@ -964,6 +964,9 @@ body {
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
   cursor: pointer;
   pointer-events: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
   -webkit-tap-highlight-color: transparent;
 }
